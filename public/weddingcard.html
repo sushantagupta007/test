@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<!-- template for dummy + popup -->
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>Wedding Card Maker Indian</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Charm&family=Cinzel:wght@400;700&family=Cookie&family=Fjalla+One&family=Fondamento&family=Handlee&family=Indie+Flower&family=Kalam:wght@300&family=Kaushan+Script&family=Lato:ital,wght@0,100;0,400;1,400&family=Lobster+Two&family=Lora:ital,wght@0,400;0,700;1,400;1,500;1,700&family=Marcellus+SC&family=Merienda+One&family=Open+Sans:wght@400;600&family=Pacifico&family=Petit+Formal+Script&family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&family=Roboto:wght@100&family=Rouge+Script&family=Sacramento&family=Satisfy&family=Seaweed+Script&family=Slabo+13px&family=Spectral+SC:wght@300;400;700&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="css/style1.css" />
+	<link rel="stylesheet" href="css/popups.css" />
+	<link type="text/css" rel="stylesheet" href="./css/style.css" />
+	<link type="text/css" rel="stylesheet" href="./css/login.css" />
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<link rel="icon" href="./img/LOGO5.svg">
+
+	<!-- Tele authentication import -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+
+	<style>
+		.dropdown:hover .dropdown-menu {
+			display: block;
+		}
+
+		/* New Navbar properties */
+		/* .navbar-nav {
+        font-size: 1.3rem;
+        color: rgba(42, 25, 58, 0.562);
+      } */
+		/* dont move this to different file*/
+		.swiper-pagination-bullet {
+			opacity: 0.9;
+			transition: width 0.5s ease-in-out;
+			border-radius: 10px;
+			background-color: rgba(0, 0, 0, 0.6);
+		}
+
+		.swiper-pagination-bullet-active {
+			border-radius: 10px;
+			width: 35px;
+			opacity: 1;
+			background: rgba(0, 0, 0, 0.7);
+		}
+
+		.swiper-slide {
+			width: fit-content;
+			width: max-content;
+		}
+	</style>
+
+	<!-- javascript files -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+	<!-- firebase -->
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-messaging.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-analytics.js"></script>
+
+</head>
+
+<body style="overflow-x: hidden" onresize="changeProperties()">
+	<!-- Login page -->
+	<div class="login_main_display" style="z-index: 12;">
+		<div class="login_page">
+			<div class="left_block">
+				<span id="welcome"> Welcome </span>
+				<span id="tagline"> We love our users</span>
+			</div>
+			<div class="right_block">
+				<div id="close-login-popup">
+					<i class="fa fa-times" id="close-sharing-option-popup-container"></i>
+				</div>
+				<div class="social_login" style="width: 488px;">
+					<div id="phone_div" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;width: 488px;">
+						<div class="logo-container logo2" style="height: 70px;">
+							<img style="width:180px" src="./img/BottomLogo.png" alt="" />
+						</div>
+						<div id="container1" class="container" style="margin-top: 20px;">
+							<div id="login" onsubmit="process(event)">
+								<h2 id="login_title" style="color: #4f134c; font-family: lora;text-align: center;">
+									<b>Login Account</b>
+								</h2>
+								<p id="login_subtitle" style="color: black; font-family: lora;text-align: center;">Phone
+									Number</p>
+								<div style="text-align: center;">
+									<input id="phone" type="tel" name="phone"
+										style="border-radius:25px;height: 50px;outline: none;width: 420px;" />
+								</div>
+								<div id="error-container" style="margin-left: 6%;"></div>
+								<div style="width: 100%;text-align: center;margin-top: 20px;">
+									<input id="sign-in-button" type="submit" class="btn" value="Request OTP"
+										style="align-self: center;border-radius: 25px;color: white;background-color: #4f134c;border-color: transparent;margin-top: 10px;width: 420px;height: 50px;" />
+									<div style="display: flex;margin-top: 20px;">
+										<hr color=black style="width: 30%;color: #4f134c; font-family: lora;">
+										<p>Or Sign in with Google</p>
+										<hr color=black style="width: 30%;">
+									</div>
+									<div style="display: flex;justify-content: center;margin-top: 10px;">
+										<div id="googleLogIn"
+											style="border: 2px solid black;width: 420px;height: 50px;border-radius: 25px; display: flex;">
+											<img src="./img/gogle.svg" alt="" id="google-icon" />
+											Continue with Google
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="container2">
+							<h2 style="text-align: center;color: #4f134c; font-family: lora;margin-top: 20px;"><b>OTP
+									Verification</b>
+							</h2>
+							<p id="no_div"
+								style="text-align: center;color: #4f134c; font-family: lora;margin-top: 10px;">Enter the
+								OTP forwarded to <b id="no_bold"></b> </p>
+							<div class="userInput"
+								style="display: flex;justify-content: center;margin-top: 20px;z-index: 1000 !important;">
+								<input class="inp" type="text" id='ist' maxlength="1" onkeyup="clickEvent(this,'sec')">
+								<input class="inp" type="text" id="sec" maxlength="1"
+									onkeyup="clickEvent(this,'third')">
+								<input class="inp" type="text" id="third" maxlength="1"
+									onkeyup="clickEvent(this,'fourth')">
+								<input class="inp" type="text" id="fourth" maxlength="1"
+									onkeyup="clickEvent(this,'fifth')">
+								<input class="inp" type="text" id="fifth" maxlength="1"
+									onkeyup="clickEvent(this,'sixth')">
+								<input class="inp" type="text" id="sixth" maxlength="1"
+									onkeyup="clickEvent(this,'sixth')">
+							</div>
+							<div style="text-align: center;">
+								<h7 style="color: rgb(167, 164, 164);">Didn't you receive the OTP?</h7>
+								<button onclick="resend();" style="border: none;background-color: transparent;">Resend
+									OTP</button>
+							</div>
+							<div style="text-align: center;margin-top: 120px;">
+								<button class="button" id=" store " type="button " onclick="show(); ">Verify</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<span id="tagline " class="d-flex d-lg-none " style="padding-top: 0px; "> We love our users</span>
+			</div>
+		</div>
+	</div>
+
+	<header class="hello1 ">
+		<nav class="navbar navbar-expand-sm navbar-light"
+			style="background-color: white ; box-shadow: 0 2px 10px -5px rgba(0, 0, 0, 0.3); ">
+			<div class="container-fluid ">
+
+				<div class="d-none d-sm-block ">
+					<a class="navbar-brand " id="navbar-brand">
+						<img src="img/LOGO5.svg" alt="logo" height="70" width="70"
+							style="padding-left: 5% ; padding-right: 3% ; ">
+					</a>
+				</div>
+
+				<div class="d-block d-sm-none ">
+					<a class="navbar-brand " id="navbar-brand">
+						<img src="img/BottomLogo.png " alt="logo " height="53.99 " width="130 "
+							style="padding-left: 5% ; padding-right: 3% ; ">
+					</a>
+				</div>
+
+				<button class="navbar-toggler navbar-toggler-button" type="button" data-toggle="collapse"
+					data-target="#Navbar" id="toggler">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="col-sm-10 " style="float: left; ">
+					<div class="row justify-content-between d-none d-sm-flex "
+						style="padding-left: 34%; white-space:nowrap; ">
+						<span
+							style=" font-size: 40px; color:#640b35; font-weight: 600; font-family: 'Satisfy',sans-serif; ">
+							Celebrare
+						</span>
+						<div class="user-details-container ">
+							<div class="user-profile-image-container">
+								<img id="user-profile-image" src=" " alt=" ">
+							</div>
+							<div class="user-name-container ">
+								<span>Welcome, </span>
+								<span class="user-name "></span>
+							</div>
+						</div>
+						<a class="login-button navbar-text" class="navbar-text"
+							style=" display: none;margin-left: 10%; float: right; color: rgba(5, 1, 7, 0.562); font-family: 'Playfair Display', serif "
+							id="login-button ">
+							<button class=" signup-button ">
+								<img src="./img/person.svg " alt=" " style="height: fit-content;margin-left: -3px; ">
+								Sign up
+							</button>
+						</a>
+
+					</div>
+
+					<div class="row " style="float: left;">
+						<div class="collapse navbar-collapse " id="Navbar">
+							<ul class="navbar-nav mr-auto">
+								<li class="nav-item dropdown" style="margin-right: 10% ;">
+									<a class="nav-link" href="./weddingcard.html" style=" white-space: nowrap; 
+                                    color:  rgba(42, 25, 58, 0.562); 
+                                    font-family:'Playfair Display', serif;">
+										Wedding Cards
+									</a>
+								</li>
+								<li class="nav-item dropdown" style="margin-right: 10% ;">
+									<a class="nav-link dropdown-toggle" data-toggle="dropdown" style=" white-space: nowrap; 
+                                    color:  rgba(42, 25, 58, 0.562); 
+                                    font-family:'Playfair Display', serif;">
+										Birthday Cards
+									</a>
+									<ul class="dropdown-menu" style="width: 500px ; background-color: white;">
+										<div class="row" style=" margin-top: 2%">
+											<div class="col-3" style="margin-left: 3%; ">
+												<li><a onclick="cardData('birthday', 'forhim')"
+														href="cardCategories/Birthday/boy.html"> For
+														Him</a></li>
+												<li><a onclick="cardData('birthday', 'forher')"
+														href="cardCategories/Birthday/girl.html"> For
+														Her</a></li>
+												<li><a onclick="cardData('birthday', 'dad')"
+														href="cardCategories/Birthday/dad.html"> Dad</a>
+												</li>
+												<li><a onclick="cardData('birthday', 'mom')"
+														href="cardCategories/Birthday/mom.html"> Mom</a>
+												</li>
+											</div>
+											<div class="col-sm-3" style="margin-left:3% ; margin-bottom: 3%; ">
+												<li><a onclick="cardData('birthday', 'kids')"
+														href="cardCategories/Birthday/kids.html"> Kids</a>
+												</li>
+												<li><a onclick="cardData('birthday', 'friends')"
+														href="cardCategories/Birthday/friends.html">
+														Friends</a></li>
+												<li><a onclick="cardData('birthday', 'funnycards')"
+														href="cardCategories/Birthday/funny.html">
+														Funny Cards</a></li>
+												<li><a onclick="cardData('birthday', 'generalcards')"
+														href="cardCategories/Birthday/general.html"> General Cards</a>
+												</li>
+											</div>
+											<div class="col-sm-3 d-none d-md-block"
+												style="margin-top:-12% ; margin-left:7% ;">
+
+												<img src="img/birthday-svg.svg" style="width: 140%; height:120% ;  ">
+											</div>
+										</div>
+
+									</ul>
+								</li>
+								<li class="nav-item dropdown" style="margin-right: 10% ;"><a
+										class="nav-link dropdown-toggle" data-toggle="dropdown" href=""
+										style="font-size: 100%;  white-space: nowrap; color:  rgba(27, 2, 36, 0.562); font-family:'Playfair Display', serif">Anniversary
+										Cards</a>
+									<ul class="dropdown-menu" style=" width: 280px ; background-color: white;">
+										<div class="row" style="margin-top: 2%;">
+											<div class="col-sm-5" style="margin-left: 4%;">
+												<li><a onclick="cardData('anniversary', 'husband')"
+														href="cardCategories/Anniversary/husband.html">For Husband</a>
+												</li>
+												<li><a onclick="cardData('anniversary', 'wife')"
+														href="cardCategories/Anniversary/wife.html">For
+														Wife</a></li>
+												<li><a onclick="cardData('anniversary', 'parents')"
+														href="cardCategories/Anniversary/parent.html">For Parents</a>
+												</li>
+												<li><a onclick="cardData('anniversary', 'generalcards')"
+														href="cardCategories/Anniversary/general.html">General Cards</a>
+												</li>
+											</div>
+											<div class="col-sm-5 d-none d-md-block" style="  margin-left:1% ;">
+
+												<img src="img/anniversary-svg.svg" style="width: 123%; height:90% ;   ">
+											</div>
+										</div>
+									</ul>
+								</li>
+
+								<li class="nav-item dropdown" style="margin-right: 10% ;"><a
+										class="nav-link dropdown-toggle" data-toggle="dropdown" href=""
+										style="font-size: 100%;  white-space: nowrap; color:  rgba(27, 2, 36, 0.562); font-family:'Playfair Display', serif">Feeling
+										Cards</a>
+									<ul class="dropdown-menu" style="width: 500px ;  background-color: white">
+										<div class="row" style="margin-bottom: 3%;">
+											<div class="col-3" style="margin-left: 3%;">
+												<li><a onclick="cardData('feelings', 'love')"
+														href="cardCategories/Feelings/love.html">Love
+														Cards</a></li>
+												<li><a onclick="cardData('feelings', 'thankyou')"
+														href="cardCategories/Feelings/thankyou.html">Thank you Cards</a>
+												</li>
+												<li><a onclick="cardData('feelings', 'sorry')"
+														href="cardCategories/Feelings/sorry.html">Sorry
+														Cards</a></li>
+												<li><a onclick="cardData('feelings', 'congrats')"
+														href="cardCategories/Feelings/congrats.html">Congrats Cards</a>
+												</li>
+											</div>
+											<div class="col-sm-3" style="margin-left: 7%; ">
+												<li><a onclick="cardData('feelings', 'weddingwishes')"
+														href="cardCategories/Feelings/weddingGreetings.html">Wedding
+														Greetings</a></li>
+												<li><a onclick="cardData('feelings', 'missyou')"
+														href="cardCategories/Feelings/missyou.html">Miss You Cards </a>
+												</li>
+												<li><a onclick="cardData('feelings', 'getwellsoon')"
+														href="cardCategories/Feelings/getwellsoon.html">Get Well
+														Soon</a></li>
+
+											</div>
+											<div class="col-sm-3 d-none d-md-block"
+												style="  margin-left:5% ; margin-top: -3%;">
+
+												<img src="img/feelings-svg.svg"
+													style="width: 160%; height:135% ;margin-left: -25%; ">
+											</div>
+										</div>
+
+									</ul>
+								</li>
+								<li class="nav-item login-button d-sm-none" style="display: none;margin-right: 10%;">
+									<a class="nav-link"
+										style=" font-size: 100%;  white-space: nowrap; color: rgba(5, 1, 7, 0.562); font-family: 'Playfair Display', serif">
+										Signup
+									</a>
+								</li>
+
+								<li class="nav-item user-name d-block d-sm-none"
+									style="margin-right: 10%;font-size: 100%;  white-space: nowrap; color: rgba(5, 1, 7, 0.562); font-family: 'Playfair Display', serif;">
+								</li>
+								<li class="nav-item logout-button"
+									style="margin-right: 10%;font-size: 100%;  white-space: nowrap; color: rgba(5, 1, 7, 0.562); font-family: 'Playfair Display', serif;cursor: pointer;">
+									<a class="nav-link">Log out</a>
+								</li>
+
+							</ul>
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</nav>
+	</header>
+
+	<!-- Bride groom section -->
+	<div id="bride-groom-section" style="
+        width: 100%;
+        min-height: 100vh;
+        max-height: max-content;
+        min-height: max-content;
+        position: relative;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+      ">
+		<div id="main-page-flower-1" style="position: absolute">
+			<img src="./img/golden-flowers.png" alt="" srcset="" />
+		</div>
+		<div id="main-page-flower-2" style="position: absolute">
+			<img src="./img/golden-flowers.png" alt="" srcset="" />
+		</div>
+		<div class="bride-groom-div" id="bride-groom-line" style="text-align: center; padding: 0">
+			<div style="font-family: 'Satisfy', cursive; color: #dda169">
+				Best Wedding<br />
+				Cards
+			</div>
+		</div>
+		<div class="bride-groom-div" style="z-index: 10">
+			<img src="./img/bride_groom_main.png" alt="" />
+		</div>
+	</div>
+
+	<!-- Royal Cards section -->
+	<div class="container-fluid royal mx-0 px-0" style="
+        display: flex;
+        overflow: hidden;
+        overflow: hidden;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        min-height: auto;
+      ">
+		<div style="
+          display: flex;
+          width: 28%;
+          text-align: center;
+          background-image: url(img/royal_background.jpg);
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          z-index: 100;
+        ">
+			<div class="royal-mobile-heading" style="color: #dda169; font-family: 'Satisfy', sans-serif">
+				<h1 id="rc-mobile">Royal Cards</h1>
+			</div>
+			<div class="royal-heading-section" style="align-self: center">
+				<h1 id="royal-cards" style="color: #dda169; font-family: 'Satisfy', sans-serif">
+					Royal Cards
+				</h1>
+				<p id="rc-text" style="color: #dda169">
+					Contrary to popular belief, Lorem Ipsum is not simply random text
+				</p>
+				<!-- <a href="./WeddingSection.html"> -->
+				<button id="rc-button" onclick="loadSectionCard('royal')" style="
+              background-color: #dda169;
+              color: white;
+              border: transparent;
+              padding: 5%;
+              outline: none;
+              border-radius: 10px;
+              width: fit-content;
+            ">
+					Show royal<br />
+					cards
+				</button>
+				<!-- </a> -->
+			</div>
+		</div>
+
+		<!-- Swiper -->
+		<div class="royal-card-swiper" style="
+          display: flex;
+          width: 72%;
+          background-color: #fcf4f2;
+          background-image: url(./img/circle.svg);
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-size: 150% 100%;
+          background-position-x: -35vw;
+          align-self: right;
+        ">
+			<div class="swiper-container" id="swiper-container-royal" style="
+            display: flex;
+            align-self: center;
+            position: relative;
+            justify-content: center;
+          ">
+				<div class="swiper-wrapper" id="royal_cards_display" style="transform-style: flat">
+					<div id="royal-loader" class="mx-auto my-auto"
+						style="display: flex; width: 30%; height: 30%; align-self: center"></div>
+				</div>
+				<div class="scrollbar-container" style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              z-index: 20;
+            ">
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<!-- card popup -->
+	<!-- <div id="popup" style="
+        position: fixed;
+        z-index: 999;
+        visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 150%;
+        left: 50%;
+      ">
+		<div class="wedding-popup-slider" style="
+          position: absolute;
+          align-items: center;
+          overflow-x: hidden;
+          padding-left: 5;
+          padding-right: 5;
+          justify-content: center;
+          background-color: white;
+          box-shadow: inset 0px 0px 5px 5px rgba(0, 0, 0, 0.1),
+            0px 0px 5px 1000px rgba(0, 0, 0, 0.7),
+            0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+          border: 1px solid rgba(0, 0, 0, 0.3);
+        ">
+			<div id="popup-flower-design-1"></div>
+			<div id="popup-flower-design-2"></div>
+			<div>
+				
+				
+
+				<div class="swiper-container-popup swiper-container" style="z-index: 999; transform-style: flat">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="swiper-slide-popup" id="popup-slide-1" style="
+                    min-width: 100%;
+                    min-height: 100%;
+                    position: relative;
+                    background-size: 100% 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-size: cover;
+                    transform-style: flat;
+                  "></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="swiper-slide-popup" id="popup-slide-2" style="
+                    min-width: 100%;
+                    min-height: 100%;
+                    position: relative;
+                    background-size: 100% 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-size: cover;
+                    transform-style: flat;
+                  "></div>
+						</div>
+						<div class="swiper-slide">
+							<div class="swiper-slide-popup" id="popup-slide-3" style="
+                    min-width: 100%;
+                    min-height: 100%;
+                    position: relative;
+                    background-size: 100% 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-size: cover;
+                    transform-style: flat;
+                  "></div>
+						</div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+
+			<div class="description-popup" style="
+            min-height: 100%;
+            padding: 0 5%;
+            top: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          ">
+				<div>
+					<div style="position: absolute; top: 15px; right: 15px">
+						<button onclick="vanish(this)" style="
+                  z-index: 10;
+                  outline: none;
+                  border: transparent;
+                  background-color: white;
+                ">
+							<img src="./img/cross.svg" alt="" width="25" height="25" />
+						</button>
+					</div>
+
+					<div id="popup-try-button-up-div" style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              ">
+						<button id="popup-try-button-up" onclick="window.location='form.html';" style="
+                  background-color: rgba(255, 0, 0, 0.7);
+                  color: white;
+                  outline: none;
+                  border: transparent;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 15px 3px rgba(255, 0, 0, 0.5);
+                  margin-bottom: 20px;
+                ">
+							Try this card
+							<img src="./img/right-arrow.svg" alt="" width="40" height="20" />
+						</button>
+					</div>
+					<div style="width: 100%; min-height: 100px; text-align: center">
+						<div style="
+                  text-align: center;
+                  font-size: 25px;
+                  margin-bottom: 20px;
+                  font-family: 'Lora', sans-serif;
+                " id="popup-title"></div>
+						<div style="
+                  text-align: center;
+                  font-size: 20px;
+                  margin-bottom: 10px;
+                  display: flex;
+                  justify-content: center;
+                " id="popup-price"></div>
+						<div style="
+                  min-height: 100px;
+                  margin-bottom: 20px;
+                  text-align: justify;
+                  font-family: 'Lora', serif;
+                " id="popup-description"></div>
+					</div>
+					<div>
+						<button id="popup-try-button" data-id="" onclick="window.location='form.html';" style="
+                  background-color: red;
+                  color: white;
+                  outline: none;
+                  border: transparent;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 5px 3px rgba(255, 0, 0, 0.5);
+                ">
+							Try this card
+							<img src="./img/right-arrow.svg" alt="" width="40" height="20" />
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+
+
+
+
+
+
+
+
+	<!-- All wedding cards section -->
+	<div class="container-fluid wedding-card-section" style="
+        background-image: url(./img/weddingBgLeafdesign.svg);
+        margin-bottom: 5%;
+      ">
+		<div style="padding-top: 15%">
+			<h1 id="allwcheading" style="
+            text-align: center;
+            color: #640b35;
+            font-weight: 500;
+            font-family: 'Satisfy', sans-serif;
+          ">
+				All Wedding Cards
+			</h1>
+		</div>
+		<div class="row d-flex justify-content-center mx-auto" style="padding-top: 10%" id="all_wedding_cards_display">
+			<!-- cards will be added through JavaScript code -->
+			<div id="wedding-loader" class="mx-auto my-auto"
+				style="display: flex; width: 30%; height: 30%; align-self: center"></div>
+		</div>
+
+		<div style="display: flex; justify-content: center; align-items: center">
+			<!-- <a href="./WeddingSection.html"> -->
+			<button onclick="loadSectionCard('allcards')" style="
+            width: 150px;
+            font-size: 20px;
+            color: white;
+            background-color: tomato;
+            outline: none;
+            border: transparent;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+          ">
+				View all cards
+			</button>
+			<!-- </a> -->
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+	<!-- footer section -->
+	<footer class="container-fluid" id="footer" style="
+        max-width: 100%;
+        display: block;
+        box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+      ">
+		<div class="row" style="height: auto; display: flex; padding-top: 5%">
+			<div class="col-0 col-sm" style="text-align: center">
+				<img class="" src="img/LOGO-bird.svg" alt="" id="footer-logo-bird" />
+				<span id="f-celebrare-bird" style="text-align: center"><br />Celebrare</span>
+			</div>
+
+
+			<div class="col-0 col-sm">
+				<h5 class="footer-heading">Category</h5>
+				<ul class="list-unstyled text-small footer-items">
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none"
+							href="./index.html#Birthday">Birthday Cards</a>
+					</li>
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none"
+							href="./index.html#Anniversary">Anniversary
+							Cards</a>
+					</li>
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none" href="./index.html#Feelings">Feeling
+							Cards</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-0 col-sm">
+				<h5 class="footer-heading">Company</h5>
+				<ul class="list-unstyled text-small footer-items">
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none"
+							href="./aboutUsPage/aboutUsPage.html">About
+							Us</a>
+					</li>
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none" href="./contact.html">Contact Us</a>
+					</li>
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none"
+							href="./policyNew.html?policy=termsofuse">Terms
+							of Use</a>
+					</li>
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none" href="./policy.html">Policy</a>
+					</li>
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none"
+							href="./policyNew.html?policy=privacyPolicy">
+							Privacy Policy
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-0 col-sm">
+				<h5 class="footer-heading">Our App</h5>
+				<ul class="list-unstyled text-small footer-items">
+					<li class="mb-1">
+						<a class="link-secondary footer-items text-decoration-none"
+							href="https://play.google.com/store/apps/details?id=com.enjoy.celebrare ">Android App</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<div class="container-fluid" style="display: flex; align-items: center; justify-content: center">
+		<i>
+			<h5 id="copyright" style="
+            color: #4f134c;
+            font-family: serif;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            width: 100%;
+          ">
+				&copy; Celebrare, Inc.2021
+			</h5>
+		</i>
+	</div>
+
+	<div id="brideGroomName">
+		<div style="
+          text-align: center;
+          font-family: 'Lora', serif;
+          font-size: 20px;
+          color: #f3c396;
+          margin-bottom: 25px;
+        ">
+			Get Personalized Names <br />
+			Instantly
+		</div>
+		<div style="display: flex; justify-content: center; align-items: center">
+			<input class="brideGroomNamefields" type="text" id="PopupBrideNameMainPage" placeholder="Bride Name" />
+		</div>
+		<div style="
+          text-align: center;
+          font-family: 'Lora', serif;
+          font-size: 22px;
+          color: #f3c396;
+        ">
+			weds
+		</div>
+
+		<div style="display: flex; justify-content: center; align-items: center">
+			<input class="brideGroomNamefields" type="text" id="PopupGroomNameMainPage" placeholder="Groom Name" />
+		</div>
+
+		<div style="display: flex; justify-content: center; align-items: center">
+			<button style="
+            width: 150px;
+            font-size: 20px;
+            color: white;
+            background-color: #f3c396;
+            outline: none;
+            border: transparent;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 10px;
+          " onclick="changeBrideGroomName()">
+				Done
+			</button>
+		</div>
+	</div>
+
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+
+	<script type="text/javascript" src="./js/lottie.js"></script>
+	<script type="text/javascript" src="./js/login.js"></script>
+	<script type="text/javascript" src="./js/firebaseUtils.js"></script>
+	<script src="./js/globalWeddingDeclaration.js"></script>
+
+
+	<script src="./js/wedding_page.js"></script>
+	<!-- <script src="./js/WeddingPopups.js"></script> -->
+
+
+
+	<!-- Initialize Swiper -->
+	<script>
+
+
+		function showPopup(element) {
+			alert('action disabled')
+			// localStorage.setItem("elem_id" , element.id)
+			// let id = element.id.split("-")[1]
+			// localStorage.setItem("innerHTML",document.getElementById(`${id}-price-details`).innerHTML)
+			// window.open("./popupCard.html" , "_blank")
+		}
+
+
+		let mySwiper = new Swiper(".swiper-container-popup", {
+			effect: "coverflow",
+			grabCursor: true,
+			centeredSlides: true,
+			slidesPerView: "auto",
+
+			coverflowEffect: {
+				rotate: 0,
+				stretch: 50,
+				depth: 150,
+				modifier: 1,
+				slideShadows: false,
+			},
+
+			pagination: {
+				el: ".swiper-pagination",
+			},
+		});
+
+		firebase.auth().onAuthStateChanged(function (user) {
+			if (user) {
+				$('.user-details-container').css('display', 'flex')
+				$('.user-name').text(user.displayName)
+				$('#user-profile-image').attr('src', user.photoURL)
+				$('.logout-button').css('display', 'block')
+				$('.login-button').css('display', 'none')
+			}
+			else {
+				$('.logout-button').css('display', 'none')
+				$('.login-button').css('display', 'flex')
+			}
+		});
+
+		$('.logout-button').on('click', function () {
+			firebase.auth().signOut();
+			$('#user-profile-image').attr('src', ' ')
+			$('.user-details-container').css('display', 'none');
+			$('.user-name').text(' ');
+			$(this).css('display', 'none');
+			window.location.reload()
+		});
+	</script>
+</body>
+
+</html>

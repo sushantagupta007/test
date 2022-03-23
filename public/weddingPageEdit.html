@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./img/LOGO5.svg">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Charm&family=Cinzel:wght@400;700&family=Cookie&family=Fjalla+One&family=Fondamento&family=Handlee&family=Indie+Flower&family=Kalam:wght@300&family=Kaushan+Script&family=Lato:ital,wght@0,100;0,400;1,400&family=Lobster+Two&family=Lora:ital,wght@0,400;0,700;1,400;1,500;1,700&family=Marcellus+SC&family=Merienda+One&family=Open+Sans:wght@400;600&family=Pacifico&family=Petit+Formal+Script&family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&family=Roboto:wght@100&family=Rouge+Script&family=Sacramento&family=Satisfy&family=Seaweed+Script&family=Slabo+13px&family=Spectral+SC:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="./css/style2.css">      <!--for progress bar-->
+    <link rel="stylesheet" href="./css/weddingPageEdit.css">
+    <!--Color Picker-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror-colorpicker@1.9.35/dist/codemirror-colorpicker.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/codemirror-colorpicker@1.9.35/dist/codemirror-colorpicker.min.js" ></script>
+  
+    <title>Wedding Card Editor</title>
+
+     <!-- firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
+
+    <!-- firebase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+    <style>
+        .card-details {
+            /* min-width:max-content; */
+            /* outline:none; */
+            touch-action: none;
+            box-sizing: border-box;
+            overflow-wrap: break-word;
+       }
+     
+    </style>
+
+</head>
+<body style="overflow-x: hidden; min-height: 100vh;">
+
+    <!-- header section -->
+    <nav class="navbar navbar-expand-lg navbar-light header-form" style=" box-shadow: 0px 15px 10px -15px;"
+        aria-haspopup="true" aria-expanded="false" id="navbar-normal-view">
+        <div id="header-logo" style="display: flex; align-items: center; justify-content: center; width: 25%; ">
+            <img src="img/BottomLogo.png" alt="" id="celebrare-logo">
+        </div>
+        <div class="progress-container" style="width: 60%;">
+            <ul id="progressImgBar">
+                <li class="logo active">ENTER DETAILS</li>
+                <li class="logo active">CUSTOMIZE</li>
+                <li class="logo ">SHARING</li>
+            </ul>
+        </div>
+        <div class="share_button" style="display: flex; align-items: center; justify-content: center;width: 15%;">
+            <button onclick="done_func()">Done</button>
+        </div> 
+    </nav>
+    <nav class="navbar navbar-expand-lg navbar-light header-form" style=" box-shadow: 0px 15px 10px -15px;"
+        aria-haspopup="true" aria-expanded="false" id="navbar-mobile-view">
+        <div id="back-button" style="display: flex; align-items: center; justify-content: center; width: 15%;" onclick="window.history.back();">
+                <img src="img/back-icon.png" alt="back" style="height: 4vh;">
+        </div>
+        <div id="header-logo" style="display: flex; align-items: center; justify-content: center; width: 50%; font-family:cursive; color: rgb(104, 99, 99); font-size: large;">
+                <!-- <img src="img/BottomLogo.png" alt="" id="celebrare-logo"> -->
+                Editing Screen
+        </div>
+        <div class="share_button" style="display: flex; align-items: center; justify-content: center;width: 35%; transform: scale(0.8,0.8);">
+                <button onclick="done_func()">Done</button>
+            </div> 
+    </nav>
+
+
+    <div class="layout">
+        <div id="ec-card">
+            <div id="editPage" style="background-size:contain;">
+                <div id="editPageLoader" style="width:100%; height: 100%;"></div>
+                <div id="card_details"></div>
+            </div>
+        </div>
+        <div id="edit-options"></div>
+    </div>   
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>    
+    <script src="./js/globalWeddingDeclaration.js"></script>
+    <script type="text/javascript" src="./js/lottie.js"></script>
+    <script type="text/javascript" src="./js/firebaseUtils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="./js/progress.js"></script>
+    <script src="./js/weddingPageEdit.js"></script>
+    
+
+</body>
+</html>
+
+<style>
+	*:active , *:focus{
+		outline: none !important;
+	}
+</style>

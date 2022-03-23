@@ -1,0 +1,924 @@
+/*body*/
+body {
+  line-height: normal;
+}
+
+/* for the celebrare heading and footer common properties */
+.title-heading,
+#logo-brand,
+#f-celebrare-bird {
+  /* font-size: 280%; */
+  text-align: center;
+  color: #640b35;
+  font-weight: 500;
+  font-family: "Satisfy", sans-serif;
+}
+
+/*for menu headings*/
+.navbar-nav .nav-item .nav-link {
+  color: #6b1967;
+  font-weight: 500;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+/*bride-groom section*/
+.bride-groom {
+  text-align: center;
+}
+#bride-groom-line {
+  color: #4f134c;
+  font-family: serif;
+}
+
+.bride-groom-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*royal card slider*/
+#swiper-container-royal.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  width: fit-content;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.swiper-images {
+  /* padding: 10px; */
+  background-color: white;
+  width: 300px;
+  height: 450px;
+}
+
+.royal_content {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/*all wedding card section*/
+.wedding-card {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 10px;
+}
+.card-details {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.wedding-card:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.wedding-card-image {
+  border-radius: 3px;
+}
+
+.wedding-card-section {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.offer {
+  color: #40cc04;
+  font-weight: 600;
+}
+.cost {
+  color: #4e4e4e;
+  font-weight: 600;
+}
+.deleted {
+  color: #b4b0b0;
+}
+.offer1 {
+  color: #40cc04;
+  font-weight: 600;
+}
+.cost1 {
+  color: #4e4e4e;
+  font-weight: 600;
+}
+.deleted1 {
+  color: #b4b0b0;
+}
+
+/*footer section*/
+.footer-heading,
+.footer-items {
+  color: #4f134c;
+  text-decoration-color: #4f134c;
+}
+
+.col-sm-4,
+.col {
+  flex: 0;
+  flex-grow: 0;
+  padding: 10px;
+  margin: 10px;
+  max-width: none;
+}
+
+.mockup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
+  gap: 2em;
+}
+.mockup-grid .wedding-card {
+  padding: 10px;
+  margin: 10px;
+}
+@media only screen and (max-width: 350px) {
+  .mockup-grid {
+    grid-template-columns: repeat(1, minmax(100px, 1fr));
+  }
+}
+
+/*extremely small window sizes*/
+@media (min-width: 0px) {
+  /*header*/
+  #celebrare-logo {
+    visibility: visible;
+    width: 80px;
+    height: 30px;
+  }
+  #logo {
+    visibility: hidden;
+  }
+  #logo-brand {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+  }
+  .navbar-toggler {
+    padding: 0;
+  }
+
+  /*bride-groom section*/
+  #main-page-flower-1 img,
+  #main-page-flower-2 img {
+    width: 200px;
+  }
+  .bride-groom-div span {
+    margin-top: 50px;
+  }
+  #main-page-flower-1 {
+    top: -100px;
+    left: -100px;
+    transform: scale(0.8, 0.8);
+    transform: rotate(180deg);
+  }
+  #main-page-flower-2 {
+    top: -100px;
+    right: -100px;
+    transform: rotate(-180deg) scaleX(-1);
+    z-index: -1;
+  }
+  .bride-groom-div img {
+    width: 350px;
+  }
+  #bride-groom-line {
+    font-size: 25px;
+    margin-top: 50px;
+    line-height: 1.3;
+  }
+
+  /*royal-card section*/
+  #royal-cards {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+  #rc-text {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+  #rc-button {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+  .royal-mobile-heading {
+    visibility: visible;
+    height: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .royal-mobile-heading h1 {
+    transform: rotate(-90deg);
+    align-self: center;
+    width: fit-content;
+    height: fit-content;
+  }
+  .royal-heading-section {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+  .swiper-images {
+    width: 120px;
+    height: 180px;
+  }
+  #rc-mobile {
+    font-size: 12px;
+  }
+  .card-card-swiper {
+    background-size: 100% 100%;
+  }
+  .royal {
+    min-height: 40vh;
+  }
+  .scrollbar-container {
+    min-width: 40vw;
+    min-height: 50px;
+  }
+  .swiper-scrollbar {
+    min-height: 5px;
+    width: 100%;
+  }
+  .swiper-scrollbar-drag {
+    min-height: 5px;
+    background-color: #db9d62 !important;
+    box-shadow: 0px 0px 0px 1px #db9d62;
+  }
+
+  /*all wedding cards*/
+  #allwcheading {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  .wedding-card-section {
+    padding: 0%;
+  }
+  .wedding-card-image {
+    width: 105px;
+    height: 158px;
+  }
+  .col-sm-4,
+  .col {
+    padding: 7px;
+    margin: 2px;
+  }
+  .details {
+    font-size: 10px;
+  }
+  .col-sm-4,
+  .col {
+    padding: 4px;
+    margin-bottom: 10px;
+  }
+
+  /*footer*/
+  .footer-heading,
+  #copyright {
+    font-size: 1em;
+  }
+  #footer-logo-bird {
+    width: 80px;
+    height: 80px;
+  }
+  #f-celebrare-bird {
+    font-size: 1.2em;
+  }
+  .footer-items {
+    font-size: 0.8rem;
+  }
+}
+
+/*smartphones*/
+@media (min-width: 250px) {
+  /*header*/
+  #celebrare-logo {
+    visibility: visible;
+    width: 100px;
+    height: 40px;
+  }
+  #logo {
+    visibility: hidden;
+    height: 55px;
+    width: 30px;
+  }
+  #logo-brand {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+  }
+  /*bride-groom section*/
+
+  /*royal-cards-section*/
+  .royal {
+    min-height: 40vh;
+  }
+  .swiper-images {
+    width: 150px;
+    height: 225px;
+  }
+  #rc-mobile {
+    font-size: 18px;
+  }
+
+  @media (min-width: 360px) {
+    #rc-mobile {
+      font-size: 20px;
+    }
+  }
+
+  /*all wedding cards*/
+  .wedding-card-section {
+    padding: 0%;
+  }
+  .wedding-card-image {
+    width: 105px;
+    height: 158px;
+  }
+  .col-sm-4,
+  .col {
+    padding: 4px;
+    margin: 2px;
+    margin-bottom: 3px;
+    border-radius: 4px;
+  }
+  .details {
+    font-size: 10px;
+  }
+  @media (min-width: 300px) {
+    .wedding-card-image {
+      width: 120px;
+      height: 180px;
+    }
+    .col-sm-4,
+    .col {
+      padding: 4px;
+      margin: 4px;
+    }
+  }
+  @media (min-width: 325px) {
+    .wedding-card-image {
+      width: 135px;
+      height: 203px;
+    }
+    .details {
+      font-size: 13px;
+    }
+  }
+}
+
+@media (min-width: 360px) {
+  /*header*/
+  #celebrare-logo {
+    visibility: visible;
+    width: 110px;
+    height: 45px;
+  }
+  .navbar-toggler {
+    padding: 0.2rem;
+  }
+
+  /*bride-groom section*/
+  #main-page-flower-1 img,
+  #main-page-flower-2 img {
+    width: 240px;
+  }
+  .bride-groom-div img {
+    width: 400px;
+  }
+  #bride-groom-line {
+    font-size: 35px;
+    margin-top: 100px;
+  }
+
+  /*royal-cards-section*/
+  .royal-mobile-heading {
+    visibility: visible;
+    height: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .royal-mobile-heading h1 {
+    transform: rotate(-90deg);
+    align-self: center;
+    width: fit-content;
+    height: fit-content;
+  }
+  .royal-heading-section {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+  .royal {
+    min-height: 60vh;
+  }
+  .swiper-images {
+    width: 180px;
+    height: 270px;
+  }
+  #rc-mobile {
+    font-size: 20px;
+  }
+
+  @media (min-width: 410px) {
+    #rc-mobile {
+      font-size: 25px;
+    }
+  }
+  @media (min-width: 455px) {
+    .swiper-images {
+      width: 240px;
+      height: 360px;
+    }
+    .royal {
+      min-height: 70vh;
+    }
+  }
+
+  /*all wedding cards*/
+  #allwcheading {
+    font-size: 30px;
+    margin-top: 20px;
+  }
+
+  .wedding-card-section {
+    padding: 0%;
+  }
+  .wedding-card-image {
+    width: 150px;
+    height: 225px;
+  }
+  .details {
+    font-size: 13px;
+  }
+  .col-sm-4,
+  .col {
+    padding: 5px;
+    margin: 4px;
+  }
+
+  @media (min-width: 420px) {
+    .bride-groom {
+      background-position: center top;
+      background-size: 400px 400px;
+    }
+    .wedding-card-image {
+      width: 165px;
+      height: 248px;
+    }
+    .col-sm-4,
+    .col {
+      padding: 5px;
+      margin: 4px;
+    }
+  }
+  @media (min-width: 480px) {
+    .wedding-card-image {
+      width: 180px;
+      height: 270px;
+    }
+    .col-sm-4,
+    .col {
+      padding: 7px;
+      margin: 10px;
+    }
+    .details {
+      font-size: 15px;
+    }
+  }
+  @media (min-width: 410px) {
+    .wedding-card-section {
+      padding: 5%;
+    }
+  }
+}
+
+/*tablet category*/
+@media (min-width: 544px) {
+  /*header*/
+  #celebrare-logo {
+    visibility: visible;
+    width: 130px;
+    height: 55px;
+  }
+  #logo {
+    visibility: hidden;
+  }
+  @media (min-width: 920px) {
+    #logo {
+      visibility: hidden;
+      height: 55px;
+      width: 80px;
+    }
+  }
+
+  /*bride-groom section*/
+  #main-page-flower-1 img,
+  #main-page-flower-2 img {
+    width: 340px;
+  }
+  #main-page-flower-1 {
+    top: -160px;
+    left: -100px;
+    transform: scale(0.8, 0.8);
+    transform: rotate(180deg);
+  }
+  #main-page-flower-2 {
+    top: -160px;
+    right: -100px;
+    transform: rotate(-180deg) scaleX(-1);
+    z-index: -1;
+  }
+  .bride-groom-div img {
+    width: 450px;
+  }
+  #bride-groom-line {
+    font-size: 45px;
+  }
+
+  /*royal-cards-section*/
+  #royal-cards {
+    font-size: 30px;
+    visibility: visible;
+    height: auto;
+    width: auto;
+  }
+  #rc-text {
+    font-size: 1rem;
+    visibility: visible;
+    height: auto;
+    width: auto;
+  }
+  #rc-button {
+    font-size: 1rem;
+    margin-top: 10%;
+    visibility: visible;
+    height: auto;
+    width: auto;
+  }
+  .royal-heading-section {
+    visibility: visible;
+    height: auto;
+    width: auto;
+    padding: 10%;
+  }
+  .royal-mobile-heading {
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+  }
+  .royal {
+    min-height: 100vh;
+  }
+
+  /*all wedding cards*/
+  .wedding-card-section {
+    padding: 7%;
+  }
+  .col-sm-4,
+  .col {
+    padding: 7px;
+    margin: 15px;
+    border-radius: 10px;
+  }
+  .details {
+    font-size: 15px;
+  }
+  @media (min-width: 580px) {
+    #allwcheading {
+      font-size: 40px;
+      margin-top: 20px;
+    }
+  }
+
+  /*footer*/
+  .footer-heading,
+  #copyright {
+    font-size: 1.2em;
+  }
+  @media (min-width: 800px) {
+    .footer-items {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  /*header*/
+  /* #celebrare-logo {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  } */
+  .logo-img-container {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #logo {
+    visibility: visible;
+    width: 90px;
+    height: 90px;
+  }
+  #logo-brand {
+    visibility: visible;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+  }
+  .navbar li {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
+
+  /*bride-groom section*/
+  #main-page-flower-1 img,
+  #main-page-flower-2 img {
+    width: 600px;
+  }
+  #main-page-flower-1 {
+    top: -300px;
+    left: -150px;
+    transform: rotate(180deg) scale(0.8, 0.8);
+  }
+  #main-page-flower-2 {
+    bottom: -300px;
+    right: -150px;
+    top: auto;
+    transform: rotate(0deg) scale(0.8, 0.8);
+  }
+  #bride-groom-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .bride-groom-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .bride-groom-div img {
+    width: 650px;
+  }
+  #bride-groom-line {
+    font-size: 55px;
+    margin-top: 0px;
+  }
+
+  /*royal-cards-section*/
+  #royal-cards {
+    font-size: 40px;
+  }
+  #rc-text {
+    font-size: 1.1rem;
+  }
+  .scrollbar-container {
+    min-width: 500px;
+    min-height: 50px;
+  }
+  .swiper-scrollbar {
+    min-height: 5px;
+    width: 100%;
+  }
+  .swiper-scrollbar-drag {
+    min-height: 5px;
+    background-color: #db9d62 !important;
+    box-shadow: 0px 0px 0px 1px #db9d62;
+  }
+
+  #rc-button {
+    font-size: 1.3rem;
+    margin-top: 10%;
+  }
+  .royal-heading-section {
+    padding: 10%;
+  }
+  .swiper-images {
+    width: 300px;
+    height: 450px;
+  }
+
+  /*all wedding cards*/
+  .wedding-card-section {
+    padding: 10%;
+  }
+  .col-sm-4,
+  .col {
+    padding: 7px;
+    margin: 15px;
+  }
+  .wedding-card-image {
+    width: 210px;
+    height: 316px;
+  }
+
+  /*footer*/
+  .footer-heading,
+  #copyright {
+    font-size: 1.6em;
+  }
+  #footer-logo-bird {
+    width: 150;
+    height: 150px;
+  }
+  #f-celebrare-bird {
+    font-size: 1.8em;
+  }
+}
+
+/*PC laptop category*/
+@media (min-width: 1200px) {
+  /*header*/
+  #celebrare-logo {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+  .logo-img-container {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #logo {
+    visibility: visible;
+    width: 90px;
+    height: 90px;
+  }
+  #logo-brand {
+    visibility: visible;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+  }
+  .navbar li {
+    margin-left: 2.3em;
+    margin-right: 2.3em;
+  }
+
+  /*bride-groom section*/
+
+  /*royal-cards-section*/
+  #royal-cards {
+    font-size: 50px;
+  }
+  #rc-text {
+    font-size: 1.2rem;
+  }
+  #rc-button {
+    font-size: 1.5rem;
+    margin-top: 10%;
+  }
+  .royal-heading-section {
+    padding: 10%;
+  }
+  .swiper-images {
+    width: 360px;
+    height: 540px;
+  }
+  .scrollbar-container {
+    min-width: 500px;
+    min-height: 50px;
+  }
+  .swiper-scrollbar {
+    min-height: 5px;
+    width: 100%;
+  }
+  .swiper-scrollbar-drag {
+    min-height: 5px;
+    background-color: #db9d62 !important;
+    box-shadow: 0px 0px 0px 1px #db9d62;
+  }
+  /*all wedding cards*/
+  @media (min-width: 1270px) {
+    .wedding-card-section {
+      padding: 12%;
+    }
+  }
+  .wedding-card-image {
+    width: 240px;
+    height: 360px;
+  }
+  #allwcheading {
+    font-size: 60px;
+    margin-top: 20px;
+  }
+  .col-sm-4,
+  .col {
+    padding: 8px;
+    margin: 20px;
+  }
+
+  /*footer*/
+  .footer-heading,
+  #copyright {
+    font-size: 2em;
+  }
+  #footer-logo-bird {
+    width: 180px;
+    height: 180px;
+  }
+  #f-celebrare-bird {
+    font-size: 2.2em;
+  }
+}
+
+.swiper-container-3d .swiper-cube-shadow,
+.swiper-container-3d .swiper-slide,
+.swiper-container-3d .swiper-slide-shadow-bottom,
+.swiper-container-3d .swiper-slide-shadow-left,
+.swiper-container-3d .swiper-slide-shadow-right,
+.swiper-container-3d .swiper-slide-shadow-top,
+.swiper-container-3d .swiper-wrapper {
+  transform-style: flat;
+  zoom: 1;
+}
+
+.swiper-pagination-bullet-active {
+  border-radius: 10px;
+  width: 5%;
+
+  opacity: 1;
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+  background: rgba(0, 0, 0, 0.8);
+}
+.swiper-pagination-bullet {
+  opacity: 0.9;
+  transition: width 0.5s ease-in-out;
+  border-radius: 10px;
+}
+
+.scrollbar-container {
+  position: absolute;
+  bottom: 0px;
+  cursor: auto;
+}
+.swiper-scrollbar {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+@media (min-width: 0px) {
+  #brideGroomName {
+    background-color: white;
+    transition: top 1s ease, box-shadow 1s ease;
+    position: fixed;
+    width: 80vw;
+    min-height: fit-content;
+    overflow: auto;
+    max-height: 100vh;
+    border: 10px solid #f3c396;
+    padding: 20px;
+    left: 50%;
+    top: 200%;
+    transform: translate(-50%, -50%);
+  }
+  .brideGroomNamefields {
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 50px;
+    width: 100%;
+    display: block;
+    margin: 10px 0px;
+    outline: none;
+    padding: 15px;
+    font-size: 20px;
+  }
+}
+@media (min-width: 450px) {
+  #brideGroomName {
+    width: 350px;
+  }
+  .brideGroomNamefields {
+    height: 50px;
+    width: 80%;
+    display: block;
+    margin: 10px 0px;
+    outline: none;
+    padding: 15px;
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 560px) {
+  #celebrare-logo {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+  }
+}

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
+    <!-- firebase -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Charm&family=Cinzel:wght@400;700&family=Cookie&family=Fjalla+One&family=Fondamento&family=Handlee&family=Indie+Flower&family=Kalam:wght@300&family=Kaushan+Script&family=Lato:ital,wght@0,100;0,400;1,400&family=Lobster+Two&family=Lora:ital,wght@0,400;0,700;1,400;1,500;1,700&family=Marcellus+SC&family=Merienda+One&family=Open+Sans:wght@400;600&family=Pacifico&family=Petit+Formal+Script&family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&family=Roboto:wght@100&family=Rouge+Script&family=Sacramento&family=Satisfy&family=Seaweed+Script&family=Slabo+13px&family=Spectral+SC:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="./img/LOGO5.svg">
+
+    <style>
+      .toast {
+        max-width: 90vw;
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        box-shadow: 0px 0px 500px 10000px rgba(0, 0, 0, 0.6);
+      }
+      .toast.showing {
+        opacity: 1 !important;
+      }
+      .ml-2.mb-1.close {
+        outline: none;
+        border: transparent;
+      }
+      .text-primary {
+        color: white !important;
+      }
+      input.select-dropdown.dropdown-trigger {
+        visibility: hidden;
+        height: 0px;
+        width: 0px;
+      }
+      .datepicker-select {
+        position: absolute;
+        width: min-content;
+        top: 120px;
+        left: 50px;
+        outline: none;
+        border: transparent;
+        appearance: none;
+      }
+      .orig-select-month {
+        margin-left: 30px;
+        text-align-last: right;
+      }
+      .orig-select-year {
+        margin-left: 130px;
+      }
+      .event-container-1,
+      .event-container-2,
+      .event-details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #add-event {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .event-details-field > input {
+        padding: 2%;
+        border-radius: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        color: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+        width: 100%;
+      }
+      .event-details-field > label {
+        font-family: sans-serif;
+        position: absolute;
+        top: -8px !important ;
+        bottom: 0;
+        left: 0;
+        color: #ccc;
+      }
+      .event-details-button {
+        margin: 2%;
+        background-color: white;
+        color: rgba(0, 0, 0, 0.5);
+        outline: none;
+        border: transparent;
+        box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.1);
+        padding: 5px 15px;
+        border-radius: 5px;
+        width: min-content;
+      }
+      .event-details-button img {
+        width: 15px;
+        margin-right: 5px;
+        align-self: center;
+      }
+      .event-details-button:hover {
+        box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (min-width: 0px) {
+        .event-box {
+          width: 80vw;
+          min-height: 250px;
+          padding: 4vw;
+        }
+        .event-box {
+          border: 2px solid rgba(0, 0, 0, 0.4);
+          border-radius: 15px;
+          margin: 5vw;
+        }
+        .event-details-field {
+          position: relative;
+          margin: 20px 0px;
+        }
+        .event-box-head {
+          font-size: 20px;
+        }
+        #add-event > div > div {
+          font-size: 25px;
+        }
+      }
+
+      @media (min-width: 560px) {
+        .event-box {
+          width: 450px;
+          min-height: 250px;
+          padding: 20px;
+        }
+        .event-box {
+          border: 2px solid rgba(0, 0, 0, 0.4);
+          border-radius: 15px;
+          margin: 20px;
+        }
+      }
+      @media (min-width: 0px) {
+        .event-container-1,
+        .event-container-2 {
+          display: block;
+        }
+      }
+      @media (min-width: 1000px) {
+        .event-container-1,
+        .event-container-2,
+        .event-details {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    </style>
+
+    <link rel="stylesheet" href="./css/calendar-style.css" />
+    <link rel="stylesheet" href="./css/calendar-theme.css" />
+    <link rel="stylesheet" href="./css/style2.css" />
+    <link rel="stylesheet" href="./css/materialze-css/modal.css" />
+    <link rel="stylesheet" href="./css/materialze-css/dropdown.css" />
+    <link rel="stylesheet" href="./css/materialze-css/datepicker.css" />
+    <link rel="stylesheet" href="./css/materialze-css/timepicker.css" />
+    <title>Indian Wedding Card & Greeting Card Maker - Celebrare</title>
+  </head>
+  <body onload="analytics_website_wedding_card_try()">
+    <!-- header section -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light header-form"
+      style="box-shadow: 0px 15px 10px -15px"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <div
+        id="header-logo"
+        style="display: flex; align-items: center; justify-content: center"
+      >
+        <img src="img/BottomLogo.png" alt="" id="celebrare-logo" />
+      </div>
+      <div class="progress-container">
+        <ul id="progressImgBar">
+          <li class="logo active">ENTER DETAILS</li>
+          <li class="logo">CUSTOMIZE</li>
+          <li class="logo">SHARING</li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- bride-groom-section -->
+    <div id="bride-groom-details">
+      <div class="bg-details">
+        <div class="wedding-form-div">
+          <img src="./img/bride.png" alt="" class="wedding-images" />
+        </div>
+        <div class="wedding-form-div">
+          <span class="bg-heading">BRIDE</span>
+        </div>
+
+        <!-- family details -->
+        <div class="fam-details" style="padding-bottom: 10px">
+          <div style="margin-bottom: 30px">
+            <div class="Label">NAME</div>
+            <div class="input-elem">
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="brideFirstName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">First Name</span>
+              </label>
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="brideLastName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Last Name</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 30px">
+            <div class="Label">PARENTS NAME</div>
+            <div class="input-elem">
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="brideFatherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Father's Name</span>
+              </label>
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="brideMotherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Mother's Name</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 30px">
+            <div class="Label">GRANDPARENTS NAME</div>
+            <div class="input-elem">
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="brideGFatherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Grandfather's Name</span>
+              </label>
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="brideGMotherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Grandmother's Name</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-details">
+        <div class="wedding-form-div">
+          <img src="./img/groom.png" alt="" class="wedding-images" />
+        </div>
+        <div class="wedding-form-div">
+          <span class="bg-heading">GROOM</span>
+        </div>
+
+        <!-- family details -->
+        <div style="padding-bottom: 10px">
+          <div style="margin-bottom: 30px">
+            <div class="Label">NAME</div>
+            <div class="input-elem">
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="groomFirstName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">First Name</span>
+              </label>
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="groomLastName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Last Name</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 30px">
+            <div class="Label">PARENTS NAME</div>
+            <div class="input-elem">
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="groomFatherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Father's Name</span>
+              </label>
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="groomMotherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Mother's Name</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 30px">
+            <div class="Label">GRANDPARENTS NAME</div>
+            <div class="input-elem">
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="groomGFatherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Grandfather's Name</span>
+              </label>
+              <label class="input-label">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="groomGMotherName"
+                  autocomplete="off"
+                  placeholder=" "
+                />
+                <span class="placeholder-text">Grandmother's Name</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- calendar-section -->
+    <div class="calendar-div" style="margin-top: 0px">
+      <div class="wedding-details-div-heading">Wedding Date</div>
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 20px;
+        "
+      >
+        <div id="wedding-date-cal"></div>
+        <input
+          style="
+            max-width: 0px;
+            max-height: 0px;
+            visibility: hidden;
+            padding: 0;
+            margin: 0;
+            border: 0px;
+          "
+          id="weddingDate"
+        />
+      </div>
+    </div>
+
+    <!-- event details -->
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div class="event-section">
+        <div class="wedding-details-div-heading">Event Details</div>
+        <div class="event-container-1"></div>
+        <div class="event-container-2"></div>
+      </div>
+    </div>
+
+    <!-- Ladki vale ladke vale-->
+    <div
+      style="
+        height: max-content;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px;
+        z-index: 1;
+      "
+    >
+      <div class="main_box">
+        <div
+          class="llcontainer"
+          id="ladki-vale"
+          style="display: flex; align-items: center; z-index: 1"
+          onclick="grabSide('ladki-vale')"
+        >
+          <div><img src="./img/bride.png" alt="" /></div>
+          <div>
+            <span>LADKI<br />WALE</span>
+          </div>
+        </div>
+      </div>
+      <div class="main_box">
+        <div
+          class="llcontainer"
+          id="ladke-vale"
+          style="
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+            z-index: 1;
+          "
+          onclick="grabSide('ladke-vale')"
+        >
+          <div><img src="./img/groom.png" alt="" /></div>
+          <div>
+            <span>LADKE<br />WALE</span>
+          </div>
+        </div>
+      </div>
+      <input
+        style="
+          width: 0px;
+          height: 0px;
+          visibility: hidden;
+          padding: 0;
+          margin: 0;
+          border: 0;
+        "
+        id="weddingSide"
+      />
+    </div>
+
+    <div
+      id="nextPrevButtons"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+        padding-bottom: 50px;
+      "
+    >
+      <div class="SectionButtons-section disabled-wrapper" id="prevbdiv">
+        <button
+          class="button"
+          id="prevSectionButton"
+          onclick="storeAndLoad('weddingPageNew.html')"
+        >
+          <span>Prev</span>
+        </button>
+      </div>
+      <div class="SectionButtons-section" id="nextbdiv">
+        <button
+          class="button"
+          id="nextSectionButton"
+          onclick="storeAndLoad('customize.html')"
+        >
+          <span>Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast message container for the invalid entries -->
+    <div
+      aria-live="polite"
+      id="toast-container"
+      aria-atomic="true"
+      class="d-flex justify-content-center align-items-center"
+    >
+      <!-- Then put toasts within -->
+    </div>
+    <script type="text/javascript" src="./js/firebaseUtils.js"></script>
+
+    <script>
+      const analytics_website_wedding_card_try = () => {
+        analytics.logEvent("website_wedding_card_try");
+      };
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="./js/progress.js"></script>
+    <script src="./js/calendar.min.js"></script>
+    <script src="./js/addDetails.js"></script>
+  </body>
+</html>

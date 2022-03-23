@@ -1,0 +1,61 @@
+/*        order's container          */
+.main-text {
+  display: flex;
+  height: 80vh;
+  width: 100vw;
+  font-family: 'Merienda', cursive;
+  justify-content: center;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+.button {
+  font-family: 'Merienda', cursive;
+  border: 1px solid #640b35;
+  display: inline-block;
+  text-align: center;
+  margin: 10px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 10px;
+}
+.btn1 {
+  width: 30%;
+  background-color: #fff;
+  color:#640b35 !important;
+}
+.btn1:hover {
+  background-color: #eb1717;
+  color:#fff !important;
+}
+.btn2 {
+  width: 45%;
+  background-color: #eb1717;
+  color:#fff !important;
+}
+.btn2:hover {
+  background-color: #fff;
+  color:#640b35 !important;
+}
+.card-wrapper {
+  cursor: pointer;
+  border: 1px solid red;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px #666;
+  margin: 20% 0;
+}
+
+@media screen and (max-width: 774px) {
+  .button {
+    margin: 5px;
+  }
+  .btn1 {
+    width: 27%;
+    font-size: 0.8rem;
+  }
+  .btn2 {
+    width: 55%;
+    font-size: 0.8rem;
+  }
+}

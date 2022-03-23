@@ -1,0 +1,22 @@
+#1 In case if you want to change the categories of cards then you have to change the path in some JS files
+
+1) WeddingSection.js :- This file loads the cards in WeddingSection.html.
+In line number  31 - 35, this script is written !
+
+const LocationMap = {
+  allcards: ["weddingcard2/allcards/cards"],
+  royal: ["weddingcards/royal/cards"],
+};
+
+statically, the code is fetching the data from allCards category, so simply change the path of first key like this
+
+const LocationMap = {
+  allcards: [<path to another category>],
+  royal: ["weddingcards/royal/cards"],
+};
+
+
+#2 In case if you want to change the prices of cards you have to change the path in some JS files
+
+The application is fetching prices from this path => `weddingcards/price` which is in line number 292, in WeddingSection.js
+statically, the code is fetching the price from weddingcards, so you can change the path to change the pricing !

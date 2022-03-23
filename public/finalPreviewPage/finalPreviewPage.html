@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Celebrare</title>
+
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Playfair+Display:wght@600&family=Satisfy&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+
+    <link rel="stylesheet" href="../css/Flipbook.css">
+    <link rel="stylesheet" href="../css/envelopeAnimation.css">
+    <link rel="stylesheet" href="../css/gcardAnimation.css">
+    <!-- <link type="text/css" rel="stylesheet" href="../css/login.css" /> -->
+    <!-- <link type="text/css" rel="stylesheet" href="../css/style.css" /> -->
+    <!-- <link type="text/css" rel="stylesheet" href="../css/footer.css" /> -->
+    <!-- <link type="text/css" rel="stylesheet" href="../css/previewPage.css" /> -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- bootstrap-4.3 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- bootstrap-4.3 -->
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-analytics.js"></script>
+    <!-- firebase -->
+
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="../css/finalPreviewPage.css" />
+
+
+    <!-- Hammer -->
+    <script src="../js/hammer.min,js.js"></script>
+
+    <link rel="icon" href="../img/LOGO5.svg">
+
+
+    <style>
+        .col-6 {
+            max-width: 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+
+    <div id="test" style="
+        z-index: 10;
+        height: 150px; 
+        width: 150px;
+        position: absolute;
+        top: 50vh;
+        left: 50vw;
+        ">
+    </div>
+
+
+    <section class="animation-container-1 animation-container">
+        <div id="letter-packed"></div>
+    </section>
+
+    <section class="animation-container-2 animation-container">
+        <div id="message-send"></div>
+    </section>
+
+    <section class="animation-container-3 animation-container">
+        <div id="plane-fly"></div>
+    </section>
+
+    <section class="animation-container-4 animation-container">
+        <div id="message-received"></div>
+    </section>
+
+    <div id="audio-control-button-container" style="position: absolute;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 5%;
+    right: 4%;">
+        <div id="play-button" style="display: none;">
+            <img src="../img/play-circle.svg" alt="" style="width: 40px;height: 40px;">
+        </div>
+        <div id="pause-button" style="display:none">
+            <img src="../img/pause-circle.svg" alt="" style="width: 40px;height: 40px;">
+        </div>
+    </div>
+    <section class="main-display" style="transform-style: preserve-3d;">
+        <div class="row p-0 w-100">
+            <div class="col-md-12">
+
+                <!-- Greeting card Animation -->
+
+                <div class='section section--cards -cards-show' id="section--cards--envelope--gcard">
+                    <div id="audio-control-button-container" style="display: flex;justify-content: center;align-items: center;">
+
+                        <div class='section--inner-cards--gcard'>
+                            <div class='b__card-animated'>
+                                <div class='env-wrapper-gcard' style="
+                box-shadow:
+                0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12)
+                ;
+                perspective: 4000px; 
+                background-image: url(../img/new_envelope/front.png); margin-bottom: 20%; background-size: 100% 100%;">
+                                    <!-- <div id="to_flip"></div> -->
+                                        <div class='env-top' style="visibility: hidden">
+                                            <div class='env-top--frontside'>
+                                                <img alt='' class="img-fluid" src='../img/new_envelope/upper flapfront.png'>
+                                                <div id="overlay_text--gcard"></div>
+                                            </div>
+                                            <div class='env-top--backside'>
+                                                <img alt='' class="img-fluid" src='../img/new_envelope/upper flap back.png'>
+                                            </div>
+                                        </div>
+                                    <!-- </div> -->
+                                    <div class='env-front' style="visibility: hidden; position: absolute; z-index: -1;">
+                                        <img alt='' class="img-fluid" src='../img/new_envelope/Back  inner.png'>
+                                    </div>
+                                    <div class='env-front' style="visibility: hidden;">
+                                        <img alt='' class="img-fluid" src='../img/new_envelope/Back lower flap.png' height="405.417" width="707.528">
+                                    </div>
+
+
+                                    <div class='env-card'>
+                                        <div class='env-card--inner'>
+                                            <div class='env-card--frontside--gcard' id="hiding-card">
+
+                                                <!-- starting of greeting card container -->
+
+                                                <div class="container-fluid img-fluid" id="flipbook-screen-wrapper" style="display: none;">
+
+                                                    <div class="card_container" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+                        width: 100vw;
+                        /* padding:0 10px; */
+                        height: 83vh;
+                        /* margin-top: 25%;
+                        margin-left: -35%; */
+                        perspective: 4000px;
+                          ">
+                                                        <div class="card__wrapper overflow__visible " style="
+                            height: 100%;
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                              ">
+                                                            <div class="card container-fluid img-fluid">
+                                                                <div class="card-side card_back" id="card_back">
+                                                                    <!-- <img class="img1" > -->
+                                                                    <!-- <span class="test"></span> -->
+                                                                </div>
+                                                                <div class="card-side card_middle_right" id="card_middle_right">
+                                                                    <!-- <img class="img2" > -->
+                                                                    <!-- <span class="test"></span> -->
+                                                                </div>
+                                                                <div class="card-side card_middle_left" id="card_middle_left">
+                                                                    <!-- <img class="img3"> -->
+                                                                    <!-- <span class="test"></span> -->
+                                                                </div>
+                                                                <div class="card-side card_front" id="card_front">
+                                                                    <div id="click-animation" style="position: absolute; right: -20%; top: 30%"></div>
+                                                                    <!-- <img class="img4"> -->
+                                                                    <!-- <span class="test"></span> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                                <!-- end of greeting card container -->
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='env-btn js-open-env' style="visibility: hidden;"></div>
+                                </div>
+                            </div>
+                            <!-- <div class="shadow"><div class="env-shadow"></div></div> -->
+                        </div>
+                    </div>
+
+
+                    <!-- end of greeting card animation -->
+
+                    <!--//////////////////////// NEW ENVELOPE ANIMATION /////////////////////////////////-->
+
+
+                    <div class='section section--cards -cards-show' id="section--cards--envelope--ecard">
+                        <div class='section--inner-cards'>
+                            <div class='b__card-animated'>
+                                <div class='env-wrapper' style="background-image: url('../img/envelope\ backgound.svg');">
+                                    <div class='env-top'>
+
+                                        <div class='env-top--frontside'>
+                                            <img alt='' src='../img/outerflap.svg'>
+                                            <div id="overlay_text--ecard"></div>
+                                        </div>
+                                        <div class='env-top--backside'>
+                                            <img alt='' src='../img/outerflap_up.svg'>
+                                        </div>
+                                    </div>
+                                    <div class='env-front'>
+                                        <img alt='' src='../img/envelope front.svg'>
+                                    </div>
+                                    <div class='env-card'>
+                                        <div class='env-card--inner'>
+                                            <div class='env-card--frontside'>
+                                                <img alt='' src='' id='front-image'>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class='env-btn js-open-env'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!--/////////////////// END OF ENVELOPE ANIMATION //////////////////////////////////// -->
+
+
+
+                </div>
+
+                <!-- Send a thank you back Div -->
+                <!-- <div style="width: 100%; margin: auto;">
+        <button class="thank" id="thankButton">Send a thank you card</button>
+        </div> -->
+                <!-- thank you cards -->
+
+
+                <section>
+
+                    <section id="thank_you" style="display: none; padding-top: 25%;">
+
+                        <!-- <div id="loader-container" style="width: 100%;height: 30vh;display: flex;justify-content: center;align-items: center;">
+              <div id="loader"></div>
+            </div> -->
+
+                        <div class="container w-100 align-items-center justify-content-center flex-lg-column flex-row" style="height: fit-content;">
+                            <div class="row w-100" id="card-container" style="height: fit-content;justify-content: space-around;">
+                            </div>
+                            <div class="row w-100 mt-5" id="page-buttons-container">
+                                <div id="pagination-button-container"></div>
+                            </div>
+                        </div>
+
+                    </section>
+                    <div style="width: 100%; margin-top:40px;" class="display:none">
+                        <button style="width: auto;" class="thank " id="closeButton">close</button>
+                    </div>
+                </section>
+    </section>
+
+    <audio src="" id="music-player"></audio>
+
+    <script type="text/javascript" src="../js/lottie.js"></script>
+    <script type="text/javascript" src="../js/firebaseUtils.js"></script>
+    <script type="text/javascript" src="../js/finalPreviewPage.js"></script>
+    <!-- <script type="text/javascript" src="../js/loader.js" ></script> -->
+
+    <script type="text/javascript" src="../js/previewdetails.js"></script>
+</body>
+
+</html>

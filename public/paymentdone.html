@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>succesfull</title>
+    <link rel="icon" href="./img/LOGO5.svg">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Playfair+Display:wght@600&family=Satisfy&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Charm&family=Cinzel:wght@400;700&family=Cookie&family=Fjalla+One&family=Fondamento&family=Handlee&family=Indie+Flower&family=Kalam:wght@300&family=Kaushan+Script&family=Lato:ital,wght@0,100;0,400;1,400&family=Lobster+Two&family=Lora:ital,wght@0,400;0,700;1,400;1,500;1,700&family=Marcellus+SC&family=Merienda+One&family=Open+Sans:wght@400;600&family=Pacifico&family=Petit+Formal+Script&family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&family=Roboto:wght@100&family=Rouge+Script&family=Sacramento&family=Satisfy&family=Seaweed+Script&family=Slabo+13px&family=Spectral+SC:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style1.css" />
+    <link href="https://fonts.googleapis.com/icons?family=Material+Icons" rel="stylesheet"/>
+    <!-- firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
+    <style>
+      #final-loader {
+        position: fixed;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .stop-scroll {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      #final-loader__spinner {
+        border-bottom: 16px solid red;
+        border-right: 16px solid red;
+        border-radius: 50%;
+        border-top: 16px solid white;
+        border-left: 16px solid white;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+      }
+
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="overflow-x: hidden; margin: 0%; padding: 0%"
+    onload="getBase64(); analytics_website_wedding_pdf_purchase_done()"
+  >
+    <div class="container-fluid" style="margin-bottom: 0%">
+      <div
+        class="row justify-content-center"
+        style="padding-top: 0%; margin-top: 0%"
+      >
+        <div style="display: block; justify-content: center">
+          <h1
+            style="
+              text-align: center;
+              color: rgb(14, 14, 87);
+              font-family: lora;
+              padding-top: 20%;
+            "
+          >
+            Payment Done
+          </h1>
+          <div style="text-align: center; padding-top: 3%">
+            <img style="height: 80px" src="./img/check-circle-green.svg" />
+          </div>
+          <h1
+            style="
+              text-align: center;
+              color: rgb(14, 14, 87);
+              font-family: lora;
+              padding-top: 10%;
+            "
+          >
+            Thanks for choosing our services
+          </h1>
+          <div style="text-align: center; padding-top: 3%">
+            <button
+              style="
+                background-color: red;
+                color: white;
+                width: 250px;
+                padding: 1%;
+                margin: 2%;
+                border-radius: 10px;
+                border-color: transparent;
+                cursor: pointer;
+              "
+              onclick="downlaodSampleCards()"
+            >
+              <h4 id="sharePDF" style="text-align: center; font-family: lora">
+                Share Card PDF
+              </h4>
+            </button>
+          </div>
+          <!-- <div style="text-align: center; padding-top: 3%">
+            <button
+              style="
+                background-color: white;
+                color: black;
+                width: 250px;
+                padding: 1%;
+                margin: 2%;
+                border-radius: 10px;
+              "
+            >
+              <h4
+                style="text-align: center; font-family: lora"
+                onclick="goToOrders()"
+              >
+                Go to My Orders
+              </h4>
+            </button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div id="cards-received"></div>
+    <div id="final-loader">
+      <div id="final-loader__spinner"></div>
+    </div>
+    <script type="text/javascript" src="./js/jspdf.min.js"></script>
+    <script>
+      const goToOrders = () => {
+        window.location.href = "./my_orders.html";
+      };
+    </script>
+    <script src="./js/modalClassDeclaration.js"></script>
+    <script type="text/javascript" src="./js/firebaseUtils.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script src="./js/paymentdone.js"></script>
+    <!-- <script type="text/javascript" src="./js/mockup.js"></script> -->
+    <script>
+      const analytics_website_wedding_pdf_purchase_done = () => {
+        analytics.logEvent("website_wedding_pdf_purchase_done");
+      };
+    </script>
+  </body>
+</html>

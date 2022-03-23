@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /addDetails/
+Disallow: /androidAppPage/
+Disallow: /cardEditor/
+Disallow: /finalPreviewPage/
+Disallow: /receiverPreviewPage/
+Disallow: /selectIllustrationPage/
+Disallow: /selectMusicPage/
+Disallow: /sharePage/
+Disallow: /404.html/
+Disallow: /weddingEditorPage/
+Allow:/weddingEditorPage/weddingPageNew.html

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Celebrare</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Playfair+Display:wght@600&family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>
+    <link type="text/css" rel="stylesheet" href="./css/login.css" />
+    <link type="text/css" rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="css/style1.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="icon" href="./img/LOGO5.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+    <link type="text/css" rel="stylesheet" href="./css/my_orders.css" />
+</head>
+  
+  <body>
+    <div class="login_main_display">
+      <div class="login_page">
+          <div class="left_block">
+              <span id="welcome"> Welcome </span>
+              <span id="tagline"> We love our users</span>
+          </div>
+          <div class="right_block">
+              <div id="close-login-popup">
+                  <i class="fa fa-times" id="close-sharing-option-popup-container"></i>
+              </div>
+              <div class="social_login" style="width: 488px;">
+                  <div id="phone_div" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;width: 488px;">
+                      <div class="logo-container logo2" style="height: 70px;">
+                          <img style="width:180px" src="./img/BottomLogo.png" alt="" />
+                      </div>
+                      <div id="container1" class="container" style="margin-top: 20px;">
+                          <div id="login" onsubmit="process(event)">
+                              <h2 id="login_title" style="color: #4f134c; font-family: lora;text-align: center;"><b>Login Account</b></h2>
+                              <p id="login_subtitle" style="color: black; font-family: lora;text-align: center;">Phone Number</p>
+                              <div style="text-align: center;">
+                                  <input id="phone" type="tel" name="phone" style="border-radius:25px;height: 50px;outline: none;width: 420px;" />
+                              </div>
+                              <div id="error-container" style="margin-left: 6%;"></div>
+                              <div style="width: 100%;text-align: center;margin-top: 20px;">
+                                  <input id="sign-in-button" type="submit" class="btn" value="Request OTP" style="align-self: center;border-radius: 25px;color: white;background-color: #4f134c;border-color: transparent;margin-top: 10px;width: 420px;height: 50px;" />
+                                  <div style="display: flex;margin-top: 20px;">
+                                      <hr color=black style="width: 30%;color: #4f134c; font-family: lora;">
+                                      <p>Or Sign in with Google</p>
+                                      <hr color=black style="width: 30%;">
+                                  </div>
+                                  <div style="display: flex;justify-content: center;margin-top: 10px;">
+                                      <div id="googleLogIn" style="border: 2px solid black;width: 420px;height: 50px;border-radius: 25px; display: flex;">
+                                          <img src="./img/gogle.svg" alt="" id="google-icon" /> Continue with Google
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="container2">
+                          <h2 style="text-align: center;color: #4f134c; font-family: lora;margin-top: 20px;"><b>OTP Verification</b></h2>
+                          <p id="no_div" style="text-align: center;color: #4f134c; font-family: lora;margin-top: 10px;">Enter the OTP forwarded to <b id="no_bold"></b> </p>
+                          <div class="userInput" style="display: flex;justify-content: center;margin-top: 20px;z-index: 1000 !important;">
+                              <input class="inp" type="text" id='ist' maxlength="1" onkeyup="clickEvent(this,'sec')">
+                              <input class="inp" type="text" id="sec" maxlength="1" onkeyup="clickEvent(this,'third')">
+                              <input class="inp" type="text" id="third" maxlength="1" onkeyup="clickEvent(this,'fourth')">
+                              <input class="inp" type="text" id="fourth" maxlength="1" onkeyup="clickEvent(this,'fifth')">
+                              <input class="inp" type="text" id="fifth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
+                              <input class="inp" type="text" id="sixth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
+                          </div>
+                          <div style="text-align: center;">
+                              <h7 style="color: rgb(167, 164, 164);">Didn't you receive the OTP?</h7>
+                              <button onclick="resend();" style="border: none;background-color: transparent;">Resend OTP</button>
+                          </div>
+                          <div style="text-align: center;margin-top: 120px;">
+                              <button class="button" id=" store " type="button " onclick="show(); ">Verify</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <span id="tagline " class="d-flex d-lg-none " style="padding-top: 0px; "> We love our users</span>
+          </div>
+      </div>
+    </div>
+
+    <div class="main-display">
+      <header class="hello1">
+          <nav class="navbar navbar-expand-sm navbar-light" style="background-color: white ; box-shadow: 0 2px 10px -5px rgba(0, 0, 0, 0.3); ">
+              <div class="container-fluid">
+                  <div class="d-none d-sm-block ">
+                      <a class="navbar-brand " href="./index.html" id="navbar-brand">
+                          <img src="./img/BottomLogo.png" alt="logo" style="padding-left: 5%; padding-right: 3%; height: 5vw;">
+                      </a>
+                  </div>
+                  <div class="d-block d-sm-none">
+                    <span style=" font-size: 40px; color:#640b35; font-weight: 600; font-family: 'Satisfy',sans-serif; ">
+                        My Orders
+                    </span>
+                  </div>
+                   <div class="col-sm-10 " style="float: left; ">
+                      <div class="row justify-content-between d-none d-sm-flex " style="padding-left: 34%; white-space:nowrap; ">
+                          <span style=" font-size: 40px; color:#640b35; font-weight: 600; font-family: 'Satisfy',sans-serif; ">
+                              My Orders
+                          </span>
+                          <div class="user-details-container ">
+                              <div class="user-profile-image-container ">
+                                  <img src=" " alt=" ">
+                              </div>
+                              <div class="user-name-container nav-item logout-button">
+                                  <div class="nav-link">
+                                    <span>Welcome, </span> <br>
+                                    <span class="user-name"></span>
+                                  </div>
+                              </div>
+                          </div>
+                          <a class="login-button navbar-text" class="navbar-text" style=" display: none;margin-left: 10%; float: right; color: rgba(5, 1, 7, 0.562); font-family: 'Playfair Display', serif " id="login-button ">
+                              <button class=" signup-button ">
+                                  <img src="./img/person.svg " alt=" " style="height: fit-content;margin-left: -3px; "> 
+                                  Sign up
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header> 
+        <div class="container w-100 d-flex align-items-center justify-content-center flex-column" style="height: fit-content; margin-top: 50px;">
+            <h1 class="main-text" id="nothing-text"></h1>
+            <div class="row d-flex justify-content-center mx-auto" style="min-width:80%;"  id="card-container">
+                <!-- section cards will be added through JavaScript code -->
+                <div id="section-card-loader" class="mx-auto my-auto" style="display: flex; min-width:30%; min-height:100vh; align-self:center;"></div>
+            </div>
+        </div>
+        <div id="for-download" style="position: absolute; left: 100px;">
+            <!-- used for storing the card that is to be downloaded -->
+        </div>
+    <br/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- bootstrap-4.3 -->
+    
+    <!-- firestore -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-analytics.js"></script>
+    <!-- firestore -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script src="js/jspdf.min.js"></script>
+    <script type="text/javascript" src="./js/firebaseUtils.js" ></script>
+    <script type="text/javascript" src="./js/login.js"></script>
+    <script type="text/javascript" src="./js/lottie.js"></script>
+    <script type="text/javascript" src="./js/my_orders.js"></script>
+</body>
+</html>

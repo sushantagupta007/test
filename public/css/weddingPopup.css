@@ -1,0 +1,142 @@
+#popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 85%;
+    height: 95%;
+    padding: 4%;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+    background-color: rgba(247, 245, 245, 0.93);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s ease;
+}
+
+#popup.active{
+    top: 50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s ease;
+}
+
+.closeBtn{
+    position: absolute;
+    top: -3%;
+    left: 95%;
+    font-size: 3rem;
+}
+
+#TryAbove{
+    display: none;
+}
+
+.popup-image-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .popup-image-container img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-13%,2%) scale(0.8);
+    box-shadow: 0px 5px 25px rgba(0,0,0,0.2);
+} */
+
+.clsThirdImage{
+    position: relative;
+    top: 0;
+    left: -30%;
+    z-index: 200;
+    transform: scale(0.8);
+    border: 0.5px solid black;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+}
+
+.clsSecondImage{
+    position: absolute;
+    top: 2%;
+    left: 23%;
+    z-index: 100;
+    transform: scale(0.7);
+    border: 0.5px solid black;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+}
+
+.clsFirstImage{
+    position: absolute;
+    top: 2%;
+    left: 46%;
+    z-index: 50;
+    transform: scale(0.6);
+    border: 0.5px solid black;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+}
+
+.forMobile{
+    display: none;
+}
+
+@media screen and (max-width: 767px){
+    /* .popup-image-container img{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(0,-3%) scale(0.8);
+    } */
+    #TryAbove{
+        display: block;
+    }
+
+    #TryBelow{
+        display: none;
+    }
+    #popup{
+        overflow: scroll;
+    }
+    .forMobile{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(3%,2%) scale(0.8);
+        box-shadow: 0px 5px 25px rgba(0,0,0,0.2);
+    }
+    .clsFirstImage,.clsSecondImage,.clsThirdImage{
+        display: none;
+    }
+}
+
+.description{
+    display: block;
+}
+
+.price{
+    display: inline;
+    text-align: center;
+}
+
+.shareButton{
+   margin-left: 20%;
+   margin-right: 10%;
+   letter-spacing: 0.2rem;
+   color: #000;
+   background-color: rgba(247, 245, 245, 0.93);
+   padding: 1% 4%;
+   border-radius: 10px;
+   font-size: 1.5rem;
+}
+
+.likeButton{
+    letter-spacing: 0.2rem;
+    color: #000;
+    background-color: rgba(247, 245, 245, 0.93);
+    padding: 1% 2%;
+    border-radius: 10px;
+    font-size: 1.5rem;   
+}
+
+i.far{
+    font-size: 2rem;
+}

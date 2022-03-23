@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Celebrare</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Playfair+Display:wght@600&family=Satisfy&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
+
+    <link type="text/css" rel="stylesheet" href="../css/style.css" />
+    <link type="text/css" rel="stylesheet" href="../css/sharePage.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" />
+
+
+    <!-- bootstrap-4.3 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- bootstrap-4.3 -->
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-analytics.js"></script>
+    <!-- firebase -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+    <link rel="icon" href="../img/LOGO5.svg">
+
+</head>
+
+<body>
+
+    <!-- loader -->
+    <section class="loader-container">
+        <div style="width: fit-content;height: fit-content;background-color: white;padding: 20px 40px;">
+            <div id="loader">
+            </div>
+        </div>
+    </section>
+    <!-- loader -->
+
+    <!-- sharing option pop up -->
+    <section class="sharing-option-popup-container">
+        <div class="sharing-option-popup">
+            <div class="share-popup-title">
+                Share :
+                <i class="fa fa-times" id="close-sharing-option-popup-container"></i>
+            </div>
+            <div class="share-buttons-container">
+                <div class="popup-share-buttons" id="facebook-share-button">
+                    <img src="../img/facebook.svg" alt=""> Facebook
+                </div>
+                <div class="popup-share-buttons" id="whatsapp-share-button">
+                    <img src="../img/whatsapp.svg" alt=""> WhatsApp
+                </div>
+                <div class="popup-share-buttons" id="email-share-button">
+                    <img src="../img/mail.svg" alt=""> Email
+                </div>
+            </div>
+            <div class="copy-link-container">
+                <div id="link">
+                </div>
+                <div class="copy-link-button">
+                    Copy Link
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- sharing option pop up -->
+
+    <!-- login pop up if user is not logged in -->
+    <div class="login_main_display">
+        <div class="login_page">
+            <div class="left_block">
+                <span id="welcome"> Welcome </span>
+                <span id="tagline"> We love our users</span>
+            </div>
+            <div class="right_block">
+                <div id="close-login-popup">
+                    <i class="fa fa-times" id="close-sharing-option-popup-container"></i>
+                </div>
+                <div class="social_login" style="width: 488px;">
+                    <div id="phone_div" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;width: 488px;">
+                        <div class="logo-container logo2" style="height: 70px;">
+                            <img style="width:180px" src="../img/BottomLogo.png" alt="" />
+                        </div>
+                        <div id="container1" class="container" style="margin-top: 20px;">
+                            <div id="login" onsubmit="process(event)">
+                                <h2 id="login_title" style="color: #4f134c; font-family: lora;text-align: center;"><b>Login Account</b></h2>
+                                <p id="login_subtitle" style="color: black; font-family: lora;text-align: center;">Phone Number</p>
+                                <div style="text-align: center;">
+                                    <input id="phone" type="tel" name="phone" style="border-radius:25px;height: 50px;outline: none;width: 420px;" />
+                                </div>
+                                <div id="error-container" style="margin-left: 6%;"></div>
+                                <div style="width: 100%;text-align: center;margin-top: 20px;">
+                                    <input id="sign-in-button" type="submit" class="btn" value="Request OTP" style="align-self: center;border-radius: 25px;color: white;background-color: #4f134c;border-color: transparent;margin-top: 10px;width: 420px;height: 50px;" />
+                                    <div style="display: flex;margin-top: 20px;">
+                                        <hr color=black style="width: 30%;color: #4f134c; font-family: lora;">
+                                        <p>Or Sign in with Google</p>
+                                        <hr color=black style="width: 30%;">
+                                    </div>
+                                    <div style="display: flex;justify-content: center;margin-top: 10px;">
+                                        <div id="googleLogIn" style="border: 2px solid black;width: 420px;height: 50px;border-radius: 25px; display: flex;">
+                                            <img src="../img/gogle.svg" alt="" id="google-icon" /> Continue with Google
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container2">
+                            <h2 style="text-align: center;color: #4f134c; font-family: lora;margin-top: 20px;"><b>OTP Verification</b></h2>
+                            <p id="no_div" style="text-align: center;color: #4f134c; font-family: lora;margin-top: 10px;">Enter the OTP forwarded to <b id="no_bold"></b> </p>
+                            <div class="userInput" style="display: flex;justify-content: center;margin-top: 20px;z-index: 1000 !important;">
+                                <input class="inp" type="text" id='ist' maxlength="1" onkeyup="clickEvent(this,'sec')">
+                                <input class="inp" type="text" id="sec" maxlength="1" onkeyup="clickEvent(this,'third')">
+                                <input class="inp" type="text" id="third" maxlength="1" onkeyup="clickEvent(this,'fourth')">
+                                <input class="inp" type="text" id="fourth" maxlength="1" onkeyup="clickEvent(this,'fifth')">
+                                <input class="inp" type="text" id="fifth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
+                                <input class="inp" type="text" id="sixth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
+                            </div>
+                            <div style="text-align: center;">
+                                <h7 style="color: rgb(167, 164, 164);">Didn't you receive the OTP?</h7>
+                                <button onclick="resend();" style="border: none;background-color: transparent;">Resend OTP</button>
+                            </div>
+                            <div style="text-align: center;margin-top: 120px;">
+                                <button class="button" id=" store " type="button " onclick="show(); ">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span id="tagline " class="d-flex d-lg-none " style="padding-top: 0px; "> We love our users</span>
+            </div>
+        </div>
+    </div>
+    <!-- login pop up if user is not logged in -->
+
+
+    <section>
+        <div class="container-fluid" style="background-color: #f9f9fb;">
+            <div class="row header">
+                <div class="col-6 col-md-4">
+                    <div class="logo-container">
+                        <img src="../img/BottomLogo.png" alt="" class="logo-image">
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="title-container">
+                        <div class="title">
+                            Sharing Option
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 d-none d-md-flex">
+                    <div class="user-details-container">
+                        <div class="user-profile-image-container">
+                            <img src="" alt="">
+                        </div>
+                        <div class="user-name-container">
+                            <span>Welcome, </span>
+                            <span class="user-name"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-display">
+
+        <section class="share-option-container">
+            <div class="container-fluid">
+                <div class="row w-100 m-0">
+                    <div class="col-lg-9 d-flex p-0 p-md-4 justify-content-center" id='m-box'>
+                        <div class="add-music-block">
+                            <div class="tagline-container">
+                                <div class="tagline-bullet-container">
+                                    <div class="tagline-bullet">
+                                    </div>
+                                </div>
+                                <div class="tagline">
+                                    Add music & dialogues from, your device or celebrare library.
+                                </div>
+                            </div>
+                            <div class="illustration-container">
+                                <div id="lady-playing-guitar"></div>
+                                <div>
+                                    <a href="../selectMusicPage/musicPage.html">
+                                        <div class="button" id="add-music-button">ADD MUSIC</div>
+                                    </a>
+                                    <div class="music-name"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3 mt-4 mt-md-5" style="position: relative;" id="b-box">
+                        <div class="share-link-button-container">
+                            <a id="final-preview-link">
+                                <div class="final-preview-button">Preview Card</div>
+                            </a>
+                            <a>
+                                <div class="share-link-button">
+                                    Share via link
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="download-option-container">
+            <div class="container-flluid">
+                <div class="row w-100 m-0">
+                    <div class="col-lg-6">
+                        <div class="download-features-container">
+                            <div class="download-features">
+                                <div class="features">
+                                    <div class="tagline-bullet-container">
+                                        <div class="tagline-bullet">
+                                        </div>
+                                    </div>
+                                    No Background Music.
+                                </div>
+                                <div class="features">
+                                    <div class="tagline-bullet-container">
+                                        <div class="tagline-bullet">
+                                        </div>
+                                    </div>
+                                    No Personalized Illustration.
+                                </div>
+                                <div class="features">
+                                    <div class="tagline-bullet-container">
+                                        <div class="tagline-bullet">
+                                        </div>
+                                    </div>
+                                    With Celebrare Logo.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mt-4 mt-lg-0">
+                        <div class="download-button-container">
+                            <div class="download-button">
+                                Download File
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="bottom-tagline">We love your Smile!</div>
+
+    </section>
+
+    <script type="text/javascript" src="../js/firebaseUtils.js"></script>
+    <script type="text/javascript" src="../js/lottie.js"></script>
+    <script type="text/javascript" src="../js/sharePage.js"></script>
+
+</body>
+
+</html>

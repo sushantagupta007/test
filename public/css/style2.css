@@ -1,0 +1,451 @@
+ul {
+display: block;
+list-style-type: disc;
+margin-block-start: 1em;
+margin-block-end: 1em;
+margin-inline-start: 0px;
+margin-inline-end: 0px;
+padding-inline-start: 0px;
+}
+
+.progress-container,#progressImgBar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#progressImgBar li{
+  list-style-type: none;
+  float:left;
+  position: relative;
+  text-align: center;
+}
+#progressImgBar li::before{
+  filter: drop-shadow(0px 3px 1px rgba(0,0,0,0.5));
+  content: url('../img/LOGO-white-bird.svg');
+  display:block;
+  margin: 0px auto 10px auto;
+  animation: changeLetters 1s ease;
+}
+
+
+@keyframes changeLetters {
+  0%  {content: url('../img/LOGO-bird.svg');}
+  50% {opacity: 0.5;}
+  100%{content: url('../img/LOGO-white-bird.svg');}
+}
+#progressImgBar li::after{
+  content:'';
+  position: absolute;
+  left:-40%;
+  width:70%;
+  background-color: pink;
+  transition: background-color 1s ease;
+  transform:translateX(10%);
+  top:30%;
+  z-index: -1;
+  border-radius:15px;
+}
+@keyframes changeLetter {
+  0%  {content: url('../img/LOGO-white-bird.svg');}
+  50% {opacity: 0.5;}
+  100%{content: url('../img/LOGO-bird.svg');}
+}
+#progressImgBar li.active:before{
+  content: url('../img/LOGO-bird.svg');
+  animation: changeLetter 1s ease-in;
+}
+#progressImgBar li.active:after{
+  background-color: #4f134c;
+  transition: background-color 1s ease;
+}
+
+
+/*Progress header designing*/
+
+@media (min-width:0px) {
+  /*header designing*/
+  #header-logo {width:100%;}
+  #celebrare-logo {display:flex; justify-content: center; align-items: center; width:180px ; height: 50px;}
+  /*setting font size and color for the progress bar status*/
+
+  .logo { font-size:10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: rgba(0,0,0,0.5)}
+  #header-logo {width:100%;;}
+  .progress-container {visibility: hidden; height: 0px; width:0px;}
+}
+
+
+@media (min-width:360px) {
+  .progress-container {visibility: visible; height:auto; width:100%;}
+  #progressImgBar li {width:25%;}
+  #progressImgBar li:first-child:after {content:none;}
+  #progressImgBar li::before {height: 15px ;width: 15px;}
+  #progressImgBar li::after {height:2px;}
+  #header-logo, #progressImgBar {width:100%;}
+}
+
+
+@media (min-width:800px) {
+  /*header designing*/
+  .header-form {display: flex;}
+  /*celebrare heading logo size*/
+  #celebrare-logo {width: 200px ; height: 80px; }
+  #progressImgBar li:first-child:after {content:'';}
+  #progressImgBar li::after {height: 3px;}
+  #progressImgBar li::before {height: 20px ;width: 20px;}
+  #header-logo, #progressImgBar li {width:25%;}
+  .progress-container, #progressImgBar {width:70%;}
+  .logo {font-size:13px;}
+}
+
+
+
+
+/*form elements*/
+.input-field{
+  padding: 6px;
+  border: 2px solid rgba(0,0,0,0.3);
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  color:rgba(0,0,0,0.5);
+}
+
+
+.placeholder-text{
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  padding: 0px 4px;
+  color: rgba(0,0,0,0.3);
+  transform-origin: top left;
+  transition: all 120ms ease-in;
+}
+
+.input-field:focus + .placeholder-text, .input-field:not(:placeholder-shown) + .placeholder-text {
+  top: -10px;
+  color:rgba(0,0,0,0.5);
+  transform: scale(0.7);
+  background-color:#fff;
+}
+
+.input-field:focus{
+  border: 2px solid red;
+}
+
+@media(min-width:0px){
+
+
+
+  .bg-details             {min-width:100%; margin-bottom:30px; border:1px solid rgba(0,0,0,0.4); border-radius: 15px; padding:20px;}
+  .wedding-form-div, .wedding-details-div-heading        {display: flex; justify-content: center; align-items: center;}
+  #bride-groom-details, 
+  .intput-elem            {display: block; justify-content: center; align-items: center;}
+
+  .wedding-images         {width:150px; height:150px; border-radius:50%;}
+  .bg-heading             {font-family:'Kalam', cursive; font-size:35px; font-weight:700;}
+  .input-label            {display:block; position:relative; width:97%; margin-top:10px; margin:10px 0.5%;}
+  .Label                  {margin-left:5%;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:15px; color:rgba(0,0,0,0.5); font-weight: 600;}
+  .placeholder-text       {margin-top:3px;}
+  .input-field            {margin-top:3px;}
+
+  @media(min-width:450px) {   .input-elem             {display: flex; justify-content: center; align-items: center;}}
+  @media(min-width:0px)   {   #bride-groom-details    {padding:4% 4% 20px 4%;} .calendar-div {margin:4% 4% 20px 4%;} }
+  @media(min-width:500px) {   #bride-groom-details    {padding:7% 7% 20px 7%;} .calendar-div {margin:7% 7% 20px 7%;}}
+  @media(min-width:600px) {   #bride-groom-details    {padding:10% 10% 20px 10%;}  .calendar-div {margin:10% 10% 20px 10%;}}
+  @media(min-width:700px) {   #bride-groom-details    {padding:13% 13% 20px 13%;}  .calendar-div {margin:13% 13% 20px 13%;}}
+
+  .wedding-details-div-heading {font-family:'Lora', serif; font-size:26px;}
+  #wedding-date-cal       {width:350px; height:350px;}
+  .calendar-div         {border:1px solid rgba(0, 0, 0, 0.3); border-radius : 15px; padding:10px;} 
+  .event-section         {border:1px solid rgba(0, 0, 0, 0.3); border-radius : 15px; padding:20px 0px; } 
+  .day                    {height:auto; display: flex; justify-content: center; align-items: center;font-weight: 600;}
+  .llcontainer > div > img{width:60px; height: 60px;}
+  .llcontainer            {width:150px;   border-radius:10px; padding:10px; }
+  .llcontainer> div > span{font-family : 'Kalam', cursive; font-weight: 700; font-size:15px;}
+
+  #ladki-vale             {  transform: translateX(20px);  }
+  #ladke-vale             {  transform: translateX(-20px);  }
+
+}
+
+/*main body */
+@media(min-width:850px){
+  .bg-details             {min-width:50%;border:0px solid rgba(0,0,0,0.4);padding:0px;}
+  #bride-groom-details, 
+  .wedding-form-div,
+  .input-elem,
+  .wedding-details-div-heading  {display: flex; justify-content: center; align-items: center;}
+  .wedding-images         {width:150px; height:150px; border-radius:50%;}
+  .bg-heading             {font-family:'Kalam', cursive; font-size:35px; font-weight:700;}
+  .input-label            {display:block; position:relative; width:47%; margin-top:10px; margin:10px 0.5%;}
+  .Label                  { font-size:20px;}
+  .fam-details            {border-right: 1px solid rgba(0,0,0,0.3);}
+  #bride-groom-details    {padding:3%; margin:0%;}
+  .wedding-details-div-heading {font-family:'Lora', serif; font-size:45px;}
+  .calendar-div           {border:0px solid rgba(0, 0, 0, 0.3); border-radius : 15px;} 
+
+  #wedding-date-cal       {width:600px; height:480px;} 
+  .day                    {height:60px; display: flex; justify-content: center; align-items: center;font-weight: 600;}
+  .llcontainer > div > img{width:80px; height: 80px;}
+  .llcontainer            {width:220px;   border-radius:10px; padding:10px; }
+  .llcontainer> div > span{font-family : 'Kalam', cursive; font-weight: 700; font-size:20px;}
+  #ladki-vale             {  transform: translateX(25px);  }
+  #ladke-vale             {  transform: translateX(-25px);  }
+}
+
+
+#ladki-vale{
+  clip-path: polygon(0% 0%, 0% 100%, 70% 100%, 100% 0% );
+  background-color: white;
+  cursor: pointer;
+}
+.main_box{
+  filter: drop-shadow(4px 4px  4px rgba(0, 0, 0, 0.3)); 
+ }
+#ladke-vale{
+  clip-path:polygon(30% 0%, 0% 100%, 100% 100%, 100% 0% );
+  background-color: white;
+  cursor: pointer;
+}
+.week{
+  padding:0px; margin:0px; border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.week .day.header {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+.day{
+  border:1px solid rgba(0,0,0,0.1);
+}
+.week.start-on-monday .day:nth-child(6), .week.start-on-monday .day:last-child {
+  color:black;
+}
+.week .day.highlight span {
+  color: black;
+}
+
+.week .day[disabled="disabled"] span {
+  color: #aaa;
+  cursor: not-allowed;
+}
+.week .day.highlight.disabled span{
+  color: #AAA;
+}
+
+.week .day.highlight.disabled:hover span{
+  color: white;
+}
+
+
+.week .day:hover span{
+  background:rgba(0,0,0,0.3);
+  color:white;
+  transition: background-color 0.5s ease;
+
+}
+.week .day.selected span{
+  background:tomato;
+  transition: background-color 1s ease;
+}
+.week.highlight {
+  background: white;
+}
+
+
+.buttons-container { 
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  border-bottom: 0px solid #eee;
+  border-top: 1px solid rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(0,0,0,0.2);
+  border-left: 1px solid rgba(0,0,0,0.2);
+}
+
+.buttons-container .label-container {
+  text-transform: capitalize;
+  font-weight: 550;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.prev-button:hover, .next-button:hover {
+  background: rgba(0,0,0,0.3);
+  color:white;
+  border: none;
+  padding: 10px;
+}
+
+.months-wrapper .month.one-third:hover {
+ background:rgba(0,0,0,0.3);
+ color:white;
+}
+
+
+
+/* for add Event section designing */
+
+
+.formfield{
+  position: relative;
+  box-sizing: border-box;
+  float: left;
+  padding: 0px;
+  width:100%;
+  margin:8px 0px;
+  border: 0px;
+  font-size: 1em;
+}
+.formfield *{
+  box-sizing: border-box;
+}
+
+.formfield>input, .formfield>label{
+  color:rgba(0, 0, 0, 0.8);
+  padding:9px;
+  width: 100%;
+  font-weight: 400;
+}
+.formfield>input{
+  border: 1.8px solid #55595a62;
+  border-radius:5px;
+  outline: none;
+}
+.formfield>label{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  color: rgba(0,0,0,0.5);
+}
+input:focus + label, input:valid + label{
+
+  color: rgba(0,0,0,0.5);
+  font-size: 0.7em;
+  width: auto;
+  height: 1.3em;
+  padding: 0px 0.5em 0px 0.5em;
+  margin: 0px;
+  /*outline: 1px solid red; /*for debugigng purposes only*/
+  background: white;
+  transition: 0.2s ease-in-out;
+  top: -0.8em;
+  left: 1em;
+}
+
+input:focus{
+  border-color:red;
+}
+
+.addPopup{
+  width:100%;
+}
+
+#done{
+  transition: 0.5s  ease;
+}
+
+#done:hover{
+  box-shadow: 0px 0px 5px 2px rgba(255, 99, 71, 0.575);
+}
+
+.addPopupContainer{
+  box-shadow:0px 0px 10px 1000px rgba(0,0,0,0.7); background-color:white; display: flex; justify-content: center; align-items:center; height:auto;
+}
+.add-input-label      {  display:block; position:relative; width:99.1%; margin-top:10px; }
+
+@media(min-width:0px){
+  
+  .addPopupField .input-field {padding:3px;}
+  .addPopupField .placeholder-text {margin-top:0px; top:7px; padding:0px;}
+  .addPopupContainer    {  width:95vw; padding:20px; border-radius: 1rem; }  
+  .add-input-label      {  margin:7px 0.5%;}
+}
+
+@media(min-width:330px){
+  
+  .addPopupField .input-field {padding:3px;}
+  .addPopupContainer    {  width:90vw; padding:20px; border-radius: 1rem; }  
+  .add-input-label      {  margin:7px 0.5%;}
+}
+
+@media(min-width:450px){
+  .addPopupField .input-field {padding:6px;}
+  .addPopupField .placeholder-text {margin-top:5px; top:7px; padding:0 4px;}
+  .addPopupContainer    {  width:400px; padding:20px; border-radius: 1rem; }  
+  .add-input-label      {  margin:10px 0.5%;}
+
+
+}
+
+@media(min-width:600px){
+  .addPopupContainer    {  width:500px; padding:20px; border-radius: 1rem; }  
+}
+
+
+/*prev next buttons*/
+
+.button {
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+  width: 90px;
+  transition: all 0.5s;
+  margin: 5px;
+}
+
+.button span {
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+
+#nextSectionButton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+#nextSectionButton:hover span {
+  padding-right: 25px;
+}
+
+#nextSectionButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#nextSectionButton:focus{
+    outline:none; border:none;
+}
+
+#prevSectionButton:focus{
+  outline:none; border:none;
+}
+#prevSectionButton span:after {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+#prevSectionButton:hover span {
+  padding-left: 25px;
+}
+
+#prevSectionButton:hover span:after {
+  opacity: 1;
+  left: 0;
+}

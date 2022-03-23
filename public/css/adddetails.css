@@ -1,0 +1,49 @@
+*{
+    padding: 0%;
+    margin:0%;
+}
+
+.bride{
+    border-right: 1px solid #000;
+}
+
+.button{
+    font-size:30px;
+    letter-spacing:5px;
+    background-color: rgb(241, 105, 105);
+    color:#fff;
+    width:15%;
+    margin:auto;
+    height:50px;
+    border-radius: 13px;
+    outline:none;
+    border:1px solid transparent
+}
+.event{
+    width:25%;
+    margin: auto;
+}
+@media (max-width: 360px) {
+
+    .bride,.groom{
+        border: 2px solid #ccc;
+        padding:50px  40px;
+        border-radius: 20px;
+    }
+    .button{
+        font-size:30px;
+        letter-spacing:5px;
+        background-color: red;
+        color:#fff;
+        width:50%;
+        margin:auto;
+        height:50px;
+        border-radius: 5px;
+        outline:none;
+        border:1px solid transparent
+    }
+    .event{
+        width:75%;
+        margin:auto;
+    }
+}
