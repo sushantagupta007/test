@@ -478,7 +478,7 @@
 <script src="./js/globalWeddingDeclaration.js"></script>
 
 
-<!-- <script src="./js/wedding_page.js"></script> -->
+<script src="./server/fetch.js"></script>
 <script src="./js/WeddingPopups.js"></script>
 
 
@@ -486,7 +486,6 @@
 <script>
     $(document).ready(function(){
         setTimeout(() => {
-			console.log("this is = ",localStorage.getItem("elem_id").split("-")[1])
             show(localStorage.getItem("elem_id").split("-")[1])
         }, 1000)
     })
@@ -547,90 +546,3 @@
 	</script>
 
 
-
-
-<!-- <style>
-    .popup-slide-class {
-        min-width: 100%;
-        position: relative;
-        background-size: 100% 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-size: cover;
-        transform-style: flat;
-    }
-
-    #popup {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: -1;
-    }
-
-    .wedding-popup-slider {
-        border-radius: 0 !important;
-        align-items: center;
-        overflow-x: hidden;
-        padding-left: 5;
-        padding-right: 5;
-        justify-content: center;
-        width: 100%;
-    }
-</style>
-
-<div id="popup">
-
-    <div class="wedding-popup-slider">
-
-
-        <div>
-
-            <div class="swiper-container-popup swiper-container" style="z-index: 999; transform-style: flat">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="swiper-slide-popup" id="popup-slide-1"></div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="swiper-slide-popup popup-slide-class" id="popup-slide-2"></div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="swiper-slide-popup popup-slide-class" id="popup-slide-3"></div>
-                    </div>
-                </div>
-
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-
-        <div class="description-popup"
-            style=" min-height: 100%; padding: 0 5%; top: 0; right: 0; display: flex; justify-content: center; align-items: center; ">
-            <div>
-
-                <div id="popup-try-button-up-div"
-                    style=" display: flex; justify-content: center; align-items: center; ">
-                    <button id="popup-try-button-up" onclick="window.location='form.html';"
-                        style=" background-color: rgba(255, 0, 0, 0.7); color: white; outline: none; border: transparent; border-radius: 10px; box-shadow: 0px 0px 15px 3px rgba(255, 0, 0, 0.5); margin-bottom: 20px; ">
-                        Try this card
-                        <img src="./img/right-arrow.svg" alt="" width="40" height="20" />
-                    </button>
-                </div>
-                <div style="width: 100%; min-height: 100px; text-align: center">
-                    <div style=" text-align: center; font-size: 25px; margin-bottom: 20px; font-family: 'Lora', sans-serif; "
-                        id="popup-title"></div>
-                    <div style=" text-align: center; font-size: 20px; margin-bottom: 10px; display: flex; justify-content: center; "
-                        id="popup-price"></div>
-                    <div style=" min-height: 100px; margin-bottom: 20px; text-align: justify; font-family: 'Lora', serif; "
-                        id="popup-description"></div>
-                </div>
-                <div>
-                    <button id="popup-try-button" data-id="" onclick="window.location='form.html';"
-                        style=" background-color: red; color: white; outline: none; border: transparent; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(255, 0, 0, 0.5); ">
-                        Try this card
-                        <img src="./img/right-arrow.svg" alt="" width="40" height="20" />
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->

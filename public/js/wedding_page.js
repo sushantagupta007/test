@@ -137,7 +137,10 @@ addText = (id, cat) => {
 	brideName = userSessionDataObject["brideFirstName"];
 	groomName = userSessionDataObject["groomFirstName"];
 
-	if (cat == "rc") userSessionDataObject["RCmainPageCards"][id] = cat;
+	if (cat == "rc")
+	{
+		userSessionDataObject["RCmainPageCards"] = {id : cat};
+	} 
 	localStorage.setItem(
 		"userSessionData",
 		JSON.stringify(userSessionDataObject)
@@ -168,7 +171,7 @@ addText = (id, cat) => {
 		}
 	}
 	let val = ratio * scaling_factor[cat][break_point];
-
+	// console.log("all good till here")
 	//declaring div details
 	let created_elem_string = `<div id="${cat}-${id}-details" style="position:absolute; width:1000px; height:1500px; transform-origin: 0% 0%; left:0px; top:0px; transform:scale(${val}, ${val}); overflow:hidden;">`;
 
@@ -250,65 +253,65 @@ addText = (id, cat) => {
 /* The elements that are going to be resized in reponsive mode through js should be added in this function */
 function changeProperties() {
 	/* resizing popup box on resizing the window */
-	let elem = document.getElementById(`popup`);
-	if (elem.style.visibility == "visible") {
-		if (window.innerWidth > 900) elem.style.top = "50%";
-		else elem.style.top = "60%";
-		elem.style.transition = "top 0.7s ease";
-		elem.style.visibility = "visible";
-	}
+	// let elem = document.getElementById(`popup`);
+	// if (elem.style.visibility == "visible") {
+	// 	if (window.innerWidth > 900) elem.style.top = "50%";
+	// 	else elem.style.top = "60%";
+	// 	elem.style.transition = "top 0.7s ease";
+	// 	elem.style.visibility = "visible";
+	// }
 
-	/*Resizing the text on each card*/
-	/*royal cards*/
-	//getting the current width of the window;
-	let current_width = window.innerWidth;
-	let break_point;
-	//as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
-	let ratio = 450 / 1500;
+	// /*Resizing the text on each card*/
+	// /*royal cards*/
+	// //getting the current width of the window;
+	// let current_width = window.innerWidth;
+	// let break_point;
+	// //as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
+	// let ratio = 450 / 1500;
 
-	//getting the scaling factor of the royal slides according to current width of window
-	for (let i = 0; i < break_points["rc"].length; i++) {
-		if (current_width >= break_points["rc"][i]) {
-			break_point = break_points["rc"][i];
-			break;
-		}
-	}
+	// //getting the scaling factor of the royal slides according to current width of window
+	// for (let i = 0; i < break_points["rc"].length; i++) {
+	// 	if (current_width >= break_points["rc"][i]) {
+	// 		break_point = break_points["rc"][i];
+	// 		break;
+	// 	}
+	// }
 
-	//as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
-	let val = ratio * scaling_factor["rc"][break_point];
-	//performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
-	for (let id in royalCards) {
-		let elem = document.getElementById(`rc-${id}-details`);
-		elem.style.transform = `scale(${val}, ${val})`;
-	}
+	// //as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
+	// let val = ratio * scaling_factor["rc"][break_point];
+	// //performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
+	// for (let id in royalCards) {
+	// 	let elem = document.getElementById(`rc-${id}-details`);
+	// 	elem.style.transform = `scale(${val}, ${val})`;
+	// }
 
-	/*wedding cards */
-	for (let i = 0; i < break_points["wc"].length; i++) {
-		if (current_width >= break_points["wc"][i]) {
-			break_point = break_points["wc"][i];
-			break;
-		}
-	}
-	val = ratio * scaling_factor["wc"][break_point];
+	// /*wedding cards */
+	// for (let i = 0; i < break_points["wc"].length; i++) {
+	// 	if (current_width >= break_points["wc"][i]) {
+	// 		break_point = break_points["wc"][i];
+	// 		break;
+	// 	}
+	// }
+	// val = ratio * scaling_factor["wc"][break_point];
 
-	for (let id in allWeddingCards) {
-		let elem = document.getElementById(`wc-${id}-details`);
-		elem.style.transform = `scale(${val}, ${val})`;
-	}
+	// for (let id in allWeddingCards) {
+	// 	let elem = document.getElementById(`wc-${id}-details`);
+	// 	elem.style.transform = `scale(${val}, ${val})`;
+	// }
 
-	/* resizing popup slides text */
-	//NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
-	for (let i = 0; i < popUpBreakPoints.length; i++) {
-		if (current_width >= popUpBreakPoints[i]) {
-			break_point = popUpBreakPoints[i];
-			break;
-		}
-	}
-	val = ratio * popUpScalingFactors[break_point];
-	for (let i = 1; i <= 3; i++) {
-		let elem = document.getElementById(`popup-details-${i}`);
-		elem.style.transform = `scale(${val}, ${val})`;
-	}
+	// /* resizing popup slides text */
+	// //NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
+	// for (let i = 0; i < popUpBreakPoints.length; i++) {
+	// 	if (current_width >= popUpBreakPoints[i]) {
+	// 		break_point = popUpBreakPoints[i];
+	// 		break;
+	// 	}
+	// }
+	// val = ratio * popUpScalingFactors[break_point];
+	// for (let i = 1; i <= 3; i++) {
+	// 	let elem = document.getElementById(`popup-details-${i}`);
+	// 	elem.style.transform = `scale(${val}, ${val})`;
+	// }
 }
 
 
@@ -490,6 +493,7 @@ loadBgImage = async (id, url, cat) => {
 
 
 
+
 // this is for PopupCard.html
 /* This function will just load the basic structure of slides in body  */
 loadRoyalCards = () => {
@@ -541,72 +545,103 @@ viewAllRoyalCard = async () => {
 
 
 
-// this is for PopupCard.html
+// Script Modified by aman !
 /* This function is responsible for fetching the 5 royal cards to be used in royal card section slider */
-fetchRoyalData = async () => {
-	setTimeout(() => {
-		try {
-			//check whether the data is already fetched or not;
-			let userSessionDataObject = getLocalStorage();
-			if (!Object.keys(userSessionDataObject["RCmainPageCardsDetails"]).length) {
-				let count = 0;
-				db.doc(`weddingcards/royal`)
-					.get()
-					.then((snapshot) => {
-						let royalCardData = snapshot.data();
-						for (index in royalCardData) {
-							if (count == 5) {
-								break;
-							}
-							count++;
-							royalCards[royalCardData[index][1]] = {
-								url: royalCardData[index][0],
-								text_string: royalCardData[index][3],
-								category: royalCardData[index][2],
-							};
-						}
-						/* 5 royal cards data captured -> now load the cards */
-						userSessionDataObject["RCmainPageCardsDetails"] = royalCards;
-						localStorage.setItem(
-							"userSessionData",
-							JSON.stringify(userSessionDataObject)
-						);
-						$("#royal-loader").css("display", "none");
-					})
-					.then(() => {
-						loadRoyalCards();
-					})
-					.then(() => {
-						/* If the slider is not initialized then initialize the royal slider (flag will make sure that the slider is initialized only once)*/
-						if (flag) {
-							royalSlider();
-							flag = false;
-						}
-						/* Once the slides structure is loaded, load the background image(card image) and for further details refer this function*/
-						for (id in royalCards) {
-							loadBgImage(id, royalCards[id]["url"], "rc");
-						}
-					});
-			} else {
-				$("#royal-loader").css("display", "none");
-				royalCards = userSessionDataObject["RCmainPageCardsDetails"];
-				loadRoyalCards();
-				/* If the slider is not initialized then initialize the royal slider (flag will make sure that the slider is initialized only once)*/
-				if (flag) {
-					royalSlider();
-					flag = false;
-				}
 
-				/* Once the slides structure is loaded, load the background image(card image) and for further details refer this function*/
-				for (id in royalCards) {
-					loadBgImage(id, royalCards[id]["url"], "rc");
-				}
-			}
-		} catch (err) {
-			console.log(err);
+fetchRoyalData = async () => {
+
+	let userSessionDataObject = getLocalStorage();
+	let data = {}
+	// This if condition simply checks that if the browser contains the data, we fetch earlier
+	//  i.e. data for the slider, if not then the code inside if condition will fetch the data
+	// else the code after the condition will take the data from localstorage of the browser !
+	// console.log(Object.keys(userSessionDataObject["RCmainPageCardsDetails"]))
+
+	// if (Object.keys(userSessionDataObject["RCmainPageCardsDetails"]) == undefined ||
+	// 	Object.keys(userSessionDataObject["RCmainPageCardsDetails"]).length == 0) {
+	// 	console.log("yes true")
+		data = await getData('weddingcard2/royal');
+		data = data.data();
+		userSessionDataObject["RCmainPageCardsDetails"] = royalCards;
+	// }
+	// else {
+	// 	data = userSessionDataObject["RCmainPageCardsDetails"]
+	// }
+
+	for (let i=1 ; i<=5 ; i++) {
+		// Every id of the card is stored as a key in the global object => royalCards
+		// So that we can access the data in the whole file !
+		royalCards[data[i][1]] = {
+			id : data[i][1],
+			url : data[i][0],
+			category : data[i][2],
+			text_string : data[i][3]
 		}
-	}, 0);
+	}
+
+	// Later on the loader will be removed !
+	$("#royal-loader").css("display", "none");
+
+	// And this loop will add the cards in swiper container !
+	for (id in royalCards) {
+		$("#royal_cards_display").append(`
+		<div class="swiper-slide" >
+		<div class="swiper-images" id="rc-${id}"  data-id="${id}" onclick="showPopup(this)"  style="position: relative; background-size: 100% 100%; display: flex; justify-content: center; align-items: center;">
+			  <div id="rc-${id}-loader" style="width:100%; height:100%;"></div>
+		  </div>
+		  </div>`);
+
+		LoadAnimation(`rc-${id}-loader`);
+	}
+
+	// This code simply detects, if the user visits the page for the first time
+	// then it will start playing the slider
+	if (flag) {
+		royalSlider();
+		flag = false;
+	}
+
+	/* Once the slides structure is loaded, load the background image(card image) and for further details refer this function*/
+	for (id in royalCards) {
+		loadBgImage(id, royalCards[id]["url"], "rc");
+	}
+
+
+	/*at last the append the slide of view all card*/
+
+
 };
+// Script Modified by aman End!
+
+
+
+
+
+// Script written by Aman!
+function getPrice(amount)
+{
+	let price = '';
+	let onceStarted = false;
+	for(let i=0 ; i<amount.length ; i++)
+	{
+		if(amount[i]>=0 && amount[i]<=9){
+			price += amount[i]
+			onceStarted = true;
+		} 
+		else{
+			if(onceStarted) break;
+		}
+	}
+	return parseInt(price);
+}
+function getdiscount(offer_price , mrp_price)
+{
+	offer_price = getPrice(offer_price);
+	mrp_price = getPrice(mrp_price);
+
+	return 100-(offer_price * 100 / mrp_price)
+}
+// Script written by Aman End !
 
 
 
@@ -616,13 +651,14 @@ fetchRoyalData = async () => {
 function loadWeddingCards() {
 	// loading the structure
 	for (id in allWeddingCards) {
+		
+		
+		// Script modified by aman !
 		let offer_price = price[`${allWeddingCards[id]["category"]}Price`].substr(1);
-		if (offer_price == "ree") {
-			offer_price = 0;
-		}
-		let ori_price = price[`${allWeddingCards[id]["category"]}StrikePrice`].substr(1);
-		let offer = ((ori_price - offer_price) * 100) / ori_price;
-		offer = Math.round(offer);
+		let mrp_price = price[`${allWeddingCards[id]["category"]}StrikePrice`].substr(1);
+		let offer = Math.round(getdiscount(offer_price , mrp_price));
+		// Script modified by aman end!
+		
 
 		$("#all_wedding_cards_display").append(`
       <div class="col-4 col-sm-4 wedding-card">
@@ -630,10 +666,8 @@ function loadWeddingCards() {
               <div id="wc-${id}-loader" style="width:100%; height:100%;"></div>
           </div>
           <div class="details" id="${id}-price-details" style="display: flex; width: 100%; justify-content: space-around;">
-              <span class="cost">${price[`${allWeddingCards[id]["category"]}Price`]
-			}</span>
-              <span class="deleted" style="font-style: italic; text-decoration: line-through;">${price[`${allWeddingCards[id]["category"]}StrikePrice`]
-			}</span>
+              <span class="cost">${offer_price}</span>
+              <span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
               <span class="offer">${offer}%off</span>
           </div>
       </div>`);
@@ -646,74 +680,64 @@ function loadWeddingCards() {
 }
 
 
+// Script written by aman
+
+// this piece of code fetch the currency of your country by your ip address !
+var countriesAvailable = {'ae':1 , 'gb':1 , 'in':1 , 'my':1 , 'pk':1 , 'us':1}
+var myCountryCode = null;
+const fetch_ip = async ()=>{
+	let ipInfo = await fetch("http://ip-api.com/json/");
+	let ip_data = await ipInfo.json();
+	let country_code = ip_data["countryCode"].toLowerCase();
+	myCountryCode = country_code;
+
+	// the variable => myCountryCode, is further used in below function !
+}
+// Script written by aman end !
+
 
 
 
 // this is for PopupCard.html
 /* This function will fetch the all wedding cards section first page according to the database and also the price  */
 fetchAllWeddingData = async () => {
+	
 	let userSessionDataObject = getLocalStorage();
 
-	// console.log("this is the price data = ",
-	// 	userSessionDataObject["priceData"]
-	// )
-	// console.log(
-	// 	Object.keys(userSessionDataObject["priceData"]).length
-	// )
-	setTimeout(() => {
-		try {
-			//check whether the data is already fetched or not;
-			let userSessionDataObject = getLocalStorage();
-			if (!Object.keys(userSessionDataObject["priceData"]).length) 
-			{
-				console.log('hii ')
-				db.doc(`weddingcards/price`)
-				.get()
-				.then((snapshot) => {
-					
-					/* storing price data that we got from price field from firebase into price var in js*/
-					price = snapshot.data();
-					userSessionDataObject["priceData"] = price;
-					/* after retrieving price - now extracting data for all wedding cards - first page*/
+	// This line of code is fetching the country code of current user
+	//  if the country code in not present in databse, it will take in as default country code
+	await fetch_ip();
+	if(!countriesAvailable[myCountryCode]) myCountryCode = "in"
 
-					console.log('here')
-					db.doc(`weddingcard2/allcards/cards/first`)
-					.get()
-					.then((snapshot_card) => {
-						let weddingCardData = snapshot_card.data();
+	// fetching the pricing accouding the country code !
+	price = await getData('weddingcards/country_pricing/prices/'+myCountryCode);
+	price = price.data();
+	userSessionDataObject["priceData"] = price;
+	
+	
+	
+	
+	// fetching the wedding cards data
+	let weddingCardData = await getData('weddingcard2/allcards/cards/first');
+	weddingCardData = weddingCardData.data();
 
-						for (index in weddingCardData) {
-							allWeddingCards[weddingCardData[index][1]] = {
-								url: weddingCardData[index][0],
-								text_string: weddingCardData[index][3],
-								category: weddingCardData[index][2],
-							};
-						}
-						
-						userSessionDataObject["WCmainPageCardsDetails"] = allWeddingCards;
-						localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-						$(`#wedding-loader`).css("display", "none");
+	for (index in weddingCardData) {
+		allWeddingCards[weddingCardData[index][1]] = {
+			url: weddingCardData[index][0],
+			text_string: weddingCardData[index][3],
+			category: weddingCardData[index][2],
+		};
+	}
 
-						/* all wedding cards data captured -> now load the cards */
-					})
-					.then(() => {
-						loadWeddingCards();
-					});
-				});
 
-			} 
-			else 
-			{
-				//This time no fetching from the database ;
-				price = userSessionDataObject["priceData"];
-				allWeddingCards = userSessionDataObject["WCmainPageCardsDetails"];
-				$(`#wedding-loader`).css("display", "none");
-				loadWeddingCards();
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	}, 0);
+	userSessionDataObject["WCmainPageCardsDetails"] = allWeddingCards;
+	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+	$(`#wedding-loader`).css("display", "none");
+
+	/* all wedding cards data captured -> now load the cards */
+
+	loadWeddingCards();
+
 };
 
 

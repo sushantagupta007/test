@@ -63,7 +63,6 @@ let scaling_factor = {
 function show(elem_id) {
 	// google analytics logging event
 	// analytics.logEvent("website_wedding_card_big_view");
-	console.log('is is = ',elem_id)
 	let id = elem_id
 	let elem = document.getElementById(`popup`);
 	document.body.style.overflowY = "scroll";
@@ -163,99 +162,54 @@ function vanish(element) {
 /* this function will load the 3 popup slides on the popup  */
 // id - represents id of the card to fetch the card info from firestore
 loadPopupSlides = async (id) => {
-	setTimeout(() => {
-		try {
-			let userSessionDataObject = getLocalStorage();
-			//to check whether we have already fetched the data of the clicked card or not;
-			if (!(id in userSessionDataObject["popupCardsData"])) {
-				db.doc(`weddingcard2/allcard/cards/${id}`)
-					.get()
-					.then((snapshot_card) => {
-						let popupCardData = snapshot_card.data();
-						/* capture data */
-						popupCards[id] = {
-							bg1: popupCardData["smallImgFrontLink"],
-							bg2: popupCardData["smallImgBackLink"],
-							bg3: popupCardData["smallImgBackLink"],
-							front: popupCardData["mediumImgFrontLink"],
-							back: popupCardData["mediumImgBackLink"],
-							description: popupCardData[`description`],
-							title: popupCardData[`title`],
-							category: popupCardData["category"],
-							text1: popupCardData["text1"],
-							text2: popupCardData["text2"],
-							text3: popupCardData["text3"],
-						};
+	
+	let userSessionDataObject = getLocalStorage();
+	if( userSessionDataObject["popupCardsData"] == undefined || userSessionDataObject["popupCardsData"][id] == undefined )
+	{
+		let popupCardData = await getData('weddingcard2/allcard/cards/'+id);
+		popupCardData = popupCardData.data();
+		popupCards[id] = {
+			bg1: popupCardData["smallImgFrontLink"],
+			bg2: popupCardData["smallImgBackLink"],
+			bg3: popupCardData["smallImgBackLink"],
+			front: popupCardData["mediumImgFrontLink"],
+			back: popupCardData["mediumImgBackLink"],
+			description: popupCardData[`description`],
+			title: popupCardData[`title`],
+			category: popupCardData["category"],
+			text1: popupCardData["text1"],
+			text2: popupCardData["text2"],
+			text3: popupCardData["text3"],
+		};
+		userSessionDataObject["popupCardsData"] = {id : popupCards[id]};
+		localStorage.setItem("userSessionData",JSON.stringify(userSessionDataObject));
+	}
 
-						userSessionDataObject["popupCardsData"][id] = popupCards[id];
-						localStorage.setItem(
-							"userSessionData",
-							JSON.stringify(userSessionDataObject)
-						);
+	/* this will append the loader in each of the three slides */
+	for (let i = 1; i <= 3; i++) {
+		$(`#popup-slide-${i}`).append(
+			`<div class="swiper-slide-popup" id="popup-slide-${i}-loader" style="width:100%; height:100%; z-index:inherit;"></div>`
+		);
+		let animation = bodymovin.loadAnimation({
+			container: document.getElementById(`popup-slide-${i}-loader`),
+			renderer: "svg",
+			loop: true,
+			autoplay: true,
+			path: "./animations/loading.json",
+		});
+	}
 
-						/* this will append the loader in each of the three slides */
-						for (let i = 1; i <= 3; i++) {
-							$(`#popup-slide-${i}`).append(
-								`<div class="swiper-slide-popup" id="popup-slide-${i}-loader" style="width:100%; height:100%; z-index:inherit;"></div>`
-							);
-							let animation = bodymovin.loadAnimation({
-								container: document.getElementById(`popup-slide-${i}-loader`),
-								renderer: "svg",
-								loop: true,
-								autoplay: true,
-								path: "./animations/loading.json",
-							});
-						}
+	document.getElementById(`popup-description`).innerHTML = popupCards[id]["description"];
+	document.getElementById(`popup-title`).innerHTML = popupCards[id]["title"];
+	// document.getElementById(`popup-price`).innerHTML = document.getElementById(`${id}-price-details`).innerHTML;
+	document.getElementById(`popup-price`).innerHTML = localStorage.getItem("innerHTML")
 
 
-						/* the statements below will add the description,title and price for the clicked card on the popup */
-						document.getElementById(`popup-description`).innerHTML = popupCards[id]["description"];
-						document.getElementById(`popup-title`).innerHTML = popupCards[id]["title"];
-						document.getElementById(`popup-price`).innerHTML = document.getElementById(`${id}-price-details`).innerHTML;
-					})
-					.then(() => {
-						/*loading popup background images for each of the three slides*/
-						for (let looper = 1; looper <= 3; looper++) {
-							loadPopupBgImage(id, looper);
-						}
-					})
-					.then(() => {
-						addPopupText(id);
-					});
-			} else {
-				popupCards[id] = userSessionDataObject["popupCardsData"][id];
-				/* this will append the loader in each of the three slides */
-				for (let i = 1; i <= 3; i++) {
-					$(`#popup-slide-${i}`).append(
-						`<div class="swiper-slide-popup" id="popup-slide-${i}-loader" style="width:100%; height:100%; z-index:inherit;"></div>`
-					);
-					let animation = bodymovin.loadAnimation({
-						container: document.getElementById(`popup-slide-${i}-loader`),
-						renderer: "svg",
-						loop: true,
-						autoplay: true,
-						path: "./animations/loading.json",
-					});
-				}
+	for (let looper = 1; looper <= 3; looper++) {
+		loadPopupBgImage(id, looper);
+	}
 
-				// console.log("id to be search = " + `${id}-price-details`)
-				/* the statements below will add the description,title and price for the clicked card on the popup */
-				document.getElementById(`popup-description`).innerHTML =
-					popupCards[id]["description"];
-				document.getElementById(`popup-title`).innerHTML =
-					popupCards[id]["title"];
-				document.getElementById(`popup-price`).innerHTML = localStorage.getItem('innerHTML')
-					// document.getElementById(`${id}-price-details`).innerHTML;
-				/*loading popup background images for each of the three slides*/
-				for (let looper = 1; looper <= 3; looper++) {
-					loadPopupBgImage(id, looper);
-				}
-				addPopupText(id);
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	}, 0);
+	addPopupText(id);
 };
 
 
@@ -389,70 +343,69 @@ addPopupText = (id) => {
 
 
 
-// Called in weddingcard.html
 
 /* This function will perform the resizing of all the elements if reqiured when in responsive mode */
 /* This function is used in body tag of home page with the event onresize */
 /* The elements that are going to be resized in reponsive mode through js should be added in this function */
 function changeProperties() {
-	/* resizing popup box on resizing the window */
-	let elem = document.getElementById(`popup`);
-	if (elem.style.visibility == "visible") {
-		if (window.innerWidth > 900) elem.style.top = "50%";
-		else elem.style.top = "60%";
-		elem.style.transition = "top 0.7s ease";
-		elem.style.visibility = "visible";
-	}
+	// /* resizing popup box on resizing the window */
+	// let elem = document.getElementById(`popup`);
+	// if (elem.style.visibility == "visible") {
+	// 	if (window.innerWidth > 900) elem.style.top = "50%";
+	// 	else elem.style.top = "60%";
+	// 	elem.style.transition = "top 0.7s ease";
+	// 	elem.style.visibility = "visible";
+	// }
 
-	/*Resizing the text on each card*/
-	/*royal cards*/
-	//getting the current width of the window;
-	let current_width = window.innerWidth;
-	let break_point;
-	//as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
-	let ratio = 450 / 1500;
+	// /*Resizing the text on each card*/
+	// /*royal cards*/
+	// //getting the current width of the window;
+	// let current_width = window.innerWidth;
+	// let break_point;
+	// //as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
+	// let ratio = 450 / 1500;
 
-	//getting the scaling factor of the royal slides according to current width of window
-	for (let i = 0; i < break_points["rc"].length; i++) {
-		if (current_width >= break_points["rc"][i]) {
-			break_point = break_points["rc"][i];
-			break;
-		}
-	}
+	// //getting the scaling factor of the royal slides according to current width of window
+	// for (let i = 0; i < break_points["rc"].length; i++) {
+	// 	if (current_width >= break_points["rc"][i]) {
+	// 		break_point = break_points["rc"][i];
+	// 		break;
+	// 	}
+	// }
 
-	//as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
-	let val = ratio * scaling_factor["rc"][break_point];
-	//performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
-	for (let id in royalCards) {
-		let elem = document.getElementById(`rc-${id}-details`);
-		elem.style.transform = `scale(${val}, ${val})`;
-	}
+	// //as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
+	// let val = ratio * scaling_factor["rc"][break_point];
+	// //performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
+	// for (let id in royalCards) {
+	// 	let elem = document.getElementById(`rc-${id}-details`);
+	// 	elem.style.transform = `scale(${val}, ${val})`;
+	// }
 
-	/*wedding cards */
-	for (let i = 0; i < break_points["wc"].length; i++) {
-		if (current_width >= break_points["wc"][i]) {
-			break_point = break_points["wc"][i];
-			break;
-		}
-	}
-	val = ratio * scaling_factor["wc"][break_point];
+	// /*wedding cards */
+	// for (let i = 0; i < break_points["wc"].length; i++) {
+	// 	if (current_width >= break_points["wc"][i]) {
+	// 		break_point = break_points["wc"][i];
+	// 		break;
+	// 	}
+	// }
+	// val = ratio * scaling_factor["wc"][break_point];
 
-	for (let id in allWeddingCards) {
-		let elem = document.getElementById(`wc-${id}-details`);
-		elem.style.transform = `scale(${val}, ${val})`;
-	}
+	// for (let id in allWeddingCards) {
+	// 	let elem = document.getElementById(`wc-${id}-details`);
+	// 	elem.style.transform = `scale(${val}, ${val})`;
+	// }
 
-	/* resizing popup slides text */
-	//NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
-	for (let i = 0; i < popUpBreakPoints.length; i++) {
-		if (current_width >= popUpBreakPoints[i]) {
-			break_point = popUpBreakPoints[i];
-			break;
-		}
-	}
-	val = ratio * popUpScalingFactors[break_point];
-	for (let i = 1; i <= 3; i++) {
-		let elem = document.getElementById(`popup-details-${i}`);
-		elem.style.transform = `scale(${val}, ${val})`;
-	}
+	// /* resizing popup slides text */
+	// //NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
+	// for (let i = 0; i < popUpBreakPoints.length; i++) {
+	// 	if (current_width >= popUpBreakPoints[i]) {
+	// 		break_point = popUpBreakPoints[i];
+	// 		break;
+	// 	}
+	// }
+	// val = ratio * popUpScalingFactors[break_point];
+	// for (let i = 1; i <= 3; i++) {
+	// 	let elem = document.getElementById(`popup-details-${i}`);
+	// 	elem.style.transform = `scale(${val}, ${val})`;
+	// }
 }
