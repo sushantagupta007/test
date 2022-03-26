@@ -621,6 +621,10 @@ window.addEventListener("load", (event) => {
   /*loading event boxes*/
   if (userSessionDataObject["events"] == undefined || userSessionDataObject["events"].length == 0) {
     userSessionDataObject["events"] = []
+    localStorage.setItem(
+      "userSessionData",
+      JSON.stringify(userSessionDataObject)
+    );
     $(".event-container-1").append(`
                 <div id="add-event" class="event-box" onclick="addPopup()">
                     <div>

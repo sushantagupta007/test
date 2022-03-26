@@ -43,7 +43,80 @@ let break_points = {
 /*This variable  */
 let flag = true;
 
+var userSessionData = {
+	selectedCard: "",
+	brideFirstName: "Bride",
+	brideLastName: "",
+	brideFatherName: "",
+	brideMotherName: "",
+	brideGFatherName: "",
+	brideGMotherName: "",
+	groomFirstName: "Groom",
+	groomLastName: "",
+	groomFatherName: "",
+	groomMotherName: "",
+	groomGFatherName: "",
+	groomGMotherName: "",
+	weddingDate: new Date(),
+	weddingDateFormatted: "",
+	events: [],
+	weddingSide: "",
+	sectionCardCategory: "",
+	editCardDetails: "",
+	NameChanged: false,
+	RCmainPageCards: {},
+	RCmainPageCardsDetails: [],
+	WCmainPageCardsDetails: [],
+	countryCode: 0,
+	popupCardsData: {},
+	WCsectionCards: {},
+	RCsectionCards: {},
+	priceData: [],
+};
+
 //******************************************************************************************************************************************//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///////////////////////////////////  SECTION 2 /////////////////////////////////////////
 
@@ -60,42 +133,6 @@ function LoadAnimation(id) {
 	});
 }
 
-/*this function will create session variables for a particular user session */
-function defineLocalStorage() {
-	if (typeof localStorage.userSessionData == "undefined") {
-		let userSessionData = {
-			selectedCard: "",
-			brideFirstName: "Bride",
-			brideLastName: "",
-			brideFatherName: "",
-			brideMotherName: "",
-			brideGFatherName: "",
-			brideGMotherName: "",
-			groomFirstName: "Groom",
-			groomLastName: "",
-			groomFatherName: "",
-			groomMotherName: "",
-			groomGFatherName: "",
-			groomGMotherName: "",
-			weddingDate: new Date(),
-			weddingDateFormatted: "",
-			events: [],
-			weddingSide: "",
-			sectionCardCategory: "",
-			editCardDetails: "",
-			NameChanged: false,
-			RCmainPageCards: {},
-			RCmainPageCardsDetails: {},
-			WCmainPageCardsDetails: {},
-			priceData: {},
-			popupCardsData: {},
-			WCsectionCards: {},
-			RCsectionCards: {},
-		};
-
-		localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
-	}
-}
 
 /*This function will return the session Storage Variable object */
 function getLocalStorage() {
@@ -109,6 +146,38 @@ function getLocalStorage() {
 
 
 
+async function checkLocalStorage() {
+
+    let empty = {}
+    if (localStorage.userSessionData == undefined || localStorage.userSessionData == empty) {
+        localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
+    }
+
+    let userSessionDataObject = getLocalStorage();
+    let obj = ["selectedCard", "brideFirstName", "brideLastName", "brideFatherName", "brideMotherName", "brideGFatherName", "brideGMotherName", "groomFirstName", "groomLastName", "groomFatherName", "groomMotherName", "groomGFatherName", "groomGMotherName", "weddingDate", "weddingDateFormatted", "events", "weddingSide", "sectionCardCategory", "editCardDetails", "NameChanged", "RCmainPageCards", "RCmainPageCardsDetails", "WCmainPageCardsDetails", "countryCode", "popupCardsData", "WCsectionCards", "RCsectionCards", "priceData"]
+    count = 0
+    
+	
+    for (const key in userSessionDataObject) {
+		if (key != obj[count]) {
+
+            localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
+            break;
+        }
+        count += 1;
+    }
+
+
+	if(userSessionDataObject.countryCode == 0)
+	{
+		await fetch_ip("http://ip-api.com/json/")
+	}
+	if(userSessionDataObject.priceData == [] || userSessionDataObject.priceData.length == 0)
+	{
+		fetchPrice()
+	}
+
+}
 
 
 
@@ -261,57 +330,57 @@ function changeProperties() {
 	// 	elem.style.visibility = "visible";
 	// }
 
-	// /*Resizing the text on each card*/
-	// /*royal cards*/
-	// //getting the current width of the window;
-	// let current_width = window.innerWidth;
-	// let break_point;
-	// //as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
-	// let ratio = 450 / 1500;
+	/*Resizing the text on each card*/
+	/*royal cards*/
+	//getting the current width of the window;
+	let current_width = window.innerWidth;
+	let break_point;
+	//as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
+	let ratio = 450 / 1500;
 
-	// //getting the scaling factor of the royal slides according to current width of window
-	// for (let i = 0; i < break_points["rc"].length; i++) {
-	// 	if (current_width >= break_points["rc"][i]) {
-	// 		break_point = break_points["rc"][i];
-	// 		break;
-	// 	}
-	// }
+	//getting the scaling factor of the royal slides according to current width of window
+	for (let i = 0; i < break_points["rc"].length; i++) {
+		if (current_width >= break_points["rc"][i]) {
+			break_point = break_points["rc"][i];
+			break;
+		}
+	}
 
-	// //as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
-	// let val = ratio * scaling_factor["rc"][break_point];
-	// //performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
-	// for (let id in royalCards) {
-	// 	let elem = document.getElementById(`rc-${id}-details`);
-	// 	elem.style.transform = `scale(${val}, ${val})`;
-	// }
+	//as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
+	let val = ratio * scaling_factor["rc"][break_point];
+	//performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
+	for (let id in royalCards) {
+		let elem = document.getElementById(`rc-${id}-details`);
+		elem.style.transform = `scale(${val}, ${val})`;
+	}
 
-	// /*wedding cards */
-	// for (let i = 0; i < break_points["wc"].length; i++) {
-	// 	if (current_width >= break_points["wc"][i]) {
-	// 		break_point = break_points["wc"][i];
-	// 		break;
-	// 	}
-	// }
-	// val = ratio * scaling_factor["wc"][break_point];
+	/*wedding cards */
+	for (let i = 0; i < break_points["wc"].length; i++) {
+		if (current_width >= break_points["wc"][i]) {
+			break_point = break_points["wc"][i];
+			break;
+		}
+	}
+	val = ratio * scaling_factor["wc"][break_point];
 
-	// for (let id in allWeddingCards) {
-	// 	let elem = document.getElementById(`wc-${id}-details`);
-	// 	elem.style.transform = `scale(${val}, ${val})`;
-	// }
+	for (let id in allWeddingCards) {
+		let elem = document.getElementById(`wc-${id}-details`);
+		elem.style.transform = `scale(${val}, ${val})`;
+	}
 
-	// /* resizing popup slides text */
-	// //NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
-	// for (let i = 0; i < popUpBreakPoints.length; i++) {
-	// 	if (current_width >= popUpBreakPoints[i]) {
-	// 		break_point = popUpBreakPoints[i];
-	// 		break;
-	// 	}
-	// }
-	// val = ratio * popUpScalingFactors[break_point];
-	// for (let i = 1; i <= 3; i++) {
-	// 	let elem = document.getElementById(`popup-details-${i}`);
-	// 	elem.style.transform = `scale(${val}, ${val})`;
-	// }
+	/* resizing popup slides text */
+	//NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
+	for (let i = 0; i < popUpBreakPoints.length; i++) {
+		if (current_width >= popUpBreakPoints[i]) {
+			break_point = popUpBreakPoints[i];
+			break;
+		}
+	}
+	val = ratio * popUpScalingFactors[break_point];
+	for (let i = 1; i <= 3; i++) {
+		let elem = document.getElementById(`popup-details-${i}`);
+		elem.style.transform = `scale(${val}, ${val})`;
+	}
 }
 
 
@@ -552,21 +621,21 @@ fetchRoyalData = async () => {
 
 	let userSessionDataObject = getLocalStorage();
 	let data = {}
+	
+
 	// This if condition simply checks that if the browser contains the data, we fetch earlier
 	//  i.e. data for the slider, if not then the code inside if condition will fetch the data
 	// else the code after the condition will take the data from localstorage of the browser !
-	// console.log(Object.keys(userSessionDataObject["RCmainPageCardsDetails"]))
-
-	// if (Object.keys(userSessionDataObject["RCmainPageCardsDetails"]) == undefined ||
-	// 	Object.keys(userSessionDataObject["RCmainPageCardsDetails"]).length == 0) {
-	// 	console.log("yes true")
+	if(userSessionDataObject.RCmainPageCardsDetails.length == 0 || userSessionDataObject.RCmainPageCardsDetails==undefined)
+	{
 		data = await getData('weddingcard2/royal');
 		data = data.data();
 		userSessionDataObject["RCmainPageCardsDetails"] = royalCards;
-	// }
-	// else {
-	// 	data = userSessionDataObject["RCmainPageCardsDetails"]
-	// }
+	}
+	else
+	{
+		data = userSessionDataObject["RCmainPageCardsDetails"]
+	}
 
 	for (let i=1 ; i<=5 ; i++) {
 		// Every id of the card is stored as a key in the global object => royalCards
@@ -581,6 +650,7 @@ fetchRoyalData = async () => {
 
 	// Later on the loader will be removed !
 	$("#royal-loader").css("display", "none");
+
 
 	// And this loop will add the cards in swiper container !
 	for (id in royalCards) {
@@ -605,10 +675,6 @@ fetchRoyalData = async () => {
 	for (id in royalCards) {
 		loadBgImage(id, royalCards[id]["url"], "rc");
 	}
-
-
-	/*at last the append the slide of view all card*/
-
 
 };
 // Script Modified by aman End!
@@ -636,8 +702,8 @@ function getPrice(amount)
 }
 function getdiscount(offer_price , mrp_price)
 {
-	offer_price = getPrice(offer_price);
-	mrp_price = getPrice(mrp_price);
+	offer_price = getPrice(offer_price+"");
+	mrp_price = getPrice(mrp_price+"");
 
 	return 100-(offer_price * 100 / mrp_price)
 }
@@ -654,8 +720,8 @@ function loadWeddingCards() {
 		
 		
 		// Script modified by aman !
-		let offer_price = price[`${allWeddingCards[id]["category"]}Price`].substr(1);
-		let mrp_price = price[`${allWeddingCards[id]["category"]}StrikePrice`].substr(1);
+		let offer_price = price[`${allWeddingCards[id]["category"]}Price`];
+		let mrp_price = price[`${allWeddingCards[id]["category"]}StrikePrice`];
 		let offer = Math.round(getdiscount(offer_price , mrp_price));
 		// Script modified by aman end!
 		
@@ -682,63 +748,104 @@ function loadWeddingCards() {
 
 // Script written by aman
 
-// this piece of code fetch the currency of your country by your ip address !
-var countriesAvailable = {'ae':1 , 'gb':1 , 'in':1 , 'my':1 , 'pk':1 , 'us':1}
-var myCountryCode = null;
-const fetch_ip = async ()=>{
-	let ipInfo = await fetch("http://ip-api.com/json/");
-	let ip_data = await ipInfo.json();
-	let country_code = ip_data["countryCode"].toLowerCase();
-	myCountryCode = country_code;
-
-	// the variable => myCountryCode, is further used in below function !
-}
-// Script written by aman end !
-
-
-
-
-// this is for PopupCard.html
 /* This function will fetch the all wedding cards section first page according to the database and also the price  */
-fetchAllWeddingData = async () => {
+async function fetchAllWeddingData () {
+	
 	
 	let userSessionDataObject = getLocalStorage();
 
-	// This line of code is fetching the country code of current user
-	//  if the country code in not present in databse, it will take in as default country code
-	await fetch_ip();
-	if(!countriesAvailable[myCountryCode]) myCountryCode = "in"
-
-	// fetching the pricing accouding the country code !
-	price = await getData('weddingcards/country_pricing/prices/'+myCountryCode);
-	price = price.data();
-	userSessionDataObject["priceData"] = price;
-	
-	
+	price = userSessionDataObject['priceData']
 	
 	
 	// fetching the wedding cards data
-	let weddingCardData = await getData('weddingcard2/allcards/cards/first');
-	weddingCardData = weddingCardData.data();
-
-	for (index in weddingCardData) {
-		allWeddingCards[weddingCardData[index][1]] = {
-			url: weddingCardData[index][0],
-			text_string: weddingCardData[index][3],
-			category: weddingCardData[index][2],
-		};
+	if(userSessionDataObject.WCmainPageCardsDetails.length == 0 || userSessionDataObject["WCmainPageCardsDetails"] == undefined)
+	{
+		let weddingCardData = await getData('weddingcard2/allcards/cards/first');
+		weddingCardData = weddingCardData.data();
+		for (index in weddingCardData) {
+			allWeddingCards[weddingCardData[index][1]] = {
+				url: weddingCardData[index][0],
+				text_string: weddingCardData[index][3],
+				category: weddingCardData[index][2],
+			};
+		}
+		userSessionDataObject["WCmainPageCardsDetails"] = allWeddingCards;
+		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+	}
+	else
+	{
+		allWeddingCards = userSessionDataObject["WCmainPageCardsDetails"];
 	}
 
-
-	userSessionDataObject["WCmainPageCardsDetails"] = allWeddingCards;
-	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
 	$(`#wedding-loader`).css("display", "none");
 
-	/* all wedding cards data captured -> now load the cards */
-
+	
+	// /* all wedding cards data captured -> now load the cards */
 	loadWeddingCards();
 
 };
+
+
+
+
+
+
+// Script written by Aman !
+
+function showPopup(element) {
+
+	let id = element.id.split("-")[1]
+	window.open("./popupCard.html?cardID="+id , "_blank")
+}
+
+
+
+
+// This code sets the country code of the current user !
+var countriesAvailable = { 'ae': 1, 'gb': 1, 'in': 1, 'my': 1, 'pk': 1, 'us': 1 }
+var myCountryCode = 'in';
+async function fetch_ip(path){
+    let ipInfo = await fetch(path).then().catch(function () {
+        alert('Unable to fetch Country Code !')
+    });
+
+	try{
+		let ip_data = await ipInfo.json();
+		let country_code = ip_data["countryCode"].toLowerCase();
+		myCountryCode = country_code;
+		if (!countriesAvailable[myCountryCode]) myCountryCode = "in"
+	}
+	catch{
+		myCountryCode = 'in';
+	}
+
+    let userSessionDataObject = getLocalStorage();
+    if (userSessionDataObject.countryCode == null) {
+        userSessionDataObject["countryCode"] = myCountryCode;
+        localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+    }
+}
+// This code sets the country code of the current user !
+
+
+
+
+
+// This code fetches the price from database, according to country code
+async function fetchPrice() {
+    if (myCountryCode == null) await fetch_ip("http://ip-api.com/json/");
+    let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
+    price = price.data();
+    let userSessionDataObject = getLocalStorage();
+    userSessionDataObject["priceData"] = price;
+    localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+}
+// This code fetches the price from database, according to country code
+
+
+// Script written by Aman End !
+
+
 
 
 
@@ -750,18 +857,22 @@ function getBrideGroomNamePopup() {
 	$("#brideGroomName").css("z-index", "10000");
 	document.body.style.pointerEvents = "none";
 	document.getElementById("brideGroomName").style.pointerEvents = "auto";
-	document.getElementById(`popup`).style.top = "150%";
-	document.getElementById(`popup`).style.visibility = "hidden";
-	document.getElementById(`popup`).style.transition = "top 1s ease";
+	// document.getElementById(`popup`).style.top = "150%";
+	// document.getElementById(`popup`).style.visibility = "hidden";
+	// document.getElementById(`popup`).style.transition = "top 1s ease";
 }
 
 
 
 
-// this is for PopupCard.html
+
+
+
+
+
 /* this section will load all the necessary elements as the window loads */
 /*****************************************************************************************************************************************************/
-window.addEventListener("load", (event) => {
+window.addEventListener("load", async (event) => {
 	/* royal wedding card loader */
 	LoadAnimation("royal-loader");
 	/* all wedding card loader */
@@ -783,18 +894,26 @@ window.addEventListener("load", (event) => {
 		},
 	});
 
-	/* defining local storage */
-	defineLocalStorage();
+	let userSessionDataObject = getLocalStorage();
+
+	if (userSessionDataObject.countryCode == 0 || userSessionDataObject.countryCode == undefined) {
+		await fetch_ip("http://ip-api.com/json/")
+	}
+	if (userSessionDataObject.priceData == [] || userSessionDataObject.priceData == undefined) {
+        await fetchPrice();
+    }
+	
 	/*this function will fetch and load all the royal cards in the slider in royal cards section*/
 	fetchRoyalData();
 	/*this function will fetch and load all the wedding cards in the slider in all wedding cards section*/
 	fetchAllWeddingData();
-	let userSessionDataObject = getLocalStorage();
 
-	if (!userSessionDataObject["NameChanged"]) {
-		setTimeout(() => {
-			getBrideGroomNamePopup();
-		}, 5000);
-	}
+	$(document).ready(function(){
+		if (!userSessionDataObject["NameChanged"] || userSessionDataObject["brideFirstName"] == "" || userSessionDataObject["groomFirstName"] == "") {
+			setTimeout(() => {
+				getBrideGroomNamePopup();
+			}, 2000);
+		}
+	})
 });
 /****************************************************************************************************************************************************/

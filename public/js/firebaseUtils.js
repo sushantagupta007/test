@@ -1,6 +1,6 @@
-const firestore = firebase.firestore
+var firestore = firebase.firestore
 
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyB9ufE0LKxUtsxVaABVChV-qCeVEgMy14U",
     authDomain: "celebrare-b43da.firebaseapp.com",
     databaseURL: "https://celebrare-b43da.firebaseio.com",
@@ -13,5 +13,5 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig);
-const analytics = firebase.analytics();
-const db = firebase.firestore();
+var analytics = firebase.analytics();
+var db = firebase.firestore();

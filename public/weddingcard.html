@@ -827,7 +827,6 @@
 
 	<script type="text/javascript" src="./js/lottie.js"></script>
 	<script type="text/javascript" src="./js/login.js"></script>
-	<script type="text/javascript" src="./js/firebaseUtils.js"></script>
 	<script src="./js/globalWeddingDeclaration.js"></script>
 
 
@@ -836,24 +835,21 @@
 	
 	
 	<!-- Script written by aman ! -->
+    <script src="./js/firebaseUtils.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-	<script src="./server/fetch.js"></script>
-	<script src="./js/wedding_page.js"></script>
+	<script src = "https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
 
+	
+    <script src="./aman/fetch.js"></script>
+	<script src="./js/wedding_page.js"></script>
 
 
 	<!-- Initialize Swiper -->
 	<script>
 
-
-		function showPopup(element) {
-			// alert('action disabled')
-			localStorage.setItem("elem_id" , element.id)
-			let id = element.id.split("-")[1]
-			console.log(`${id}-price-details`)
-			localStorage.setItem("innerHTML",document.getElementById(`${id}-price-details`).innerHTML)
-			window.open("./popupCard.html" , "_blank")
-		}
+		$(document).ready(function(){
+			checkLocalStorage();
+		})
 
 
 		let mySwiper = new Swiper(".swiper-container-popup", {

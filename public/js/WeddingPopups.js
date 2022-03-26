@@ -51,6 +51,39 @@ let scaling_factor = {
 };
 
 
+var userSessionData = {
+	selectedCard: "",
+	brideFirstName: "Bride",
+	brideLastName: "",
+	brideFatherName: "",
+	brideMotherName: "",
+	brideGFatherName: "",
+	brideGMotherName: "",
+	groomFirstName: "Groom",
+	groomLastName: "",
+	groomFatherName: "",
+	groomMotherName: "",
+	groomGFatherName: "",
+	groomGMotherName: "",
+	weddingDate: new Date(),
+	weddingDateFormatted: "",
+	events: [],
+	weddingSide: "",
+	sectionCardCategory: "",
+	editCardDetails: "",
+	NameChanged: false,
+	RCmainPageCards: {},
+	RCmainPageCardsDetails: [],
+	WCmainPageCardsDetails: [],
+	countryCode: 0,
+	popupCardsData: {},
+	WCsectionCards: {},
+	RCsectionCards: {},
+	priceData: [],
+};
+
+
+
 //******************************************************************************************************************************************//
 
 ///////////////////////////////////  SECTION 2 /////////////////////////////////////////
@@ -58,36 +91,67 @@ let scaling_factor = {
 /* Function declarations and definitions for the popup*/
 //******************************************************************************************************************************************//
 
+
 /* This function will be called when user clicks on any wedding card */
 //element - the dom which is comprising the current clicked card
-function show(elem_id) {
+
+function getParameters() {
+	let params = {};
+	let urlString = window.location.href;
+	let paramString = urlString.split('?')[1];
+	let queryString = new URLSearchParams(paramString);
+	for (let pair of queryString.entries()) {
+		params[pair[0]] = pair[1]
+	}
+
+	return params;
+}
+
+
+async function show() {
+	
+	let params = getParameters();
+	if(params.cardID == undefined || params.cardID == "")
+	{
+		window.location.href = "./weddingcard.html";
+	}
+	
 	// google analytics logging event
 	// analytics.logEvent("website_wedding_card_big_view");
-	let id = elem_id
+	let id = params.cardID
 	let elem = document.getElementById(`popup`);
 	document.body.style.overflowY = "scroll";
-
+	
 	/* positioning of the popup for responsive mode */
 	if (window.innerWidth > 900) elem.style.top = "50%";
 	else elem.style.top = "55%";
-
+	
 	/* basically there will be 3 cards so 3 popup slides structure is hardcoded in popup div (see html page) */
 	/* below 3 statements will remove the previous background images on the popup slides */
 	document.getElementById(`popup-slide-1`).style.backgroundImage = `url("")`;
 	document.getElementById(`popup-slide-2`).style.backgroundImage = `url("")`;
 	document.getElementById(`popup-slide-3`).style.backgroundImage = `url("")`;
-
+	
 	//to load popup slides on popup
 	loadPopupSlides(id);
-
+	
 	/* updating the session storage */
 	let userSessionDataObject = getLocalStorage();
 	userSessionDataObject["selectedCard"] = id;
+	
+	if (userSessionDataObject.countryCode == 0 || userSessionDataObject.countryCode == undefined) {
+		await fetch_ip("http://ip-api.com/json/")
+	}
+	if (userSessionDataObject.priceData.length == 0 || userSessionDataObject.priceData == undefined) {
+        await fetchPrice();
+    }
+	
 	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-
+	
+	
 	/* disable pointer outside the popup and apply some transition */
-	document.body.style.pointerEvents = "none";
-	elem.style.pointerEvents = "auto";
+	// document.body.style.pointerEvents = "none";
+	// elem.style.pointerEvents = "auto";
 	elem.style.transition = "top 0.7s ease";
 	elem.style.visibility = "visible";
 }
@@ -111,41 +175,110 @@ function getLocalStorage() {
 
 
 
+// script written by aman !
 
+// This code sets the country code of the current user !
+var countriesAvailable = { 'ae': 1, 'gb': 1, 'in': 1, 'my': 1, 'pk': 1, 'us': 1 }
+var myCountryCode = 'in';
+async function fetch_ip(path){
+	let ipInfo = await fetch(path).then().catch(function () {
+		alert('Unable to fetch Country Code !')
+    });
+	
+	try{
+		let ip_data = await ipInfo.json();
+		let country_code = ip_data["countryCode"].toLowerCase();
+		myCountryCode = country_code;
+		if (!countriesAvailable[myCountryCode]) myCountryCode = "in"
+	}
+	catch{
+		myCountryCode = 'in';
+	}
 
-
-
-
-
-
-
-
-/* this function will be called when the user clicks the cross button on the popup */
-//element - the dom which is comprising the current card which is clicked
-function vanish(element) {
-	let id = element.getAttribute("data-id");
-	let elem = document.getElementById(`popup`);
-
-	/* setting the default values before removing popup from the screen */
-	document.body.style.pointerEvents = "auto";
-	document.body.style.position = "static";
-	document.body.style.overflowY = "auto";
-	elem.style.visibility = "hidden";
-	elem.style.top = "150%";
-	elem.style.transition = "0.5s ease ";
-
-	/* this will remove the innerHTML of the elements with givent id's after 1000ms as the popup vanishes */
-	setTimeout(() => {
-		document.getElementById(`popup-description`).innerHTML = "";
-		document.getElementById(`popup-title`).innerHTML = "";
-		document.getElementById(`popup-price`).innerHTML = "";
-		mySwiper.slideTo(0, false, false);
-
-		document.getElementById(`popup-slide-1`).innerHTML = "";
-		document.getElementById(`popup-slide-2`).innerHTML = "";
-		document.getElementById(`popup-slide-3`).innerHTML = "";
-	}, 1000);
+    let userSessionDataObject = getLocalStorage();
+    if (userSessionDataObject.countryCode == null) {
+		userSessionDataObject["countryCode"] = myCountryCode;
+        localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+    }
 }
+// This code sets the country code of the current user !
+
+
+
+
+
+// This code fetches the price from database, according to country code
+async function fetchPrice() {
+    if (myCountryCode == null) await fetch_ip("http://ip-api.com/json/");
+    let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
+    price = price.data();
+    let userSessionDataObject = getLocalStorage();
+    userSessionDataObject["priceData"] = price;
+    localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+}
+// This code fetches the price from database, according to country code
+
+
+
+
+async function checkLocalStorage() {
+
+    let empty = {}
+    if (localStorage.userSessionData == undefined || localStorage.userSessionData == empty) {
+        localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
+    }
+
+    let userSessionDataObject = getLocalStorage();
+    let obj = ["selectedCard", "brideFirstName", "brideLastName", "brideFatherName", "brideMotherName", "brideGFatherName", "brideGMotherName", "groomFirstName", "groomLastName", "groomFatherName", "groomMotherName", "groomGFatherName", "groomGMotherName", "weddingDate", "weddingDateFormatted", "events", "weddingSide", "sectionCardCategory", "editCardDetails", "NameChanged", "RCmainPageCards", "RCmainPageCardsDetails", "WCmainPageCardsDetails", "countryCode", "popupCardsData", "WCsectionCards", "RCsectionCards", "priceData"]
+    count = 0
+    
+	
+    for (const key in userSessionDataObject) {
+		if (key != obj[count]) {
+            localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
+            break;
+        }
+        count += 1;
+    }
+
+
+	if(userSessionDataObject.countryCode == 0)
+	{
+		await fetch_ip("http://ip-api.com/json/")
+	}
+	if(userSessionDataObject.priceData == [] || userSessionDataObject.priceData.length == 0)
+	{
+		fetchPrice()
+	}
+
+}
+
+function getPrice(amount)
+{
+	let price = '';
+	let onceStarted = false;
+	for(let i=0 ; i<amount.length ; i++)
+	{
+		if(amount[i]>=0 && amount[i]<=9){
+			price += amount[i]
+			onceStarted = true;
+		} 
+		else{
+			if(onceStarted) break;
+		}
+	}
+	return parseInt(price);
+}
+function getdiscount(offer_price , mrp_price)
+{
+	offer_price = getPrice(offer_price+"");
+	mrp_price = getPrice(mrp_price+"");
+
+	return 100-(offer_price * 100 / mrp_price)
+}
+// Script written by Aman End !
+
+
 
 
 
@@ -164,10 +297,16 @@ function vanish(element) {
 loadPopupSlides = async (id) => {
 	
 	let userSessionDataObject = getLocalStorage();
+	let popupCardData = 0;
 	if( userSessionDataObject["popupCardsData"] == undefined || userSessionDataObject["popupCardsData"][id] == undefined )
 	{
-		let popupCardData = await getData('weddingcard2/allcard/cards/'+id);
+		popupCardData = await getData('weddingcard2/allcard/cards/'+id);
 		popupCardData = popupCardData.data();
+
+		
+
+		if(popupCardData == undefined) window.location.href = "./weddingcard.html";
+
 		popupCards[id] = {
 			bg1: popupCardData["smallImgFrontLink"],
 			bg2: popupCardData["smallImgBackLink"],
@@ -199,10 +338,20 @@ loadPopupSlides = async (id) => {
 		});
 	}
 
+
+
+	let cardCategory = popupCardData.category
+	let offer_price = userSessionDataObject.priceData[cardCategory+"Price"];
+	let mrp_price = userSessionDataObject.priceData[cardCategory+"StrikePrice"];
+	let offer = Math.round(getdiscount(offer_price , mrp_price));
+
+
 	document.getElementById(`popup-description`).innerHTML = popupCards[id]["description"];
 	document.getElementById(`popup-title`).innerHTML = popupCards[id]["title"];
 	// document.getElementById(`popup-price`).innerHTML = document.getElementById(`${id}-price-details`).innerHTML;
-	document.getElementById(`popup-price`).innerHTML = localStorage.getItem("innerHTML")
+	document.getElementById(`popup-price`).innerHTML = `<span class="cost">${offer_price}</span>
+														<span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
+														<span class="offer">${offer}%off</span>`
 
 
 	for (let looper = 1; looper <= 3; looper++) {
@@ -348,64 +497,64 @@ addPopupText = (id) => {
 /* This function is used in body tag of home page with the event onresize */
 /* The elements that are going to be resized in reponsive mode through js should be added in this function */
 function changeProperties() {
-	// /* resizing popup box on resizing the window */
-	// let elem = document.getElementById(`popup`);
-	// if (elem.style.visibility == "visible") {
-	// 	if (window.innerWidth > 900) elem.style.top = "50%";
-	// 	else elem.style.top = "60%";
-	// 	elem.style.transition = "top 0.7s ease";
-	// 	elem.style.visibility = "visible";
-	// }
+	/* resizing popup box on resizing the window */
+	let elem = document.getElementById(`popup`);
+	if (elem.style.visibility == "visible") {
+		if (window.innerWidth > 900) elem.style.top = "50%";
+		else elem.style.top = "60%";
+		elem.style.transition = "top 0.7s ease";
+		elem.style.visibility = "visible";
+	}
 
-	// /*Resizing the text on each card*/
-	// /*royal cards*/
-	// //getting the current width of the window;
-	// let current_width = window.innerWidth;
-	// let break_point;
-	// //as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
-	// let ratio = 450 / 1500;
+	/*Resizing the text on each card*/
+	/*royal cards*/
+	//getting the current width of the window;
+	let current_width = window.innerWidth;
+	let break_point;
+	//as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
+	let ratio = 450 / 1500;
 
-	// //getting the scaling factor of the royal slides according to current width of window
-	// for (let i = 0; i < break_points["rc"].length; i++) {
-	// 	if (current_width >= break_points["rc"][i]) {
-	// 		break_point = break_points["rc"][i];
-	// 		break;
-	// 	}
-	// }
+	//getting the scaling factor of the royal slides according to current width of window
+	for (let i = 0; i < break_points["rc"].length; i++) {
+		if (current_width >= break_points["rc"][i]) {
+			break_point = break_points["rc"][i];
+			break;
+		}
+	}
 
-	// //as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
-	// let val = ratio * scaling_factor["rc"][break_point];
-	// //performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
-	// for (let id in royalCards) {
-	// 	let elem = document.getElementById(`rc-${id}-details`);
-	// 	elem.style.transform = `scale(${val}, ${val})`;
-	// }
+	//as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
+	let val = ratio * scaling_factor["rc"][break_point];
+	//performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
+	for (let id in royalCards) {
+		let elem = document.getElementById(`rc-${id}-details`);
+		elem.style.transform = `scale(${val}, ${val})`;
+	}
 
-	// /*wedding cards */
-	// for (let i = 0; i < break_points["wc"].length; i++) {
-	// 	if (current_width >= break_points["wc"][i]) {
-	// 		break_point = break_points["wc"][i];
-	// 		break;
-	// 	}
-	// }
-	// val = ratio * scaling_factor["wc"][break_point];
+	/*wedding cards */
+	for (let i = 0; i < break_points["wc"].length; i++) {
+		if (current_width >= break_points["wc"][i]) {
+			break_point = break_points["wc"][i];
+			break;
+		}
+	}
+	val = ratio * scaling_factor["wc"][break_point];
 
-	// for (let id in allWeddingCards) {
-	// 	let elem = document.getElementById(`wc-${id}-details`);
-	// 	elem.style.transform = `scale(${val}, ${val})`;
-	// }
+	for (let id in allWeddingCards) {
+		let elem = document.getElementById(`wc-${id}-details`);
+		elem.style.transform = `scale(${val}, ${val})`;
+	}
 
-	// /* resizing popup slides text */
-	// //NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
-	// for (let i = 0; i < popUpBreakPoints.length; i++) {
-	// 	if (current_width >= popUpBreakPoints[i]) {
-	// 		break_point = popUpBreakPoints[i];
-	// 		break;
-	// 	}
-	// }
-	// val = ratio * popUpScalingFactors[break_point];
-	// for (let i = 1; i <= 3; i++) {
-	// 	let elem = document.getElementById(`popup-details-${i}`);
-	// 	elem.style.transform = `scale(${val}, ${val})`;
-	// }
+	/* resizing popup slides text */
+	//NOTE : this popupbreakpoints and scaling factors are defined in weddingPopups.js file
+	for (let i = 0; i < popUpBreakPoints.length; i++) {
+		if (current_width >= popUpBreakPoints[i]) {
+			break_point = popUpBreakPoints[i];
+			break;
+		}
+	}
+	val = ratio * popUpScalingFactors[break_point];
+	for (let i = 1; i <= 3; i++) {
+		let elem = document.getElementById(`popup-details-${i}`);
+		elem.style.transform = `scale(${val}, ${val})`;
+	}
 }
