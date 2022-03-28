@@ -179,25 +179,29 @@ function getLocalStorage() {
 var countriesAvailable = { 'ae': 1, 'gb': 1, 'in': 1, 'my': 1, 'pk': 1, 'us': 1 }
 var myCountryCode = 'in';
 async function fetch_ip(path) {
-	let ipInfo = await fetch(path).then().catch(function () {
-		alert('Unable to fetch Country Code !')
-	});
-
-	try {
-		let ip_data = await ipInfo.json();
-		let country_code = ip_data["countryCode"].toLowerCase();
-		myCountryCode = country_code;
-		if (!countriesAvailable[myCountryCode]) myCountryCode = "in"
-	}
-	catch {
-		myCountryCode = 'in';
-	}
 
 	let userSessionDataObject = getLocalStorage();
-	if (userSessionDataObject.countryCode == null) {
-		userSessionDataObject["countryCode"] = myCountryCode;
+
+	await fetch(path).then(function (data) {
+
+		let ip_data = data.json()
+		let country_code = ip_data["countryCode"].toLowerCase();
+		alert('i got ',country_code)
+		if (countriesAvailable.country_code != 1) userSessionDataObject["countryCode"] = "in";
+		else userSessionDataObject.countryCode = country_code;
 		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-	}
+		
+	}).catch(function () {
+		console.log('Unable to fetch Country Code !')
+		// console.log('Unable to fetch Country Code !')
+		userSessionDataObject.countryCode = "in";
+		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+
+		// console.log("setted successfully !")
+		// let a = getLocalStorage()
+		// console.log(a.countryCode)
+	});
+
 }
 // This code sets the country code of the current user !
 
@@ -207,10 +211,10 @@ async function fetch_ip(path) {
 
 // This code fetches the price from database, according to country code
 async function fetchPrice() {
-	if (myCountryCode == null) await fetch_ip("http://ip-api.com/json/");
+	let userSessionDataObject = getLocalStorage();
+	if (userSessionDataObject.countryCode == 0) await fetch_ip("http://ip-api.com/json/");
 	let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
 	price = price.data();
-	let userSessionDataObject = getLocalStorage();
 	userSessionDataObject["priceData"] = price;
 	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
 }
@@ -279,9 +283,8 @@ function openForm() {
 	if (params.cardID == undefined || params.cardID == "") {
 		window.location.href = "./weddingcard.html";
 	}
-	else
-	{
-		window.location.href = "./form.html?cardID="+params.cardID;
+	else {
+		window.location.href = "./form.html?cardID=" + params.cardID;
 	}
 
 }

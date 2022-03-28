@@ -595,7 +595,6 @@ function storeAndLoad(page) {
 
 
 // Script written by aman
-
 function getParameters() {
 	let params = {};
 	let urlString = window.location.href;
@@ -615,11 +614,14 @@ function openCustomizeScreen() {
 		window.location.href = "./weddingcard.html";
 	}
 	else {
-		window.location.href = "./customize.html?cardID=" + params.cardID;
+		try{
+			storeAndLoad("customize.html?cardID=" + params.cardID);
+		}
+		catch(err){
+			console.log("ERR = ",err);
+		}
 	}
-
 }
-
 
 // Script written by aman End
 

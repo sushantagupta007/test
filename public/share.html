@@ -62,7 +62,8 @@
                         <div class="container" style="margin-top: 20px;">
                             <form id="login" onsubmit="process(event)">
                                 <h2 id="login_title" style="color: #4f134c; font-family: lora;text-align: center;">
-                                    <b>Login Account</b></h2>
+                                    <b>Login Account</b>
+                                </h2>
                                 <p id="login_subtitle" style="color: black; font-family: lora;text-align: center;">Phone
                                     Number</p>
                                 <div style="text-align: center;">
@@ -445,6 +446,9 @@
     <script type="text/javascript" src="./js/firebaseUtils.js"></script>
 
     <script>
+
+
+        var currencyCode = "INR";
         let cardprice = JSON.parse(localStorage.getItem('card-price'));
         let cardStrikePrice = JSON.parse(localStorage.getItem('card-strike-price'));
         document.getElementById("rzp-button1").innerHTML = `
@@ -453,7 +457,7 @@
         var options = {
             "key": "rzp_live_VUzjQUln8fgkX6", // Enter the Key ID generated from the Dashboard
             "amount": cardprice * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            "currency": "INR",
+            "currency": currencyCode,
             "name": "Celebrare",
             "description": "Test Transaction",
             // "image": "https://example.com/your_logo",
@@ -499,9 +503,47 @@
         document.getElementById('rzp-button1').onclick = function (e) {
             localStorage.setItem('with_mockup', 1);
             localStorage.setItem("mockwatermark", 0);
-            payment_login();
+            alert("currency code is = ", currencyCode);
+            // payment_login();
             e.preventDefault();
         }
+
+
+
+
+
+        // This code sets the country code of the current user !
+        var countriesAvailable = { 'ae': 1, 'gb': 1, 'in': 1, 'my': 1, 'pk': 1, 'us': 1 }
+        var myCountryCode = 'in';
+        var currencyCodesAvailable = {"in" : "INR" ,  "us": "USD", "pk": "PKR", "my": "MYR", "gb": "GBP"}
+        async function fetch_ip(path) {
+
+            let userSessionDataObject = getLocalStorage();
+            if(userSessionDataObject.countryCode == 0)
+            {
+                await fetch(path).then(function (data) {
+                    let ip_data = data.json()
+                    let country_code = ip_data["countryCode"].toLowerCase();
+                    if (countriesAvailable.country_code != 1) currencyCode = currencyCodesAvailable["in"];
+                    else currencyCode = currencyCodesAvailable.country_code;
+                }).catch(function () {
+                    console.log('Unable to fetch Country Code !');
+                    currencyCode = currencyCodesAvailable["in"];
+                });
+            }
+            else currencyCode = currencyCodesAvailable[userSessionDataObject.countryCode];
+            console.log(" i did my job")
+        }
+        // This code sets the country code of the current user !
+        fetch_ip();
+
+
+
+
+
+
+
+
     </script>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -585,6 +627,7 @@
 <!-- Script written by aman -->
 <script>
 
+
     // this piece of code, disable all the posibilites to open inspect menu
     // as this page consist confidential data !
 
@@ -612,7 +655,7 @@
         if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
             e.preventDefault()
             // console.log(event)
-             return false;
+            return false;
         }
     }
 </script>
