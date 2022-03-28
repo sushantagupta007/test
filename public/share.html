@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Charm&family=Cinzel:wght@400;700&family=Cookie&family=Fjalla+One&family=Fondamento&family=Handlee&family=Indie+Flower&family=Kalam:wght@300&family=Kaushan+Script&family=Lato:ital,wght@0,100;0,400;1,400&family=Lobster+Two&family=Lora:ital,wght@0,400;0,700;1,400;1,500;1,700&family=Marcellus+SC&family=Merienda+One&family=Open+Sans:wght@400;600&family=Pacifico&family=Petit+Formal+Script&family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&family=Roboto:wght@100&family=Rouge+Script&family=Sacramento&family=Satisfy&family=Seaweed+Script&family=Slabo+13px&family=Spectral+SC:wght@300;400;700&display=swap" rel="stylesheet">
-    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat&family=Charm&family=Cinzel:wght@400;700&family=Cookie&family=Fjalla+One&family=Fondamento&family=Handlee&family=Indie+Flower&family=Kalam:wght@300&family=Kaushan+Script&family=Lato:ital,wght@0,100;0,400;1,400&family=Lobster+Two&family=Lora:ital,wght@0,400;0,700;1,400;1,500;1,700&family=Marcellus+SC&family=Merienda+One&family=Open+Sans:wght@400;600&family=Pacifico&family=Petit+Formal+Script&family=Playfair+Display+SC&family=Poppins:wght@300&family=Redressed&family=Roboto:wght@100&family=Rouge+Script&family=Sacramento&family=Satisfy&family=Seaweed+Script&family=Slabo+13px&family=Spectral+SC:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    
+
     <link rel="icon" href="./img/LOGO5.svg">
-    
-    <link rel="stylesheet" href="./css/share.css"/>
-    <link type="text/css" rel="stylesheet" href="./css/login.css"/>
+
+    <link rel="stylesheet" href="./css/share.css" />
+    <link type="text/css" rel="stylesheet" href="./css/login.css" />
 
     <!-- Bootstrap CSS -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,7 +25,7 @@
     <link rel="stylesheet" href="./css/share_navbar_new.css">
     <!-- firebase -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    
+
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
@@ -31,10 +34,11 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <title>Indian Wedding Card & Greeting Card Maker - Celebrare</title>
 </head>
 
@@ -45,9 +49,10 @@
                 <span id="welcome"> Welcome </span>
                 <span id="tagline"> We love our users</span>
             </div>
-            <div class="right_block" >
+            <div class="right_block">
                 <div id="close-login-popup">
-                    <i class="fa fa-times" id="close-sharing-option-popup-container"><img style="height: 20px;" src="./img/cross.svg"></i>
+                    <i class="fa fa-times" id="close-sharing-option-popup-container"><img style="height: 20px;"
+                            src="./img/cross.svg"></i>
                 </div>
                 <div class="social_login" style="width: 488px;">
                     <div id="phone_div" style="margin-top: 0px;padding-bottom: 10px;padding-top: 10px;width: 488px;">
@@ -56,43 +61,60 @@
                         </div>
                         <div class="container" style="margin-top: 20px;">
                             <form id="login" onsubmit="process(event)">
-                                <h2 id="login_title" style="color: #4f134c; font-family: lora;text-align: center;"><b>Login Account</b></h2>
-                                <p id="login_subtitle" style="color: black; font-family: lora;text-align: center;">Phone Number</p>
+                                <h2 id="login_title" style="color: #4f134c; font-family: lora;text-align: center;">
+                                    <b>Login Account</b></h2>
+                                <p id="login_subtitle" style="color: black; font-family: lora;text-align: center;">Phone
+                                    Number</p>
                                 <div style="text-align: center;">
-                                    <input id="phone" type="tel" name="phone" style="border-radius:25px;height: 50px;outline: none;width: 420px;"/>
+                                    <input id="phone" type="tel" name="phone"
+                                        style="border-radius:25px;height: 50px;outline: none;width: 420px;" />
                                 </div>
                                 <div id="recaptcha-container"></div>
-                                    <div style="width: 100%;text-align: center;margin-top: 20px;">
-                                        <input type="submit" class="btn" value="Request OTP" style="align-self: center;border-radius: 25px;color: white;background-color: #4f134c;border-color: transparent;margin-top: 10px;width: 420px;height: 50px;"/>
-                                        <div style="display: flex;margin-top: 20px;">
-                                            <hr color=black style="width: 30%;color: #4f134c; font-family: lora;"><p>Or Sign in with Google</p><hr color=black style="width: 30%;">
+                                <div style="width: 100%;text-align: center;margin-top: 20px;">
+                                    <input type="submit" class="btn" value="Request OTP"
+                                        style="align-self: center;border-radius: 25px;color: white;background-color: #4f134c;border-color: transparent;margin-top: 10px;width: 420px;height: 50px;" />
+                                    <div style="display: flex;margin-top: 20px;">
+                                        <hr color=black style="width: 30%;color: #4f134c; font-family: lora;">
+                                        <p>Or Sign in with Google</p>
+                                        <hr color=black style="width: 30%;">
+                                    </div>
+                                    <div style="display: flex;justify-content: center;margin-top: 10px;">
+                                        <div id="googleLogIn2"
+                                            style="border: 2px solid black;width: 420px;height: 50px;border-radius: 25px; display: flex;">
+                                            <img src="./img/gogle.svg" alt="" id="google-icon" />
+                                            Continue with Google
                                         </div>
-                                        <div style="display: flex;justify-content: center;margin-top: 10px;">
-                                            <div id="googleLogIn2"  style="border: 2px solid black;width: 420px;height: 50px;border-radius: 25px; display: flex;" >
-                                                <img src="./img/gogle.svg" alt="" id="google-icon" />
-                                                Continue with Google
-                                            </div>
-                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                         <div class="container2">
-                            <h2 style="text-align: center;color: #4f134c; font-family: lora;margin-top: 20px;"><b>OTP Verification</b></h2>
-                            <p id="no_div" style="text-align: center;color: #4f134c; font-family: lora;margin-top: 10px;">Enter the OTP forwarded to <b id="no_bold"></b> </p>
-                            <div class="userInput" style="display: flex;justify-content: center;margin-top: 20px;z-index: 1000 !important;">
+                            <h2 style="text-align: center;color: #4f134c; font-family: lora;margin-top: 20px;"><b>OTP
+                                    Verification</b></h2>
+                            <p id="no_div"
+                                style="text-align: center;color: #4f134c; font-family: lora;margin-top: 10px;">Enter the
+                                OTP forwarded to <b id="no_bold"></b> </p>
+                            <div class="userInput"
+                                style="display: flex;justify-content: center;margin-top: 20px;z-index: 1000 !important;">
                                 <input class="inp" type="text" id='ist' maxlength="1" onkeyup="clickEvent(this,'sec')">
-                                <input class="inp" type="text" id="sec" maxlength="1" onkeyup="clickEvent(this,'third')">
-                                <input class="inp" type="text" id="third" maxlength="1" onkeyup="clickEvent(this,'fourth')">
-                                <input class="inp" type="text" id="fourth" maxlength="1" onkeyup="clickEvent(this,'fifth')">
-                                <input class="inp" type="text" id="fifth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
-                                <input class="inp" type="text" id="sixth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
+                                <input class="inp" type="text" id="sec" maxlength="1"
+                                    onkeyup="clickEvent(this,'third')">
+                                <input class="inp" type="text" id="third" maxlength="1"
+                                    onkeyup="clickEvent(this,'fourth')">
+                                <input class="inp" type="text" id="fourth" maxlength="1"
+                                    onkeyup="clickEvent(this,'fifth')">
+                                <input class="inp" type="text" id="fifth" maxlength="1"
+                                    onkeyup="clickEvent(this,'sixth')">
+                                <input class="inp" type="text" id="sixth" maxlength="1"
+                                    onkeyup="clickEvent(this,'sixth')">
                             </div>
                             <div style="text-align: center;">
                                 <h7 style="color: rgb(167, 164, 164);">Didn't you receive the OTP?</h7>
-                                <button onclick="resend();" style="border: none;background-color: transparent;">Resend OTP</button>
+                                <button onclick="resend();" style="border: none;background-color: transparent;">Resend
+                                    OTP</button>
                             </div>
                             <div style="text-align: center;margin-top: 120px;">
-                                <button id="store" type="button" onclick="show();" >Verify</button>
+                                <button id="store" type="button" onclick="show();">Verify</button>
                             </div>
                         </div>
                     </div>
@@ -103,23 +125,16 @@
     </div>
 
     <!-- header section -->
-    <nav
-    class="navbar navbar-expand-lg navbar-light header-form"
-    aria-haspopup="true"
-    aria-expanded="true"
-    >
-        <div
-            id="header-logo"
-            style="display: flex; align-items: center; justify-content: center"
-        >
+    <nav class="navbar navbar-expand-lg navbar-light header-form" aria-haspopup="true" aria-expanded="true">
+        <div id="header-logo" style="display: flex; align-items: center; justify-content: center">
             <img src="img/BottomLogo.png" alt="" id="celebrare-logo" />
         </div>
         <div class="progress-container">
             <ul id="progressImgBar">
-            <li class="logo active">ENTER DETAILS</li>
-            <li class="logo active">CUSTOMIZE</li>
-            <li class="logo active">SHARING</li>
-            <li class="logo">PAYMENT</li>
+                <li class="logo active">ENTER DETAILS</li>
+                <li class="logo active">CUSTOMIZE</li>
+                <li class="logo active">SHARING</li>
+                <li class="logo">PAYMENT</li>
             </ul>
         </div>
         <!-- pseudo element -->
@@ -135,191 +150,237 @@
         </div>
         <a id="login-button" class="login-button navbar-text" class="navbar-text" id="login-button">
             <button class="signup-button button-style">
-            <img src="./img/person.svg" alt="" style="height: fit-content; margin-left: -3px"/>
+                <img src="./img/person.svg" alt="" style="height: fit-content; margin-left: -3px" />
                 <span>Sign in</span>
             </button>
         </a>
-    </nav>    
+    </nav>
 
     <!--Start of mainbox1-->
-    <div id="mainbox1" class="container-fluid" style="display: block;margin-top: 2%; box-sizing: border-box; width: 95%; height: 100%; margin-left: 2.5vw; border-radius: 2px; border: 2px solid rgb(189, 186, 186);border-radius: 15px;font-family: lora">
+    <div id="mainbox1" class="container-fluid"
+        style="display: block;margin-top: 2%; box-sizing: border-box; width: 95%; height: 100%; margin-left: 2.5vw; border-radius: 2px; border: 2px solid rgb(189, 186, 186);border-radius: 15px;font-family: lora">
         <div id="top-part" style="display: block;border-radius: 15px; height: 20%; width: 100%; text-align: center;">
             <h1 style="color: rgb(14, 14, 87); font-family: lora;">Share PDF</h1>
-            <l1 style="color: rgb(14, 14, 87);">PDF can be shared on social media platforms <br> <small style="color: red">Please try reloading the page if cards are not loaded in correct order!</small></l1>
+            <l1 style="color: rgb(14, 14, 87);">PDF can be shared on social media platforms <br> <small
+                    style="color: red">Please try reloading the page if cards are not loaded in correct order!</small>
+            </l1>
         </div>
         <div class="container-fluid" style="margin-bottom: 0%;">
             <div style="justify-content: center; display: flex; flex-wrap: wrap; width: 100%; align-items: center;">
-            <div id="display-final-cards">
-                <div id="animation3" style="height: 375px"></div>
-            </div>
-              
+                <div id="display-final-cards">
+                    <div id="animation3" style="height: 375px"></div>
+                </div>
+
                 <div>
                     <!--Swiper for mainbox1-->
-                    <div class="swiper_outer_div" style="display: block; height: 0; width: 0; overflow: hidden"><!--width:610px;height: 480px;-->
-                        <div class="swiper-container-popup swiper-container swiper1" style=" transform-style: flat;">                    
+                    <div class="swiper_outer_div" style="display: block; height: 0; width: 0; overflow: hidden">
+                        <!--width:610px;height: 480px;-->
+                        <div class="swiper-container-popup swiper-container swiper1" style=" transform-style: flat;">
                             <div id="animation3" style="max-height: 450px;"></div>
-                            <div class="swiper-wrapper" id="final-cards" style="display: none;"><!--width:610px;height: 410px-->
-                            <!-- softcoded (overwritten) in js -->
+                            <div class="swiper-wrapper" id="final-cards" style="display: none;">
+                                <!--width:610px;height: 410px-->
+                                <!-- softcoded (overwritten) in js -->
                                 <div class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
-                                    <div id="swiper-img1" class="swiper-slide-popup" 
+                                    <div id="swiper-img1" class="swiper-slide-popup"
                                         style="height: 100%;width: 100%; position: relative;background-size:100% 100%; display: flex; justify-content:center; align-items:center; background-size:cover; transform-style: flat;background-image: url(./imgg/front.jpg);">
-                                        <img id="watermarkswiper1" style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+                                        <img id="watermarkswiper1"
+                                            style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                                            src="./img/CelebrareLogo.png">
                                     </div>
                                 </div>
                                 <div class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
-                                    <div id="swiper-img2" class="swiper-slide-popup" 
+                                    <div id="swiper-img2" class="swiper-slide-popup"
                                         style="height: 100%;width: 100%;position: relative;background-size:100% 100%; display: flex; justify-content: center; align-items: center; background-size:cover; transform-style: flat;background-image: url(./imgg/back.jpg);">
-                                        <img id="watermarkswiper2" style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+                                        <img id="watermarkswiper2"
+                                            style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                                            src="./img/CelebrareLogo.png">
                                     </div>
                                 </div>
                                 <div class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
-                                    <div id="swiper-img3" class="swiper-slide-popup"  
+                                    <div id="swiper-img3" class="swiper-slide-popup"
                                         style="height: 100%;width: 100%;position: relative;background-size:100% 100%; display: flex; justify-content: center; align-items: center; background-size:cover; transform-style: flat;background-image: url(./imgg/back.jpg);">
-                                        <img id="watermarkswiper3" style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+                                        <img id="watermarkswiper3"
+                                            style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                                            src="./img/CelebrareLogo.png">
                                     </div>
                                 </div>
                             </div>
                             <!-- Add Pagination -->
-                            <div class="swiper-pagination swiper-pagination1" id="final-card-paginator" style="width: 100%; display: none;">
-                        </div>
+                            <div class="swiper-pagination swiper-pagination1" id="final-card-paginator"
+                                style="width: 100%; display: none;">
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!--This is the mockupbox for mainbox1-->
                 <div style="display: block;height: auto;position:relative;height: 0; width: 0; overflow: hidden">
-                    <div style="display: flex; flex-direction:column; height: 100%; width: 100%;justify-content: center; text-align: center; padding-left: 0%; ">
-                        <div id="mockupbox1" style="border:2px gray;padding-top:8%; display: none; flex-direction: column; align-items: center; justify-content: center;">
-                            <div style="padding-top:0%;margin-top: 0%;" id="mockup1">       
-                                <!-- cards will be added through JavaScript code --><!--height: 350px;width: 350px;-->
-                                <div style="display:flex;border: 2px solid rgb(189, 186, 186);border-radius: 15px;justify-content: center;" id="loader1">
-                                    <div id="animation1" style="margin-top: 0%;height:100%;width:100%; background-size: 100% 100%;">
+                    <div
+                        style="display: flex; flex-direction:column; height: 100%; width: 100%;justify-content: center; text-align: center; padding-left: 0%; ">
+                        <div id="mockupbox1"
+                            style="border:2px gray;padding-top:8%; display: none; flex-direction: column; align-items: center; justify-content: center;">
+                            <div style="padding-top:0%;margin-top: 0%;" id="mockup1">
+                                <!-- cards will be added through JavaScript code -->
+                                <!--height: 350px;width: 350px;-->
+                                <div style="display:flex;border: 2px solid rgb(189, 186, 186);border-radius: 15px;justify-content: center;"
+                                    id="loader1">
+                                    <div id="animation1"
+                                        style="margin-top: 0%;height:100%;width:100%; background-size: 100% 100%;">
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <div style="display:flex; align-items:center; justify-content:center; margin-top:4%;">
-                              <div id="remove" style="display:flex;justify-content:center;position:absolute;top:8%;right:2%;">
-                                  <button class="button-style remove-button" id="change_layout" onclick="change_layout()">
-                                      <img class="trash_image" src="./img/delete_black_24dp.svg"/>
-                                      <!-- <h6 class="trash_text">Remove mockup</h6> -->
-                                  </button>
-                              </div>
-                          </div>
-                        </div>
-                            <div id="mob_price_div"></div>
-                                <div id="mockup_div" style="display:none; border: 2px solid rgb(189, 186, 186);border-radius: 15px;padding:20px;padding-top:5px;padding-bottom:0;">
-                                    <div id="mockup_inner_div" style=" height: 100%; width: 100%;justify-content: center; text-align: center; padding-left: 0%;">
-                                        <div id="mockupheading" style="justify-content: center;">
-                                            <!--<button id="change_layout2" style="background-color: transparent; border:none" onclick="change_layout2()">-->
-                                                <h1 style="color: rgb(67, 67, 100); font-family: lora; font-size: x-large;">ADD Mockup </h1>
-                                            <!--</button>-->
-                                            <h1 style="color: orange; font-family: lora; font-size: x-large;">#ONLY HERE</h1>
-                                        </div>
-                                        <div id="mockupheading2" style="justify-content: center;">
-                                            <h1 style="color: rgb(67, 67, 100); font-family: lora; font-size: large;">Best for Instagram, FB, Whatsapp</h1>
-                                        </div>
-                                        
-                                        <div id="mockupbox2" style="display: block;border:2px gray;padding-top:0%;justify-content: center;">
-                                            <div  style="display:flex;justify-content: center;padding-top:0%;margin-top: 0%;" id="mockup2">
-                                                <!-- cards will be added through JavaScript code -->
-                                                
-                                                    <div  style="display:block;justify-content: center;" id="loader2">
-                                                        <div   style="position: relative;height:100%;width:100%; background-size: 100% 100%; display: flex; justify-content: center; align-items: center;">
-                                                            <div id="animation2" style="justify-content: center;display: flex;height:100% ; width: 100%; border: 2px solid rgb(189, 186, 186);border-radius: 15px;"></div>
-                                                        </div>
-                                                    </div>
-                                            </div>                        
-                                        </div>
-                                        <div id="mockupbut_div" style="display: block;">
-                                        <div id="mockupbut" style="width: 100%;justify-content: center;">
-                                            <!--ONclicking this button it is redirected to all_mockup.html-->
-                                            <button id="see_all_mockup" style="background-color: white;color: black; width: max-content; padding: 1%;margin: 2%;border-radius: 5px; cursor: pointer;">See all Mockup</button>
-                                        </div>
-                                        <div id="mockupbut_mob" style="display:none;">
-                                            <button id="see_all_mockup_mob">Add Mockup</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                <div>
+                                <div id="remove"
+                                    style="display:flex;justify-content:center;position:absolute;top:8%;right:2%;">
+                                    <button class="button-style remove-button" id="change_layout"
+                                        onclick="change_layout()">
+                                        <img class="trash_image" src="./img/delete_black_24dp.svg" />
+                                        <!-- <h6 class="trash_text">Remove mockup</h6> -->
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div>                
+                        <div id="mob_price_div"></div>
+                        <div id="mockup_div"
+                            style="display:none; border: 2px solid rgb(189, 186, 186);border-radius: 15px;padding:20px;padding-top:5px;padding-bottom:0;">
+                            <div id="mockup_inner_div"
+                                style=" height: 100%; width: 100%;justify-content: center; text-align: center; padding-left: 0%;">
+                                <div id="mockupheading" style="justify-content: center;">
+                                    <!--<button id="change_layout2" style="background-color: transparent; border:none" onclick="change_layout2()">-->
+                                    <h1 style="color: rgb(67, 67, 100); font-family: lora; font-size: x-large;">ADD
+                                        Mockup </h1>
+                                    <!--</button>-->
+                                    <h1 style="color: orange; font-family: lora; font-size: x-large;">#ONLY HERE</h1>
+                                </div>
+                                <div id="mockupheading2" style="justify-content: center;">
+                                    <h1 style="color: rgb(67, 67, 100); font-family: lora; font-size: large;">Best for
+                                        Instagram, FB, Whatsapp</h1>
+                                </div>
+
+                                <div id="mockupbox2"
+                                    style="display: block;border:2px gray;padding-top:0%;justify-content: center;">
+                                    <div style="display:flex;justify-content: center;padding-top:0%;margin-top: 0%;"
+                                        id="mockup2">
+                                        <!-- cards will be added through JavaScript code -->
+
+                                        <div style="display:block;justify-content: center;" id="loader2">
+                                            <div
+                                                style="position: relative;height:100%;width:100%; background-size: 100% 100%; display: flex; justify-content: center; align-items: center;">
+                                                <div id="animation2"
+                                                    style="justify-content: center;display: flex;height:100% ; width: 100%; border: 2px solid rgb(189, 186, 186);border-radius: 15px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="mockupbut_div" style="display: block;">
+                                    <div id="mockupbut" style="width: 100%;justify-content: center;">
+                                        <!--ONclicking this button it is redirected to all_mockup.html-->
+                                        <button id="see_all_mockup"
+                                            style="background-color: white;color: black; width: max-content; padding: 1%;margin: 2%;border-radius: 5px; cursor: pointer;">See
+                                            all Mockup</button>
+                                    </div>
+                                    <div id="mockupbut_mob" style="display:none;">
+                                        <button id="see_all_mockup_mob">Add Mockup</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
         </div>
-        
+
         <div style="display: flex; justify-content:center; margin-top: 20px; margin-bottom: 10px;">
             <div style="max-width:50%;display: flex;justify-content: flex-end;">
-                <button id="downloadsw" onclick="downlaodSampleCards()"  style="cursor: pointer;display:block;background-color: white;color: black; width: 150px; padding: 1%;margin: 2%;border-radius: 5px;">
+                <button id="downloadsw" onclick="downlaodSampleCards()"
+                    style="cursor: pointer;display:block;background-color: white;color: black; width: 150px; padding: 1%;margin: 2%;border-radius: 5px;">
                     Share sample <br> for free <br> (with watermark)
                 </button>
             </div>
             <div style="max-width:50%;display: flex;justify-content: start;">
-                <button id="rzp-button1" style="display:block;background-color: red;color: white; width: 150px; padding: 1%;margin: 2%;border: none;border-radius: 5px;"></button>
-                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>                    
+                <button id="rzp-button1"
+                    style="display:block;background-color: red;color: white; width: 150px; padding: 1%;margin: 2%;border: none;border-radius: 5px;"></button>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             </div>
-        </div>  
-        
+        </div>
+
     </div>
 
     <!--Start of mainbox2-->
-    <div id="mainbox2" class="container-fluid" style="display: none;margin-top: 2%; box-sizing: border-box; width: 95%; height: 100%; margin-left: 2.5vw; font-family: lora">
+    <div id="mainbox2" class="container-fluid"
+        style="display: none;margin-top: 2%; box-sizing: border-box; width: 95%; height: 100%; margin-left: 2.5vw; font-family: lora">
         <div class="container-fluid" style="margin-bottom: 0%;">
-            <div style="padding-top:0%;margin-top: 0%;justify-content: space-around;display: flex;flex-wrap: wrap;height: 100%;">
+            <div
+                style="padding-top:0%;margin-top: 0%;justify-content: space-around;display: flex;flex-wrap: wrap;height: 100%;">
                 <div id="mainbox2-1" style="display: block; width:850px;justify-content: center; margin-bottom: 20px">
-                    <div id="top-part" style="padding-top: 15px;display: block; height: 95px; width: 100%; text-align: center;">
+                    <div id="top-part"
+                        style="padding-top: 15px;display: block; height: 95px; width: 100%; text-align: center;">
                         <h1 style="color: rgb(14, 14, 87); font-family: lora;">Share PDF</h1>
                         <l1 style="color: rgb(14, 14, 87);">PDF can be shared on social media platforms</l1>
                     </div>
                     <!--Swiper for mainbox2-->
-                    
+
                     <div id="swiper-outer-div2" style="display: flex;justify-content: center;margin: auto;">
-                        <div class="swiper-container-popup swiper-container swiper2" style="transform-style: flat;height: 100%;width: 100%;">
-                    
+                        <div class="swiper-container-popup swiper-container swiper2"
+                            style="transform-style: flat;height: 100%;width: 100%;">
+
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
-                                    <div id="swiper2-img1" class="swiper-slide-popup" 
+                                    <div id="swiper2-img1" class="swiper-slide-popup"
                                         style="height: 100%;width: 100%; position: relative;background-size:100% 100%; display: flex; justify-content:stretch; align-items:stretch; background-size:cover; transform-style: flat;background-image: url(./imgg/front.jpg);">
-                                        <img id="watermarkswiper4" style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+                                        <img id="watermarkswiper4"
+                                            style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                                            src="./img/CelebrareLogo.png">
                                     </div>
                                 </div>
-                                <div  class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
-                                    <div id="swiper2-img2" class="swiper-slide-popup" 
+                                <div class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
+                                    <div id="swiper2-img2" class="swiper-slide-popup"
                                         style="height: 100%;width: 100%;position: relative;background-size:100% 100%; display: flex; justify-content: center; align-items: center; background-size:cover; transform-style: flat;background-image: url(./imgg/back.jpg);">
-                                        <img id="watermarkswiper5" style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+                                        <img id="watermarkswiper5"
+                                            style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                                            src="./img/CelebrareLogo.png">
                                     </div>
                                 </div>
-                                <div  class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
-                                    <div id="swiper2-img3" class="swiper-slide-popup"  
+                                <div class="swiper-slide" style="transform-style: flat;height: 100%;width: 45%;">
+                                    <div id="swiper2-img3" class="swiper-slide-popup"
                                         style="height: 100%;width: 100%;position: relative;background-size:100% 100%; display: flex; justify-content: center; align-items: center; background-size:cover; transform-style: flat;background-image: url(./imgg/back.jpg);">
-                                        <img id="watermarkswiper6" style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
-        
+                                        <img id="watermarkswiper6"
+                                            style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                                            src="./img/CelebrareLogo.png">
+
                                     </div>
                                 </div>
                             </div>
                             <!-- Add Pagination -->
                             <div class="swiper-pagination swiper-pagination2"></div>
+                        </div>
                     </div>
-                    </div>
-                    <div id="card_and_plus" >
-                    <!-- <div id="card_price2"> -->
+                    <div id="card_and_plus">
+                        <!-- <div id="card_price2"> -->
                         <!-- <h6 style="padding-left: 200px;padding-top: 20px;">Card Price= &#8377 399/-</h6> -->
-                    <!-- </div> -->
-                    <div class="plus_div2" style="display: flex;justify-content: center;align-items: center;">
-                        <img style="height: 80px;justify-self: center;filter: grayscale(100%);" src="./img/add_black_24dp.svg">
-                    </div>
+                        <!-- </div> -->
+                        <div class="plus_div2" style="display: flex;justify-content: center;align-items: center;">
+                            <img style="height: 80px;justify-self: center;filter: grayscale(100%);"
+                                src="./img/add_black_24dp.svg">
+                        </div>
                     </div>
                     <div>
                         <div id="mainbox2-pay-div1" style="justify-content: center;">
                             <div style="display: flex;justify-content: flex-end;">
-                                <button id="download2" style="display:none;background-color: white;color: black; width: 250px; padding: 1%;margin: 2%;border-radius: 5px;">Share sample <br> for free <br> (with watermark)</button>
+                                <button id="download2"
+                                    style="display:none;background-color: white;color: black; width: 250px; padding: 1%;margin: 2%;border-radius: 5px;">Share
+                                    sample <br> for free <br> (with watermark)</button>
                             </div>
                             <div style="display: flex;justify-content: start;">
-                                <button id="rzp-button2" style="display:none;background-color: red;color: white; width: 250px; padding: 1%;margin: 2%;border: none;border-radius: 5px;"></button>
+                                <button id="rzp-button2"
+                                    style="display:none;background-color: red;color: white; width: 250px; padding: 1%;margin: 2%;border: none;border-radius: 5px;"></button>
                                 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-             
+
                             </div>
-                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -327,20 +388,24 @@
         <!--This div payment button is for mainbox2 for mobile screen-->
         <div id="mainbox2-pay-div2" style="padding-top: 20px;">
             <div style="width: 50%;display: flex;justify-content: flex-end;">
-                <button id="download3" style="cursor: pointer;display:block; background-color: white;color: black; width: 250px; padding: 1%;margin: 2%;border-radius: 5px;">Share sample <br> for free <br> (with watermark)</button>
+                <button id="download3"
+                    style="cursor: pointer;display:block; background-color: white;color: black; width: 250px; padding: 1%;margin: 2%;border-radius: 5px;">Share
+                    sample <br> for free <br> (with watermark)</button>
             </div>
             <div style="width: 50%;display: flex;justify-content: start;">
-                <button id="rzp-button3" style="cursor:pointer;background-color: red;color: white; width: 250px; padding: 1%;margin: 2%;border: none;border-radius: 5px;">Purchase now <br> at &#8377 399</button>
-                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>                
+                <button id="rzp-button3"
+                    style="cursor:pointer;background-color: red;color: white; width: 250px; padding: 1%;margin: 2%;border: none;border-radius: 5px;">Purchase
+                    now <br> at &#8377 399</button>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             </div>
-        </div>        
+        </div>
     </div>
-    
-   
+
+
     <!-- Button trigger modal -->
     <div style="text-align: right; padding-right: 30px;" id="partner-signin-modal">
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#partners-login-modal"
-        id="partners">
+            id="partners">
             Partners
         </button>
     </div>
@@ -348,11 +413,11 @@
     <div id="partner-loggedin">
         <div class="partner-loggedin__details">
             <h5>Name</h5>
-            <p id ="partner-loggedin__name"></p>
+            <p id="partner-loggedin__name"></p>
         </div>
         <div class="partner-loggedin__details">
             <h5>Wallet Balance</h5>
-            <p id ="partner-loggedin__balance"></p>
+            <p id="partner-loggedin__balance"></p>
         </div>
         <!-- <div class="partner-loggedin__details">
             <button>Download sample cards</button>
@@ -362,21 +427,22 @@
         </div>
     </div>
 
-  
-  <!-- Modal -->
-  <div class="modal fade" id="partners-login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content" style="font-family: Lora;">
-        <div class="modal-body">
-            <h2 >Partners Login</h2>
-            <input placeholder="Username"type="email" id="partners-email">
-            <input placeholder="Password"type="password" id="partners-password">
-            <button type="button" onclick="partnersLogin()">Login</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="partners-login-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="font-family: Lora;">
+                <div class="modal-body">
+                    <h2>Partners Login</h2>
+                    <input placeholder="Username" type="email" id="partners-email">
+                    <input placeholder="Password" type="password" id="partners-password">
+                    <button type="button" onclick="partnersLogin()">Login</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  <script type="text/javascript" src="./js/firebaseUtils.js"></script>
+    <script type="text/javascript" src="./js/firebaseUtils.js"></script>
 
     <script>
         let cardprice = JSON.parse(localStorage.getItem('card-price'));
@@ -386,22 +452,22 @@
             `;
         var options = {
             "key": "rzp_live_VUzjQUln8fgkX6", // Enter the Key ID generated from the Dashboard
-            "amount": cardprice*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "amount": cardprice * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
             "name": "Celebrare",
             "description": "Test Transaction",
             // "image": "https://example.com/your_logo",
             // "order_id": "order_HmEHKo5v3UbIeb", //enter order id
-            "handler": function (response){
+            "handler": function (response) {
                 // alert(response.razorpay_payment_id);
                 // alert(response.razorpay_order_id);
                 // alert(response.razorpay_signature);
                 //var generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, secret);
                 //if (generated_signature == razorpay_signature) {
-                    // alert("hi");  
-                    window.location.href = "paymentdone.html";
+                // alert("hi");  
+                window.location.href = "paymentdone.html";
                 //}
-                
+
             },
             "notes": {
                 "address": "Celebrare Corporate Office"
@@ -411,33 +477,33 @@
             }
         };
         var rzp1 = new Razorpay(options);
-        rzp1.on('payment.failed', function (response){
-                // alert(response.error.code);
-                // alert(response.error.description);
-                // alert(response.error.source);
-                // alert(response.error.step);
-                // alert(response.error.reason);
-                // alert(response.error.metadata.order_id);
-                // alert(response.error.metadata.payment_id);
+        rzp1.on('payment.failed', function (response) {
+            // alert(response.error.code);
+            // alert(response.error.description);
+            // alert(response.error.source);
+            // alert(response.error.step);
+            // alert(response.error.reason);
+            // alert(response.error.metadata.order_id);
+            // alert(response.error.metadata.payment_id);
         });
-        document.getElementById('rzp-button3').onclick = function(e){
-            localStorage.setItem('with_mockup',0);
+        document.getElementById('rzp-button3').onclick = function (e) {
+            localStorage.setItem('with_mockup', 0);
             payment_login2();
             e.preventDefault();
         }
-        document.getElementById('rzp-button2').onclick = function(e){
-            localStorage.setItem('with_mockup',0);
+        document.getElementById('rzp-button2').onclick = function (e) {
+            localStorage.setItem('with_mockup', 0);
             payment_login2();
             e.preventDefault();
         }
-        document.getElementById('rzp-button1').onclick = function(e){
-            localStorage.setItem('with_mockup',1);
-            localStorage.setItem("mockwatermark",0);
+        document.getElementById('rzp-button1').onclick = function (e) {
+            localStorage.setItem('with_mockup', 1);
+            localStorage.setItem("mockwatermark", 0);
             payment_login();
             e.preventDefault();
         }
     </script>
-    
+
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <div id="canvas_download_div" style="display: none;">
         <canvas id="canvas_download1"></canvas>
@@ -452,9 +518,9 @@
         <canvas id="canvas5" style="border: 2px solid black;height: 400px; width: 400px"></canvas>
     </div>
     <div style="display: flex;position: absolute;top: -1000px;">
-    <div id="wholecanvas" style="height: 1000px;width: 1000px;">
-        <img style="height: 1000px;width: 1000px;" id="canvasimage">
-    </div>
+        <div id="wholecanvas" style="height: 1000px;width: 1000px;">
+            <img style="height: 1000px;width: 1000px;" id="canvasimage">
+        </div>
     </div>
     <div style="display: flex;position: absolute;top: -1000px;">
         <div id="wholecanvas2" style="height: 1000px;width: 1000px;">
@@ -462,9 +528,9 @@
         </div>
     </div>
     <div style="display: flex;position: absolute;top: -1000px;">
-            <div id="wholecanvas3" style="height: 1000px;width: 1000px;">
-                <img style="height: 1000px;width: 1000px;" id="canvasimage3">
-            </div>
+        <div id="wholecanvas3" style="height: 1000px;width: 1000px;">
+            <img style="height: 1000px;width: 1000px;" id="canvasimage3">
+        </div>
     </div>
     <div style="display: flex;position: absolute;top: -1000px;">
         <div id="wholecanvas4" style="height: 1000px;width: 1000px;">
@@ -474,7 +540,9 @@
     <div style="display: flex;position: absolute;top: -1000px;">
         <div id="wholemockup" style="height: 1000px;width: 1000px;">
             <img style="height: 1000px;width: 1000px;" id="mockupimage">
-            <img id="watermarkmockup" style="display: flex;position: absolute;height: 70px;width: 400px;margin-top:-80px;margin-left: 580px;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+            <img id="watermarkmockup"
+                style="display: flex;position: absolute;height: 70px;width: 400px;margin-top:-80px;margin-left: 580px;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);"
+                src="./img/CelebrareLogo.png">
         </div>
     </div>
 
@@ -486,8 +554,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.11/lottie.min.js"></script>
     <script type="text/javascript" src="./js/login.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./js/jspdf.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./js/jspdf.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXvhy5ivBRSdAmvia1qwwkc2ssfu0sy7c6qhr8e4curh64j8vglc0pz0mccW8Jf9c9IpFgh" crossorigin="anonymous"></script> -->
     <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
@@ -502,8 +572,48 @@
     <script src="./js/share.js"></script>
     <script>
         const analytics_website_wedding_preview_done = () => {
-        analytics.logEvent("website_wedding_preview_done");
+            analytics.logEvent("website_wedding_preview_done");
         };
     </script>
 </body>
+
 </html>
+
+
+
+
+<!-- Script written by aman -->
+<script>
+
+    // this piece of code, disable all the posibilites to open inspect menu
+    // as this page consist confidential data !
+
+    document.oncontextmenu = (e) => { e.preventDefault(); }
+    document.onkeydown = function (e) {
+        if (event.keyCode == 123) {
+            console.log(event)
+            alert('yes')
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            e.preventDefault()
+            // console.log(event)
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+            e.preventDefault()
+            // console.log(event)
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            e.preventDefault()
+            // console.log(event)
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            e.preventDefault()
+            // console.log(event)
+             return false;
+        }
+    }
+</script>
+<!-- Script written by aman end-->

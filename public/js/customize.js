@@ -70,41 +70,50 @@ sc - side bar cards
 rc - reorder/rearrange popup cards
 */
 
-fetchSelectedCardData = async () => {
-	setTimeout(() => {
-		try {
-			// let userSessionDataObject = getLocalStorage();
-			let userSessionDataObject = JSON.parse(localStorage.getItem("userSessionData"));
-			console.log(userSessionDataObject);
-			db.doc(`weddingcards/allcard/cards/${userSessionDataObject["selectedCard"]}`)
-				.get()
-				.then((snapshot) => {
-					let recievedData = snapshot.data();
-					console.log(recievedData);
-					selectedCard = {
-						front: recievedData["mediumImgFrontLink"],
-						back: recievedData["mediumImgBackLink"],
-						text1: recievedData["text1"],
-						text2: recievedData["text2"],
-						text3: recievedData["text3"],
-					};
-					category = recievedData["category"];
 
-					/*disabling the loader*/
-					$("#customize-screen-loader").css("display", "none");
-					$("#customize-screen-loader").remove();
-				})
-				.then(() => {
-					loadScreenCards();
-				})
-				.then(() => {
-					loadScreenBgImage();
-				});
-			localStorage.setItem("userSessionDataObject", JSON.stringify(userSessionDataObject));
-		} catch (err) {
-			console.log(err);
-		}
-	}, 0);
+// Script by aman !
+function getParametersID() {
+	let params = {};
+	let urlString = window.location.href;
+	let paramString = urlString.split('?')[1];
+	let queryString = new URLSearchParams(paramString);
+	for (let pair of queryString.entries()) {
+		params[pair[0]] = pair[1]
+	}
+
+	return params.cardID;
+}
+// Script by aman end !
+
+
+
+// Script modified by aman !
+fetchSelectedCardData = async () => {
+
+	let id = getParametersID();
+	if (id == undefined || id == "") window.location.href = "./weddingcard.html";
+
+
+	let userSessionDataObject = getLocalStorage();
+	let data = await getData('weddingcard2/allcard/cards/' + id);
+	data = data.data();
+
+	selectedCard = {
+		front: data["mediumImgFrontLink"],
+		back:  data["mediumImgBackLink"],
+		text1: data["text1"],
+		text2: data["text2"],
+		text3: data["text3"],
+	};
+	category = data["category"];
+
+	$("#customize-screen-loader").css("display", "none");
+	$("#customize-screen-loader").remove();
+
+	loadScreenCards();
+	loadScreenBgImage();
+
+
 };
 
 /* this function is dedicated for loading the basic 3 cards bg images and text*/

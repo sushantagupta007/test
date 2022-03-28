@@ -341,7 +341,7 @@
 
 						<div id="popup-try-button-up-div"
 							style=" display: flex; justify-content: center; align-items: center; ">
-							<button id="popup-try-button-up" onclick="window.location='form.html';"
+							<button id="popup-try-button-up" onclick="openForm()"
 								style=" background-color: rgba(255, 0, 0, 0.7); color: white; outline: none; border: transparent; border-radius: 10px; box-shadow: 0px 0px 15px 3px rgba(255, 0, 0, 0.5); margin-bottom: 20px; ">
 								Try this card
 								<img src="./img/right-arrow.svg" alt="" width="40" height="20" />
@@ -356,7 +356,7 @@
 								id="popup-description"></div>
 						</div>
 						<div>
-							<button id="popup-try-button" data-id="" onclick="window.location='form.html';"
+							<button id="popup-try-button" data-id="" onclick="openForm()"
 								style=" background-color: red; color: white; outline: none; border: transparent; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(255, 0, 0, 0.5); ">
 								Try this card
 								<img src="./img/right-arrow.svg" alt="" width="40" height="20" />
@@ -560,4 +560,9 @@
 		$(this).css('display', 'none');
 		window.location.reload()
 	});
+
+
+
+	
+
 </script>

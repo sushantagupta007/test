@@ -38,3 +38,39 @@ const swiper = new Swiper(".swiper-container", {
 // <img id=${
 //   "watermarkswiper" + (i + 1).toString()
 // } style="height: 6%;width: 30%;margin-top: 130%;margin-left: 75%;border: 1px solid transparent;border-radius: 20px;background-color: rgba(0,0,0,0.8);" src="./img/CelebrareLogo.png">
+
+
+// <!-- Script written by aman -->
+
+// this piece of code, disable all the posibilites to open inspect menu
+// as this page consist confidential data !
+
+document.oncontextmenu = (e) => { e.preventDefault(); }
+document.onkeydown = function (e) {
+    if (event.keyCode == 123) {
+        console.log(event)
+        alert('yes')
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+        e.preventDefault()
+        // console.log(event)
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+        e.preventDefault()
+        // console.log(event)
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+        e.preventDefault()
+        // console.log(event)
+        return false;
+    }
+    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+        e.preventDefault()
+        // console.log(event)
+         return false;
+    }
+}
+
+// <!-- Script written by aman end-->

@@ -109,46 +109,44 @@ function getParameters() {
 
 
 async function show() {
-	
+
 	let params = getParameters();
-	if(params.cardID == undefined || params.cardID == "")
-	{
+	if (params.cardID == undefined || params.cardID == "") {
 		window.location.href = "./weddingcard.html";
 	}
-	
+
 	// google analytics logging event
 	// analytics.logEvent("website_wedding_card_big_view");
 	let id = params.cardID
 	let elem = document.getElementById(`popup`);
 	document.body.style.overflowY = "scroll";
-	
+
 	/* positioning of the popup for responsive mode */
 	if (window.innerWidth > 900) elem.style.top = "50%";
 	else elem.style.top = "55%";
-	
+
 	/* basically there will be 3 cards so 3 popup slides structure is hardcoded in popup div (see html page) */
 	/* below 3 statements will remove the previous background images on the popup slides */
 	document.getElementById(`popup-slide-1`).style.backgroundImage = `url("")`;
 	document.getElementById(`popup-slide-2`).style.backgroundImage = `url("")`;
 	document.getElementById(`popup-slide-3`).style.backgroundImage = `url("")`;
-	
+
 	//to load popup slides on popup
 	loadPopupSlides(id);
-	
+
 	/* updating the session storage */
 	let userSessionDataObject = getLocalStorage();
 	userSessionDataObject["selectedCard"] = id;
-	
+
 	if (userSessionDataObject.countryCode == 0 || userSessionDataObject.countryCode == undefined) {
 		await fetch_ip("http://ip-api.com/json/")
 	}
 	if (userSessionDataObject.priceData.length == 0 || userSessionDataObject.priceData == undefined) {
-        await fetchPrice();
-    }
-	
+		await fetchPrice();
+	}
+
 	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-	
-	
+
 	/* disable pointer outside the popup and apply some transition */
 	// document.body.style.pointerEvents = "none";
 	// elem.style.pointerEvents = "auto";
@@ -180,26 +178,26 @@ function getLocalStorage() {
 // This code sets the country code of the current user !
 var countriesAvailable = { 'ae': 1, 'gb': 1, 'in': 1, 'my': 1, 'pk': 1, 'us': 1 }
 var myCountryCode = 'in';
-async function fetch_ip(path){
+async function fetch_ip(path) {
 	let ipInfo = await fetch(path).then().catch(function () {
 		alert('Unable to fetch Country Code !')
-    });
-	
-	try{
+	});
+
+	try {
 		let ip_data = await ipInfo.json();
 		let country_code = ip_data["countryCode"].toLowerCase();
 		myCountryCode = country_code;
 		if (!countriesAvailable[myCountryCode]) myCountryCode = "in"
 	}
-	catch{
+	catch {
 		myCountryCode = 'in';
 	}
 
-    let userSessionDataObject = getLocalStorage();
-    if (userSessionDataObject.countryCode == null) {
+	let userSessionDataObject = getLocalStorage();
+	if (userSessionDataObject.countryCode == null) {
 		userSessionDataObject["countryCode"] = myCountryCode;
-        localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-    }
+		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+	}
 }
 // This code sets the country code of the current user !
 
@@ -209,12 +207,12 @@ async function fetch_ip(path){
 
 // This code fetches the price from database, according to country code
 async function fetchPrice() {
-    if (myCountryCode == null) await fetch_ip("http://ip-api.com/json/");
-    let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
-    price = price.data();
-    let userSessionDataObject = getLocalStorage();
-    userSessionDataObject["priceData"] = price;
-    localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+	if (myCountryCode == null) await fetch_ip("http://ip-api.com/json/");
+	let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
+	price = price.data();
+	let userSessionDataObject = getLocalStorage();
+	userSessionDataObject["priceData"] = price;
+	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
 }
 // This code fetches the price from database, according to country code
 
@@ -223,59 +221,77 @@ async function fetchPrice() {
 
 async function checkLocalStorage() {
 
-    let empty = {}
-    if (localStorage.userSessionData == undefined || localStorage.userSessionData == empty) {
-        localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
-    }
+	let empty = {}
+	if (localStorage.userSessionData == undefined || localStorage.userSessionData == empty) {
+		localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
+	}
 
-    let userSessionDataObject = getLocalStorage();
-    let obj = ["selectedCard", "brideFirstName", "brideLastName", "brideFatherName", "brideMotherName", "brideGFatherName", "brideGMotherName", "groomFirstName", "groomLastName", "groomFatherName", "groomMotherName", "groomGFatherName", "groomGMotherName", "weddingDate", "weddingDateFormatted", "events", "weddingSide", "sectionCardCategory", "editCardDetails", "NameChanged", "RCmainPageCards", "RCmainPageCardsDetails", "WCmainPageCardsDetails", "countryCode", "popupCardsData", "WCsectionCards", "RCsectionCards", "priceData"]
-    count = 0
-    
-	
-    for (const key in userSessionDataObject) {
+	let userSessionDataObject = getLocalStorage();
+	let obj = ["selectedCard", "brideFirstName", "brideLastName", "brideFatherName", "brideMotherName", "brideGFatherName", "brideGMotherName", "groomFirstName", "groomLastName", "groomFatherName", "groomMotherName", "groomGFatherName", "groomGMotherName", "weddingDate", "weddingDateFormatted", "events", "weddingSide", "sectionCardCategory", "editCardDetails", "NameChanged", "RCmainPageCards", "RCmainPageCardsDetails", "WCmainPageCardsDetails", "countryCode", "popupCardsData", "WCsectionCards", "RCsectionCards", "priceData"]
+	count = 0
+
+
+	for (const key in userSessionDataObject) {
 		if (key != obj[count]) {
-            localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
-            break;
-        }
-        count += 1;
-    }
+			localStorage.setItem("userSessionData", JSON.stringify(userSessionData));
+			break;
+		}
+		count += 1;
+	}
 
 
-	if(userSessionDataObject.countryCode == 0)
-	{
+	if (userSessionDataObject.countryCode == 0) {
 		await fetch_ip("http://ip-api.com/json/")
 	}
-	if(userSessionDataObject.priceData == [] || userSessionDataObject.priceData.length == 0)
-	{
+	if (userSessionDataObject.priceData == [] || userSessionDataObject.priceData.length == 0) {
 		fetchPrice()
 	}
 
 }
 
-function getPrice(amount)
-{
+function getPrice(amount) {
 	let price = '';
 	let onceStarted = false;
-	for(let i=0 ; i<amount.length ; i++)
-	{
-		if(amount[i]>=0 && amount[i]<=9){
+	for (let i = 0; i < amount.length; i++) {
+		if (amount[i] >= 0 && amount[i] <= 9) {
 			price += amount[i]
 			onceStarted = true;
-		} 
-		else{
-			if(onceStarted) break;
+		}
+		else {
+			if (onceStarted) break;
 		}
 	}
 	return parseInt(price);
 }
-function getdiscount(offer_price , mrp_price)
-{
-	offer_price = getPrice(offer_price+"");
-	mrp_price = getPrice(mrp_price+"");
+function getdiscount(offer_price, mrp_price) {
+	offer_price = getPrice(offer_price + "");
+	mrp_price = getPrice(mrp_price + "");
 
-	return 100-(offer_price * 100 / mrp_price)
+	return 100 - (offer_price * 100 / mrp_price)
 }
+
+
+
+
+function openForm() {
+
+	let params = getParameters();
+	if (params.cardID == undefined || params.cardID == "") {
+		window.location.href = "./weddingcard.html";
+	}
+	else
+	{
+		window.location.href = "./form.html?cardID="+params.cardID;
+	}
+
+}
+
+
+
+
+
+
+
 // Script written by Aman End !
 
 
@@ -295,17 +311,16 @@ function getdiscount(offer_price , mrp_price)
 /* this function will load the 3 popup slides on the popup  */
 // id - represents id of the card to fetch the card info from firestore
 loadPopupSlides = async (id) => {
-	
+
 	let userSessionDataObject = getLocalStorage();
 	let popupCardData = 0;
-	if( userSessionDataObject["popupCardsData"] == undefined || userSessionDataObject["popupCardsData"][id] == undefined )
-	{
-		popupCardData = await getData('weddingcard2/allcard/cards/'+id);
+	if (userSessionDataObject["popupCardsData"] == undefined || userSessionDataObject["popupCardsData"][id] == undefined) {
+		popupCardData = await getData('weddingcard2/allcard/cards/' + id);
 		popupCardData = popupCardData.data();
 
-		
 
-		if(popupCardData == undefined) window.location.href = "./weddingcard.html";
+
+		if (popupCardData == undefined) window.location.href = "./weddingcard.html";
 
 		popupCards[id] = {
 			bg1: popupCardData["smallImgFrontLink"],
@@ -320,8 +335,8 @@ loadPopupSlides = async (id) => {
 			text2: popupCardData["text2"],
 			text3: popupCardData["text3"],
 		};
-		userSessionDataObject["popupCardsData"] = {id : popupCards[id]};
-		localStorage.setItem("userSessionData",JSON.stringify(userSessionDataObject));
+		userSessionDataObject["popupCardsData"] = { id: popupCards[id] };
+		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
 	}
 
 	/* this will append the loader in each of the three slides */
@@ -341,9 +356,9 @@ loadPopupSlides = async (id) => {
 
 
 	let cardCategory = popupCardData.category
-	let offer_price = userSessionDataObject.priceData[cardCategory+"Price"];
-	let mrp_price = userSessionDataObject.priceData[cardCategory+"StrikePrice"];
-	let offer = Math.round(getdiscount(offer_price , mrp_price));
+	let offer_price = userSessionDataObject.priceData[cardCategory + "Price"];
+	let mrp_price = userSessionDataObject.priceData[cardCategory + "StrikePrice"];
+	let offer = Math.round(getdiscount(offer_price, mrp_price));
 
 
 	document.getElementById(`popup-description`).innerHTML = popupCards[id]["description"];
