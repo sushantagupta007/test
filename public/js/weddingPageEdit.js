@@ -73,7 +73,7 @@ function loadBgImage(url) {
     let img = new Image();
     img.crossOrigin = "Anonymus";
     img.onload = function () {
-        $('#editPageLoader').css('display', 'none');
+        $('#editPageLoader').remove();
         document.getElementById('editPage').style.backgroundImage = `url("${img.src}")`
         //$('#editPage').append(`${editPageData['cardDetails']}`)
         document.getElementById('card_details').innerHTML = `${editPageData['cardDetails']}`

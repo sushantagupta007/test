@@ -389,12 +389,13 @@ loadPopupSlides = async (id) => {
 
 
 
-
+// Script modified by aman!
 /* this function will load the background image of the card for each slide */
 loadPopupBgImage = (id, looper) => {
 	let img = new Image();
 	img.onload = function () {
-		$(`#popup-slide-${looper}-loader`).css("visibility", "hidden");
+		// $(`#popup-slide-${looper}-loader`).css("visibility", "hidden");
+		$(`#popup-slide-${looper}-loader`).remove();
 		document.getElementById(
 			`popup-slide-${looper}`
 		).style.backgroundImage = `url("${img.src}")`;

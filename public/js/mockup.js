@@ -345,7 +345,9 @@ document.getElementById("see_all_mockup_mob").onclick = function () {
   location.href = "./all_mockup.html";
 };
 function change_layout() {
-  document.getElementById("mockupbox1").style.display = "none";
+  $("#mockupbox1").remove();
+  console.log(" i removed mockupbox")
+  // document.getElementById("mockupbox1").style.display = "none";
   document.getElementById("mockup_div").style.display = "block";
   document.getElementById("mob_pricing").style.display = "none ";
   localStorage.setItem("with_mockup", 0);
@@ -1479,7 +1481,8 @@ const displayFinalCards = () => {
 
 // loading cards to swiper
 const finalSwiperCardsHelper = () => {
-  document.querySelector("#animation3").style.display = "none";
+  // document.querySelector("#animation3").style.display = "none";
+  document.getElementById("animation3").remove()
   displayFinalCards();
 };
 
@@ -1518,3 +1521,4 @@ function getLocalStorage() {
   }
   return obj;
 }
+

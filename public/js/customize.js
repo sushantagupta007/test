@@ -107,7 +107,6 @@ fetchSelectedCardData = async () => {
 	};
 	category = data["category"];
 
-	$("#customize-screen-loader").css("display", "none");
 	$("#customize-screen-loader").remove();
 
 	loadScreenCards();
@@ -121,8 +120,6 @@ loadScreenBgImage = async () => {
 	for (let i = 1; i <= 3; i++) {
 		let img = new Image();
 		img.onload = function () {
-			$(`#ec-${i}-loader`).css("visibility", "hidden");
-			$(`#sc-${i}-loader`).css("visibility", "hidden");
 			$(`#sc-${i}-loader`).remove();
 			$(`#ec-${i}-loader`).remove();
 

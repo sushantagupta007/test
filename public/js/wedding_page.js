@@ -549,12 +549,14 @@ loadBgImage = async (id, url, cat) => {
 	// console.log(id , url , cat	)
 	let img = new Image();
 	img.onload = function () {
-		$(`#${cat}-${id}-loader`).css("display", "none");
-		// console.log(			`${cat}-${id}`)
+		
+		// $(`#${cat}-${id}-loader`).css("display", "none"); // this line will hide the loader from html filr
+		$(`#${cat}-${id}-loader`).remove(); // this line will remove the loader from html code
+
 		document.getElementById(
 			`${cat}-${id}`
 		).style.backgroundImage = `url("${img.src}")`;
-		// loaded background image - now adding the text;
+
 		addText(id, cat);
 	};
 	img.src = url;
@@ -649,7 +651,8 @@ fetchRoyalData = async () => {
 	}
 
 	// Later on the loader will be removed !
-	$("#royal-loader").css("display", "none");
+	$("#royal-loader").remove();
+	// $("#royal-loader").css("display", "none");
 
 
 	// And this loop will add the cards in swiper container !
