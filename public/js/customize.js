@@ -100,7 +100,7 @@ fetchSelectedCardData = async () => {
 
 	selectedCard = {
 		front: data["mediumImgFrontLink"],
-		back:  data["mediumImgBackLink"],
+		back: data["mediumImgBackLink"],
 		text1: data["text1"],
 		text2: data["text2"],
 		text3: data["text3"],
@@ -326,6 +326,7 @@ addScreenCardText = async (card_page_no) => {
 		//spltting text properties for splitted text lines
 		let properties = splitted_text_lines[i].split(",");
 		//extracting properties ;
+		console.log("properties = " , properties);
 		let font_family = properties[0];
 		defaultFonts.push(properties[0]);
 		defaultColor.push(properties[2]);
