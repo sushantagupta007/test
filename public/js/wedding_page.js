@@ -361,8 +361,7 @@ function changeProperties() {
 	val = ratio * scaling_factor["wc"][break_point];
 
 	for (let id in allWeddingCards) {
-		let elem = document.getElementById(`wc-${id}-details`);
-		elem.style.transform = `scale(${val}, ${val})`;
+		document.getElementById(`wc-${id}-details`).style.transform = `scale(${val}, ${val})`;
 	}
 
 
@@ -466,10 +465,7 @@ function changeBrideGroomName() {
 
 /*This function will be called when the user presses show royal cards or view all cards button on the home page and will store the subcategory(sectionCat) in userSessionData variable*/
 loadSectionCard = (sectionCat) => {
-	let userSessionDataObject = getLocalStorage();
-	userSessionDataObject["sectionCardCategory"] = sectionCat;
-	localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-	window.location.href = "./WeddingSection.html";
+	window.location.href = "./WeddingSection.html?category=" + sectionCat;
 };
 
 
@@ -820,7 +816,7 @@ async function fetch_ip(path) {
 
 // This code fetches the price from database, according to country code
 async function fetchPrice() {
-	if (myCountryCode == null) await fetch_ip("http://ip-api.com/json/");
+	if (getLocalStorage().countryCode == 0) await fetch_ip("http://ip-api.com/json/");
 	let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
 	price = price.data();
 	let userSessionDataObject = getLocalStorage();
@@ -861,9 +857,6 @@ function getBrideGroomNamePopup() {
 /*****************************************************************************************************************************************************/
 window.addEventListener("load", async (event) => {
 
-
-	checkLocalStorage();
-
 	/* royal wedding card loader */
 	LoadAnimation("royal-loader");
 	/* all wedding card loader */
@@ -885,26 +878,37 @@ window.addEventListener("load", async (event) => {
 		},
 	});
 
-	let userSessionDataObject = getLocalStorage();
+	
 
-	if (userSessionDataObject.countryCode == 0 || userSessionDataObject.countryCode == undefined) {
-		await fetch_ip("http://ip-api.com/json/")
-	}
-	if (userSessionDataObject.priceData == [] || userSessionDataObject.priceData == undefined) {
-		await fetchPrice();
-	}
 
-	/*this function will fetch and load all the royal cards in the slider in royal cards section*/
-	fetchRoyalData();
-	/*this function will fetch and load all the wedding cards in the slider in all wedding cards section*/
-	fetchAllWeddingData();
 
 	$(document).ready(function () {
+		let userSessionDataObject = getLocalStorage();
+		setTimeout(function(){
+			checkLocalStorage();
+			userSessionDataObject = getLocalStorage();
+		} , 1000);
 		if (!userSessionDataObject["NameChanged"] || userSessionDataObject["brideFirstName"] == "" || userSessionDataObject["groomFirstName"] == "") {
 			setTimeout(() => {
 				getBrideGroomNamePopup();
 			}, 2000);
 		}
+
+		setTimeout(function(){
+			if (getLocalStorage().priceData.length == 0 || getLocalStorage().priceData == undefined) {
+				fetchPrice();
+			}
+			if (getLocalStorage().countryCode == 0 || getLocalStorage().countryCode == undefined) {
+				fetch_ip("http://ip-api.com/json/")
+			}
+		} , 3000);
+		setTimeout(function(){
+			/*this function will fetch and load all the royal cards in the slider in royal cards section*/
+			fetchRoyalData();
+			/*this function will fetch and load all the wedding cards in the slider in all wedding cards section*/
+			fetchAllWeddingData();
+		} , 3500);
+
 	})
 });
 /****************************************************************************************************************************************************/

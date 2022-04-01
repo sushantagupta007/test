@@ -186,7 +186,7 @@ async function fetch_ip(path) {
 
 		let ip_data = data.json()
 		let country_code = ip_data["countryCode"].toLowerCase();
-		alert('i got ',country_code)
+		console.log('i got ',country_code)
 		if (countriesAvailable.country_code != 1) userSessionDataObject["countryCode"] = "in";
 		else userSessionDataObject.countryCode = country_code;
 		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
