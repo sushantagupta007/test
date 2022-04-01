@@ -362,29 +362,67 @@ function showPopup(element) {
 
 
 /* getting all documents at once */
-fetchSectionData = async () => {
+fetchSectionData = async (category) => {
 	let userSessionDataObject = getLocalStorage();
 	if (userSessionDataObject.priceData == "undefined" || userSessionDataObject.priceData.length == 0) await fetchPrice();
 	else price = getLocalStorage.priceData;
+	
+	cards = []
 
+	console.log("category is = " , category)
 	try {
-		db.collection("weddingcard2/allcards/cards")
-			.get()
-			.then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					let rec_data = doc.data();
-					for (id in rec_data) {
-						cards.push(rec_data[id]);
+		if (category == "royal") {
+			console.log("in royal")
+			let data = await getData('weddingcard2/royal/');
+			data = data.data();
+			console.log(data)
+			for (id in data) {
+				cards.push(data[id]);
+			}
+			lastPageNo = Math.floor(cards.length / 15);
+			if (cards.length % 15 != 0) {
+				lastPageNo++;
+			}
+			loadSectionCards(page_number);
+			// db.collection("weddingcard2/royal")
+			// .get()
+			// .then(function (doc) {
+			// 	let rec_data = doc.data();
+			// 		for (id in rec_data) {
+			// 			cards.push(rec_data[id]);
+			// 		}
+			// 		console.log("cards = " , cards)
+			// 	})
+			// 	.then(() => {
+			// 		lastPageNo = Math.floor(cards.length / 15);
+			// 		if (cards.length % 15 != 0) {
+			// 			lastPageNo++;
+			// 		}
+			// 		loadSectionCards(page_number);
+			// 	});
+
+			}
+		else {
+			db.collection("weddingcard2/allcards/cards")
+				.get()
+				.then((querySnapshot) => {
+					console.log("in all cards")
+					querySnapshot.forEach((doc) => {
+						let rec_data = doc.data();
+						for (id in rec_data) {
+							cards.push(rec_data[id]);
+						}
+						console.log("cards = " , cards)
+					});
+				})
+				.then(() => {
+					lastPageNo = Math.floor(cards.length / 15);
+					if (cards.length % 15 != 0) {
+						lastPageNo++;
 					}
+					loadSectionCards(page_number);
 				});
-			})
-			.then(() => {
-				lastPageNo = Math.floor(cards.length / 15);
-				if (cards.length % 15 != 0) {
-					lastPageNo++;
-				}
-				loadSectionCards(page_number);
-			});
+		}
 	} catch (err) {
 		console.log(err);
 	}
@@ -423,7 +461,7 @@ window.addEventListener("load", (event) => {
 		document.getElementById("section-heading").innerHTML = "All Wedding Cards";
 	}
 	else window.location.href = "weddingcard.html";
-	fetchSectionData();
+	fetchSectionData(params.category);
 });
 
 /****************************************************************************************************************************************************/

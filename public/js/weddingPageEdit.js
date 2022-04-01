@@ -1029,7 +1029,7 @@ function editText() {
 
                                 // $('.liney1').remove();
                                 // $('.liney2').remove();
-                                $('.linex').remove();
+                                // $('.linex').remove();
                                 var textEl = event.target.querySelector('p')
                                 // linePoints.x = null, linePoints.y = null;
                                 textEl && (textEl.textContent =
@@ -1262,7 +1262,7 @@ setInterval(() => {
     }
 }, 10);
 
-linex(300);
+// linex(300);
 // this will create a line at the provided x coordinate
 function linex(x) {
     var x1 = x, y1 = 0, x2 = x1, y2 = $('#editPage')[0].clientHeight;

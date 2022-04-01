@@ -399,6 +399,9 @@ loadPopupBgImage = (id, looper) => {
 		document.getElementById(
 			`popup-slide-${looper}`
 		).style.backgroundImage = `url("${img.src}")`;
+		document.getElementById(
+			`popup-slide-${looper}`
+		).style.backgroundSize = "cover";
 	};
 	img.src = popupCards[id][`bg${looper}`];
 };
