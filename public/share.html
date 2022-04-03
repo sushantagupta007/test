@@ -503,9 +503,20 @@
         document.getElementById('rzp-button1').onclick = function (e) {
             localStorage.setItem('with_mockup', 1);
             localStorage.setItem("mockwatermark", 0);
-            alert("currency code is = ", currencyCode);
-            // payment_login();
+            console.log("currency code is = ", currencyCode);
+            payment_login();
             e.preventDefault();
+        }
+
+
+
+        /*getting the session Storage Variables*/
+        function getLocalStorage() {
+            let obj = {};
+            if (typeof localStorage.userSessionData !== "undefined") {
+                obj = JSON.parse(localStorage.userSessionData);
+            }
+            return obj;
         }
 
 
@@ -515,12 +526,11 @@
         // This code sets the country code of the current user !
         var countriesAvailable = { 'ae': 1, 'gb': 1, 'in': 1, 'my': 1, 'pk': 1, 'us': 1 }
         var myCountryCode = 'in';
-        var currencyCodesAvailable = {"in" : "INR" ,  "us": "USD", "pk": "PKR", "my": "MYR", "gb": "GBP"}
+        var currencyCodesAvailable = { "in": "INR", "us": "USD", "pk": "PKR", "my": "MYR", "gb": "GBP" }
         async function fetch_ip(path) {
 
             let userSessionDataObject = getLocalStorage();
-            if(userSessionDataObject.countryCode == 0)
-            {
+            if (userSessionDataObject.countryCode == 0) {
                 await fetch(path).then(function (data) {
                     let ip_data = data.json()
                     let country_code = ip_data["countryCode"].toLowerCase();
@@ -532,7 +542,7 @@
                 });
             }
             else currencyCode = currencyCodesAvailable[userSessionDataObject.countryCode];
-            console.log(" i did my job")
+            // console.log(" i did my job")
         }
         // This code sets the country code of the current user !
         fetch_ip();
