@@ -1,0 +1,216 @@
+*{
+    --border : rgba(128, 128, 128, 0.4);
+    font-family: Playfair Display, serif;
+}
+
+
+#secondContainer{
+    /* border: 2px solid red; */
+    position: relative;
+    height: 85vh;
+    padding: 1rem 1rem 2rem 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8rem;
+    overflow-y: scroll;
+    background-color: #f7f7f7;
+}
+#secondContainer::-webkit-scrollbar{
+    display: none;
+}
+
+#secondContainer .box{
+    width: 17rem;
+    border: 1px solid var(--border);
+    background-color: rgb(255, 255, 255);
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.4rem;
+}
+
+#secondContainer .box .miniBox .miniBoxHead{
+    font-size: 0.8rem;
+}
+
+#secondContainer .box .miniBox .minifontcontainer{
+    display: flex;
+    column-gap: 1rem;
+}
+.fontname{
+    cursor: pointer;
+    user-select: none;
+}
+#secondContainer .box .miniBox .fontname{
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border);
+    width: 100%;
+    text-align: center;
+}
+
+
+#secondContainer .box .miniBox .dropdown *{
+    width: 100% !important;
+}
+
+#dropdownMenu2{
+    background-color: #fff;
+    border: 1px solid var(--border) !important;
+}
+#dropdownMenu2 *:active , #dropdownMenu2 *:focus{
+    outline: none !important; 
+}
+
+
+.dropdown-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#secondContainer .box .miniBox .colorContainer{
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 0.7rem;
+    padding: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+#addColorButton{
+    padding: 1rem;
+    width:  0.6rem;
+    height: 0.6rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    border: 1px solid gray;
+}
+
+#secondContainer .box .miniBox .colorContainer .previousColor{
+    padding: 1rem;
+    width:  0.6rem;
+    height: 0.6rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+
+
+#secondContainer .box .miniBox .minicolorpicker{
+    border: 1px solid var(--border);
+    padding: 0.4rem 1rem;
+    border-radius: 0.3rem;
+    width: max-content;    
+
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+}
+
+#secondContainer .box .miniBox .minicolorpicker input{
+    width: 1.9rem;
+    margin-left: 0.3rem;
+}
+#secondContainer .box .miniBox .minicolorpicker *{
+    cursor: pointer;
+    border-radius: 0.2rem;
+}
+
+
+
+
+
+#secondContainer .box .miniBox .fontsizerange{
+    width: 100%;
+    text-align: left;
+}
+
+#secondContainer .box .miniBox .fontsizerange input{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+#secondContainer .box .miniBox .transformDiv .transformButtonContainer{
+    display: flex;
+    column-gap: 1rem;
+    justify-content: space-evenly;
+    margin: 0.2rem auto;
+}
+
+
+
+#secondContainer .box .miniBox .transformDiv .transformButtonContainer .transformButton{
+    width:  2.3rem;
+    height: 2.3rem;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+
+
+
+
+#secondContainer .box .adddleetecontainer {
+    display: flex;
+    column-gap: 1rem;
+    justify-content: space-evenly;
+}
+#secondContainer .box .adddleetecontainer .deleteDiv{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: max-content;
+    border: 1px solid var(--border);
+    
+    background-color: rgb(255, 255, 255);
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+}
+#secondContainer .box .miniBox .deleteDiv i{
+    font-size: 1.6rem;
+    margin: 0 0.3rem;
+}
+
+
+
+
+@media screen and (max-width : 750px) {
+    #secondContainer{
+        display: none;
+    }
+}
