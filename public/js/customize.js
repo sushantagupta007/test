@@ -302,6 +302,8 @@ function getTextLines() {
 let defaultFonts = [];
 let defaultColor = [];
 
+var globalCardsData = []
+
 addScreenCardText = async (card_page_no) => {
 	userSessionDataObject = getLocalStorage();
 
@@ -319,14 +321,36 @@ addScreenCardText = async (card_page_no) => {
 	let val_sc = 0.15;
 
 	//declaring div details
-	let created_elem_string_ec = `<div id = 'ec-details-${card_page_no}' class="ec-details-${card_page_no}" style="position:absolute; width:1000px; height:1500px; transform-origin: 0% 0%; left:0px; top:0px; transform:scale(${val_ec}, ${val_ec}); overflow:hidden; z-index:900;">`;
+	let created_elem_string_ec = `<div id = 'ec-details-${card_page_no}' class="ec-details-${card_page_no} ec-details" style="position:absolute; width:1000px; height:1500px; transform-origin: 0% 0%; left:0px; top:0px; transform:scale(${val_ec}, ${val_ec}); overflow:hidden; z-index:900;">`;
 	let created_elem_string_sc = `<div class="sc-details-${card_page_no}" style="position:absolute; width:1000px; height:1500px; transform-origin: 0% 0%; left:0px; top:0px; transform:scale(${val_sc}, ${val_sc}); overflow:hidden; z-index:900;">`;
+
+
+
+	// script written by aman !
+	let ecCardObject = {
+		"id": 'ec-details-' + card_page_no,
+		"personalProperties": {
+			"position": "absolute",
+			"width": "1000px",
+			"height": "1500px",
+			"transform-origin": "0% 0%",
+			"left": "0px",
+			"top": "0px",
+			"transform": "scale(" + val_ec + "," + val_ec + ")",
+			"overflow": "hidden",
+			"z-index": "900"
+		}
+	}
+	let ecChildren = []
+	// script written by aman end!
+
+
 
 	for (let i = 0; i < splitted_text_lines.length; i++) {
 		//spltting text properties for splitted text lines
 		let properties = splitted_text_lines[i].split(",");
 		//extracting properties ;
-		console.log("properties = " , properties);
+		// console.log("properties = ", properties);
 		let font_family = properties[0];
 		defaultFonts.push(properties[0]);
 		defaultColor.push(properties[2]);
@@ -335,68 +359,141 @@ addScreenCardText = async (card_page_no) => {
 		let top_margin = properties[3];
 		let left_margin = properties[4];
 		let extra = "";
-		if (left_margin < 0)
-			extra =
-				"right:" +
-				Math.abs(left_margin) +
-				"px; text-align:right; transform: translate3d(0,0,0);";
-		else if (left_margin > 0)
-			extra =
-				"left:" +
-				left_margin +
-				"px; text-align:left; transform: translate3d(0,0,0); ";
-		else if (left_margin == 0)
-			extra =
-				" left: 50%;  transform: translate3d(-50%, 0, 0); text-align:center; ";
-		if (card_page_no == 2 && (i == 1 || i == 2)) {
-			let topMargin =
-				parseInt(top_margin) + parseInt(text[card_page_no - 1][7]);
-			created_elem_string_ec += `<div class="card-details" spellcheck="false" style=" width:max-content; z-index: 1; font-size: ${font_size}px ; ${fonts[font_family]
-				} color: ${color}; top: ${topMargin}px; ${extra}" >${text[card_page_no - 1][i]
-				}</div>`;
-			created_elem_string_sc += `<div class="card-details" style="width: max-content;  font-size: ${font_size}px ; ${fonts[font_family]
-				} color: ${color}; top: ${topMargin}px; ${extra}">${text[card_page_no - 1][i]
-				}</span></div>`;
-		} else {
-			created_elem_string_ec += `<div class="card-details" spellcheck="false" style=" width: max-content; z-index: 1; font-size: ${font_size}px ; ${fonts[font_family]
-				} color: ${color}; top: ${top_margin}px; ${extra}" >${text[card_page_no - 1][i]
-				}</div>`;
-			created_elem_string_sc += `<div class="card-details" style="width: max-content;font-size: ${font_size}px ; ${fonts[font_family]
-				} color: ${color}; top: ${top_margin}px; ${extra}">${text[card_page_no - 1][i]
-				}</span></div>`;
+
+
+
+		// script written by aman !
+		let childProps = {
+			"font-family" : font_family,
+			"width" : "max-content",
+			"z-index" : 1,
+			"font-size": font_size + "px",
+			"color" : color,
 		}
+		// script written by aman end!
+		
+
+
+		if (left_margin < 0)
+		{
+			extra = "right:" + Math.abs(left_margin) + "px; text-align:right; transform: translate3d(0,0,0);";
+
+			childProps["right"] = Math.abs(left_margin) + "px"
+			childProps["text-align"] = "right"
+			childProps["transform"] = "translate3d(0,0,0)"
+		}
+		else if (left_margin > 0)
+		{
+			extra = "left:" + left_margin + "px; text-align:left; transform: translate3d(0,0,0); ";
+			
+			childProps["left"] = left_margin + "px"
+			childProps["text-align"] = "left"
+			childProps["transform"] = "translate3d(0,0,0)"
+
+		}
+		else if (left_margin == 0)
+		{
+			extra =	" left: 50%;  transform: translate3d(-50%, 0, 0); text-align:center; ";
+
+			childProps["left"] = "50%"
+			childProps["text-align"] = "center"
+			childProps["transform"] = "translate3d(-50%,0,0)"
+
+		}
+
+
+
+
+
+
+
+		if (card_page_no == 2 && (i == 1 || i == 2)) 
+		{
+			let topMargin = parseInt(top_margin) + parseInt(text[card_page_no - 1][7]);
+
+			childProps["top"] = topMargin + "px"
+			childProps["textContent"] = text[card_page_no - 1][i]
+
+			created_elem_string_ec += `<div class="card-details" spellcheck="false" style=" width:max-content; z-index: 1; font-size: ${font_size}px ; ${fonts[font_family] } color: ${color}; top: ${topMargin}px; ${extra}" >${text[card_page_no - 1][i] }</div>`;
+
+			created_elem_string_sc += `<div class="card-details" style="width: max-content;  font-size: ${font_size}px ; ${fonts[font_family] } color: ${color}; top: ${topMargin}px; ${extra}">${text[card_page_no - 1][i] }</span></div>`;
+
+		} 
+		else 
+		{
+		
+			childProps["top"] = top_margin + "px"
+			childProps["textContent"] = text[card_page_no - 1][i]
+
+
+			created_elem_string_ec += `<div class="card-details" spellcheck="false" style=" width: max-content; z-index: 1; font-size: ${font_size}px ; ${fonts[font_family] } color: ${color}; top: ${top_margin}px; ${extra}" >${text[card_page_no - 1][i] }</div>`;
+			
+			created_elem_string_sc += `<div class="card-details" style="width: max-content;font-size: ${font_size}px ; ${fonts[font_family] } color: ${color}; top: ${top_margin}px; ${extra}">${text[card_page_no - 1][i] }</span></div>`;
+
+		}
+		ecChildren.push(childProps);
+
 	}
 
 	created_elem_string_ec += `</div>`;
 	created_elem_string_sc += `</div>`;
-	if (editedCardData[`${card_page_no}`] == "") {
-		$(`#ec-${card_page_no}`).append(created_elem_string_ec);
+
+
+	if (editedCardData[`${card_page_no}`] == "") 
+	{ 
+		
+		$(`#ec-${card_page_no}`).append(created_elem_string_ec); 
+		
 		editedCardData[`${card_page_no}`] = created_elem_string_ec;
+		
 		localStorage.setItem("editedCardData", JSON.stringify(editedCardData));
+
 		$(`#sc-${card_page_no}`).append(created_elem_string_sc);
-	} else {
+	} 
+	
+	else 
+	{
+	
 		$(`#ec-${card_page_no}`).append(editedCardData[`${card_page_no}`]);
+	
 		let scDiv = editedCardData[`${card_page_no}`].replace(`ec`, `sc`);
+	
 		scDiv = scDiv.replace(`ec`, `sc`);
-		scDiv = scDiv.replace(
+	
+		scDiv = scDiv.replace
+		(
 			`transform: scale(0.24, 0.24)`,
 			`transform: scale(${val_sc}, ${val_sc})`
 		);
-		scDiv = scDiv.replace(
+
+
+		scDiv = scDiv.replace
+		(
 			`transform: scale(0.3, 0.3)`,
 			`transform: scale(${val_sc}, ${val_sc})`
 		);
-		scDiv = scDiv.replace(
+		
+		scDiv = scDiv.replace
+		(
 			`transform:scale(0.3, 0.3)`,
 			`transform: scale(${val_sc}, ${val_sc})`
 		);
-		scDiv = scDiv.replace(
+
+		scDiv = scDiv.replace
+		(
 			`transform:scale(0.24, 0.24)`,
 			`transform: scale(${val_sc}, ${val_sc})`
 		);
+		
 		changePropertiesCustomize();
+		
 		$(`#sc-${card_page_no}`).append(scDiv);
+
 	}
+
+	ecCardObject["children"] = ecChildren;
+	globalCardsData.push(ecCardObject);
+
 };
 
 loadScreenCards = () => {
@@ -748,6 +845,7 @@ function editPage() {
 	obj["cardDetails"] = cardDetails;
 	obj["editId"] = editId;
 	localStorage.setItem("editCardData", JSON.stringify(obj));
+	localStorage.setItem("globalEditCardData", JSON.stringify(globalCardsData));
 	obj = JSON.parse(localStorage.editCardData);
 	window.location = "weddingPageEdit.html";
 }
@@ -807,7 +905,45 @@ function rgb2hex(rgb) {
 function hex(x) {
 	return isNaN(x) ? "00" : hexDigits[(x - (x % 16)) / 16] + hexDigits[x % 16];
 }
+
+
+// script written by aman (to resize aal the data again)
+
+function property(value , percentage)
+{
+	value = value.split("px")[0]
+	return value*100/percentage + "px";
+}
+
+function resizeBack()
+{
+	let percentage = 30
+	if(window.innerWidth<600) percentage = 24
+	for (var i = 0; i < totalCards; i++) {
+		if(document.getElementById(`ec-details-${i + 1}`).classList.contains("editedByScreen"))
+		{
+			document.getElementById(`ec-details-${i + 1}`).style.width  = "1000px"
+			document.getElementById(`ec-details-${i + 1}`).style.height = "1500px"
+			let children = document.getElementById(`ec-details-${i + 1}`).children
+			for(let c=0 ; c<children.length ; c++)
+			{
+				children[c].style.top = property(children[c].style.top , percentage);
+				children[c].style.left = property(children[c].style.left , percentage);
+				children[c].style.fontSize = property(children[c].style.fontSize , percentage);
+			}
+			document.getElementById(`ec-details-${i + 1}`).style.transform = `scale(${percentage/100} , ${percentage/100})`;
+		}
+	}
+
+}
+
+// script written by aman end
+
+
+
+
 async function done_func() {
+	resizeBack()
 	var imagel = [], textl = [], propertyl = [], filename = '';
 	var ratio = 0.3;
 	if (window.innerWidth < 600) ratio = 0.24;
