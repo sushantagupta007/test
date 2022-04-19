@@ -188,18 +188,22 @@ async function fetch_ip(path) {
 		let country_code = ip_data["countryCode"].toLowerCase();
 		console.log('i got ',country_code)
 		if (countriesAvailable.country_code != 1) userSessionDataObject["countryCode"] = "in";
-		else userSessionDataObject.countryCode = country_code;
+		else
+		{
+			userSessionDataObject.countryCode = country_code;
+			
+			// script modified on 18/04/2022
+			myCountryCode = country_code;
+			// script modified on 18/04/2022
+
+		}
 		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
 		
 	}).catch(function () {
-		console.log('Unable to fetch Country Code !')
-		// console.log('Unable to fetch Country Code !')
+		console.log('Unable to fetch Country Code !');
 		userSessionDataObject.countryCode = "in";
 		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-
-		// console.log("setted successfully !")
-		// let a = getLocalStorage()
-		// console.log(a.countryCode)
+		myCountryCode = 'in';
 	});
 
 }
@@ -212,7 +216,13 @@ async function fetch_ip(path) {
 // This code fetches the price from database, according to country code
 async function fetchPrice() {
 	let userSessionDataObject = getLocalStorage();
-	if (userSessionDataObject.countryCode == 0) await fetch_ip("http://ip-api.com/json/");
+	try
+	{
+		if (userSessionDataObject.countryCode == 0) await fetch_ip("http://ip-api.com/json/");
+	}
+	catch{
+		console.log("Unable to fetch country code in fetch price!")
+	}
 	let price = await getData('weddingcards/country_pricing/prices/' + myCountryCode);
 	price = price.data();
 	userSessionDataObject["priceData"] = price;
@@ -340,7 +350,27 @@ loadPopupSlides = async (id) => {
 		};
 		userSessionDataObject["popupCardsData"] = { id: popupCards[id] };
 		localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
+
+		document.getElementById(`popup-description`).innerHTML = popupCardData[`description`];
+		document.getElementById(`popup-title`).innerHTML = popupCardData["title"];
 	}
+	if(userSessionDataObject["priceData"].length == 0)
+	{
+		await fetchPrice();
+	}
+
+
+	let cardCategory = popupCardData.category
+	let offer_price = userSessionDataObject.priceData[cardCategory + "Price"];
+	let mrp_price = userSessionDataObject.priceData[cardCategory + "StrikePrice"];
+	let offer = Math.round(getdiscount(offer_price, mrp_price));
+
+	document.getElementById(`popup-price`).innerHTML = `<span class="cost">${offer_price}</span>
+	<span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
+	<span class="offer">${offer}%off</span>`
+
+
+
 
 	/* this will append the loader in each of the three slides */
 	for (let i = 1; i <= 3; i++) {
@@ -355,21 +385,6 @@ loadPopupSlides = async (id) => {
 			path: "./animations/loading.json",
 		});
 	}
-
-
-
-	let cardCategory = popupCardData.category
-	let offer_price = userSessionDataObject.priceData[cardCategory + "Price"];
-	let mrp_price = userSessionDataObject.priceData[cardCategory + "StrikePrice"];
-	let offer = Math.round(getdiscount(offer_price, mrp_price));
-
-
-	document.getElementById(`popup-description`).innerHTML = popupCards[id]["description"];
-	document.getElementById(`popup-title`).innerHTML = popupCards[id]["title"];
-	// document.getElementById(`popup-price`).innerHTML = document.getElementById(`${id}-price-details`).innerHTML;
-	document.getElementById(`popup-price`).innerHTML = `<span class="cost">${offer_price}</span>
-														<span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
-														<span class="offer">${offer}%off</span>`
 
 
 	for (let looper = 1; looper <= 3; looper++) {
