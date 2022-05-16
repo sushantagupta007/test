@@ -568,31 +568,87 @@ function getdiscount(offer_price, mrp_price) {
 
 // this is for PopupCard.html
 /* This function will load the wedding cards.0 in the all wedding cards section  */
-function loadWeddingCards() {
+async function loadWeddingCards() {
+  let localStore = getLocalStorage();
+  let ipInfo = await fetch("http://ip-api.com/json/")
+    .then()
+    .catch(function () {
+      console.log("Unable to fetch Country Code !");
+    });
+
+  if (!localStore) {
+    let ip_data = await ipInfo.json();
+    let country_code = ip_data["countryCode"].toLowerCase();
+    myCountryCode = country_code;
+    console.log(myCountryCode);
+
+    let price = await getData(
+      "weddingcards/country_pricing/prices/" + myCountryCode
+    );
+    let weddingCardData = await getData("weddingcard2/allcards/cards/first");
+    console.log(weddingCardData);
+    weddingCardData = weddingCardData.data();
+    for (index in weddingCardData) {
+      allWeddingCards[weddingCardData[index][1]] = {
+        url: weddingCardData[index][0],
+        text_string: weddingCardData[index][3],
+        category: weddingCardData[index][2],
+      };
+    }
+    console.log(allWeddingCards);
+    for (id in allWeddingCards) {
+      console.log(price[`${allWeddingCards[id]["category"]}Price`]);
+      // Script modified by aman !
+      let offer_price = price[`${allWeddingCards[id]["category"]}Price`];
+      let mrp_price = price[`${allWeddingCards[id]["category"]}StrikePrice`];
+      let offer = Math.round(getdiscount(offer_price, mrp_price));
+      // Script modified by aman end!
+
+      $("#all_wedding_cards_display").append(`
+        <div class="col-4 col-sm-4 wedding-card">
+            <div class="wedding-card-image" id="wc-${id}" data-id="${id}" onclick="showPopup(this)" style="position: relative; background-size: 100% 100%; display: flex; justify-content: center; align-items: center;">
+                <div id="wc-${id}-loader" style="width:100%; height:100%;"></div>
+            </div>
+            <div class="details" id="${id}-price-details" style="display: flex; width: 100%; justify-content: space-around;">
+                <span class="cost">${offer_price}</span>
+                <span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
+                <span class="offer">${offer}%off</span>
+            </div>
+        </div>`);
+
+      //loading background image
+      loadBgImage(id, allWeddingCards[id]["url"], "wc");
+      //loading animation inside the card till the background image is loaded
+      LoadAnimation(`wc-${id}-loader`);
+    }
+  }
+
   // loading the structure
-  for (id in allWeddingCards) {
-    // Script modified by aman !
-    let offer_price = price[`${allWeddingCards[id]["category"]}Price`];
-    let mrp_price = price[`${allWeddingCards[id]["category"]}StrikePrice`];
-    let offer = Math.round(getdiscount(offer_price, mrp_price));
-    // Script modified by aman end!
+  if (localStore) {
+    for (id in allWeddingCards) {
+      // Script modified by aman !
+      let offer_price = price[`${allWeddingCards[id]["category"]}Price`];
+      let mrp_price = price[`${allWeddingCards[id]["category"]}StrikePrice`];
+      let offer = Math.round(getdiscount(offer_price, mrp_price));
+      // Script modified by aman end!
 
-    $("#all_wedding_cards_display").append(`
-      <div class="col-4 col-sm-4 wedding-card">
-          <div class="wedding-card-image" id="wc-${id}" data-id="${id}" onclick="showPopup(this)" style="position: relative; background-size: 100% 100%; display: flex; justify-content: center; align-items: center;">
-              <div id="wc-${id}-loader" style="width:100%; height:100%;"></div>
-          </div>
-          <div class="details" id="${id}-price-details" style="display: flex; width: 100%; justify-content: space-around;">
-              <span class="cost">${offer_price}</span>
-              <span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
-              <span class="offer">${offer}%off</span>
-          </div>
-      </div>`);
+      $("#all_wedding_cards_display").append(`
+        <div class="col-4 col-sm-4 wedding-card">
+            <div class="wedding-card-image" id="wc-${id}" data-id="${id}" onclick="showPopup(this)" style="position: relative; background-size: 100% 100%; display: flex; justify-content: center; align-items: center;">
+                <div id="wc-${id}-loader" style="width:100%; height:100%;"></div>
+            </div>
+            <div class="details" id="${id}-price-details" style="display: flex; width: 100%; justify-content: space-around;">
+                <span class="cost">${offer_price}</span>
+                <span class="deleted" style="font-style: italic; text-decoration: line-through;">${mrp_price}</span>
+                <span class="offer">${offer}%off</span>
+            </div>
+        </div>`);
 
-    //loading background image
-    loadBgImage(id, allWeddingCards[id]["url"], "wc");
-    //loading animation inside the card till the background image is loaded
-    LoadAnimation(`wc-${id}-loader`);
+      //loading background image
+      loadBgImage(id, allWeddingCards[id]["url"], "wc");
+      //loading animation inside the card till the background image is loaded
+      LoadAnimation(`wc-${id}-loader`);
+    }
   }
 }
 
@@ -602,6 +658,7 @@ function loadWeddingCards() {
 async function fetchAllWeddingData() {
   let userSessionDataObject = getLocalStorage();
 
+  console.log(userSessionDataObject);
   price = userSessionDataObject["priceData"];
 
   // fetching the wedding cards data
@@ -643,18 +700,16 @@ function showPopup(element) {
 // This code sets the country code of the current user !
 var countriesAvailable = { ae: 1, gb: 1, in: 1, my: 1, pk: 1, us: 1 };
 var myCountryCode = "in";
-//Added Code By Sushanta Gupta
+
 async function fetch_ip(path) {
   let ipInfo = await fetch(path)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
+    .then()
     .catch(function () {
       console.log("Unable to fetch Country Code !");
     });
 
   try {
     let ip_data = await ipInfo.json();
-
     let country_code = ip_data["countryCode"].toLowerCase();
     myCountryCode = country_code;
     if (!countriesAvailable[myCountryCode]) myCountryCode = "in";
@@ -674,33 +729,24 @@ async function fetch_ip(path) {
 // This code sets the country code of the current user !
 
 // This code fetches the price from database, according to country code
-//Added Code By Sushanta Gupt
 async function fetchPrice() {
-  if (getLocalStorage().countryCode == "in") {
-    // await fetch_ip("http://ip-api.com/json/");
-    let price = await getData("weddingcards/country_pricing/prices/in");
-    price = price.data();
-    let userSessionDataObject = getLocalStorage();
-    userSessionDataObject["priceData"] = price;
-    localStorage.setItem(
-      "userSessionData",
-      JSON.stringify(userSessionDataObject)
-    );
-  }
-  if (getLocalStorage().countryCode !== "in") {
+  if (getLocalStorage().countryCode == 0)
     await fetch_ip("http://ip-api.com/json/");
-    let price = await getData(
-      "weddingcards/country_pricing/prices/" + myCountryCode
-    );
-    price = price.data();
-    console.log(price);
-    let userSessionDataObject = getLocalStorage();
-    userSessionDataObject["priceData"] = price;
-    localStorage.setItem(
-      "userSessionData",
-      JSON.stringify(userSessionDataObject)
-    );
-  }
+  let price = await getData(
+    "weddingcards/country_pricing/prices/" + myCountryCode
+  );
+  price = price.data();
+  console.log(price);
+  let userSessionDataObject = getLocalStorage();
+  userSessionDataObject["priceData"] = price;
+  localStorage.setItem(
+    "userSessionData",
+    JSON.stringify(userSessionDataObject)
+  );
+  sessionStorage.setItem(
+    "userSessionData",
+    JSON.stringify(userSessionDataObject)
+  );
 }
 // This code fetches the price from database, according to country code
 
@@ -724,7 +770,7 @@ function getBrideGroomNamePopup() {
 
 /* this section will load all the necessary elements as the window loads */
 /*****************************************************************************************************************************************************/
-window.addEventListener("load", async (event) => {
+window.addEventListener("load", (event) => {
   /* royal wedding card loader */
   LoadAnimation("royal-loader");
   /* all wedding card loader */
@@ -745,8 +791,9 @@ window.addEventListener("load", async (event) => {
       slideShadows: false,
     },
   });
-
+  console.log("before");
   $(document).ready(function () {
+    console.log("after");
     let userSessionDataObject = getLocalStorage();
     setTimeout(function () {
       checkLocalStorage();
@@ -758,10 +805,10 @@ window.addEventListener("load", async (event) => {
       userSessionDataObject["groomFirstName"] == ""
     ) {
       setTimeout(() => {
+        console.log("Get Storage after 1500", getLocalStorage());
         getBrideGroomNamePopup();
-      }, 2000);
+      }, 1500);
     }
-
     setTimeout(function () {
       if (
         getLocalStorage().priceData.length == 0 ||
@@ -774,14 +821,16 @@ window.addEventListener("load", async (event) => {
         getLocalStorage().countryCode == undefined
       ) {
         fetch_ip("http://ip-api.com/json/");
+        console.log("Get Storage after 2000", getLocalStorage());
       }
-    }, 3000);
+    }, 2000);
     setTimeout(function () {
+      console.log("Get Storage after 3000", getLocalStorage());
       /*this function will fetch and load all the royal cards in the slider in royal cards section*/
       fetchRoyalData();
       /*this function will fetch and load all the wedding cards in the slider in all wedding cards section*/
       fetchAllWeddingData();
-    }, 3500);
+    }, 3000);
   });
 });
 /****************************************************************************************************************************************************/

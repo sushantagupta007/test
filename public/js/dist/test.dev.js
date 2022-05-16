@@ -1,31 +1,13 @@
 "use strict";
 
-//index
-
-/*
-1) global declarations (line no. 10)
-2) necessary functions declarations and definitions (line no. 51)
-3) window load events (analogous to main function(entry point) of any programming language)  (line no. 583)
-*/
-///////////////////////////////////  SECTION 1 /////////////////////////////////////////
-
-/* global declarations of data objects for the home page*/
-//******************************************************************************************************************************************//
-
-/*This price variable will store the price of each category including striked and original price*/
+/*price variable includes striked and striked */
 var price = {};
-/*This allWeddingCards variable will store the 10 wedding cards information that will be loaded on home page */
+/*Store the 10 wedding cards loaded on home page */
 
 var allWeddingCards = {};
-/*This allWeddingCards variable will store the 5 royal cards information that will be loaded on home page */
+/*Store the 5 royal cards information that will be loaded on home page */
 
 var royalCards = {};
-/*This dictionary is storing the scaling factor which will be multiplied to 300x450 card (rc-royal_card and wc-wedding_card) for resizing the card according to the width of screen*/
-
-/*it is nothing but the @media queries css size of the images on the slides*/
-
-/* reference size taken => 300x450 px card */
-
 var scaling_factor = {
   rc: {
     1200: 1.2,
@@ -84,14 +66,8 @@ var userSessionData = {
   WCsectionCards: {},
   RCsectionCards: {},
   priceData: []
-}; //******************************************************************************************************************************************//
-///////////////////////////////////  SECTION 2 /////////////////////////////////////////
-
-/* Necessary functions declarations */
-
-/****************************************************************************************************************************************************/
-
-/* This function will load animation inside the element whose id is passed as an arg */
+};
+/* Load animation inside the element and passed its id */
 
 function LoadAnimation(id) {
   var animation = bodymovin.loadAnimation({
@@ -175,162 +151,6 @@ function checkLocalStorage() {
   });
 } // Called in weddingcard.html
 
-/*refer this reference details structure that would be placed on each card*/
-
-/* according to this structure the addText() function will work for each card */
-//   <div class="details" style="position:absolute; width:1000px; height:1500px; background-color:yellow; transform:scale(0.18, 0.18); transform-origin: 0% 0%;left:0px; top:0px;">
-//     <span class="card-details" style="font-size: 40px; font-family: Cinzel, serif; font-weight: 700; color: rgb(255, 213, 192); top: 480px;">Wedding Invitation</span>
-//     <span class="card-details" style="font-size: 70px; text-align:right; font-family: Pacifico, cursive; font-weight: 400; color: rgb(255, 213, 192); top: 520px; right: 550px;">Groom</span>
-//     <span class="card-details" style="font-size: 30px; font-family: Cinzel, serif; font-weight: 700; color: rgb(255, 213, 192); top: 583.95px;">weds</span>
-//     <span class="card-details" style="font-size: 70px; text-align:left;;font-family: Pacifico, cursive; font-weight: 400; color: rgb(255, 213, 192); top: 520px; left: 550px;">Bride</span>
-//     <span class="card-details" style="font-size: 30px; font-family: Cinzel, serif; font-weight: 700; color: rgb(255, 213, 192); top: 667.489px;">16th, November, 2020</span>
-//   </div>
-
-
-addText = function addText(id, cat) {
-  /*to get the desired bride and Groom Name */
-  var userSessionDataObject = getLocalStorage();
-  brideName = userSessionDataObject["brideFirstName"];
-  groomName = userSessionDataObject["groomFirstName"];
-
-  if (cat == "rc") {
-    userSessionDataObject["RCmainPageCards"] = {
-      id: cat
-    };
-  }
-
-  localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject));
-  var text = ["Wedding Invitation", groomName, "weds", brideName, "16th, November, 2020"];
-  var text_string;
-  if (cat == "wc") text_string = allWeddingCards[id]["text_string"];else text_string = royalCards[id]["text_string"];
-  var splitted_text_lines = text_string.split("="); //calculating the breakpoint;
-
-  var current_width = window.innerWidth;
-  var break_point;
-  var ratio = 450 / 1500;
-
-  for (var i = 0; i < break_points[cat].length; i++) {
-    if (current_width >= break_points[cat][i]) {
-      break_point = break_points[cat][i];
-      break;
-    }
-  }
-
-  var val = ratio * scaling_factor[cat][break_point]; // console.log("all good till here")
-  //declaring div details
-
-  var created_elem_string = "<div id=\"".concat(cat, "-").concat(id, "-details\" style=\"position:absolute; width:1000px; height:1500px; transform-origin: 0% 0%; left:0px; top:0px; transform:scale(").concat(val, ", ").concat(val, "); overflow:hidden;\">");
-
-  for (var _i = 0; _i < splitted_text_lines.length; _i++) {
-    //spltting text properties for splitted text lines
-    var properties = splitted_text_lines[_i].split(","); //extracting properties ;
-
-
-    var font_family = properties[0];
-    var font_size = properties[1];
-    var color = properties[2];
-    var top_margin = properties[3];
-    var left_margin = properties[4];
-    var extra = "";
-    if (left_margin < 0) extra = "right:" + Math.abs(left_margin) + "px; text-align:right;  ";else if (left_margin > 0) extra = "left:" + left_margin + "px; text-align:left;  ";else if (left_margin == 0) extra = "left: 50%;  transform: translate(-50%, 0);";
-    created_elem_string += "<span class=\"card-details\" style=\"font-size: ".concat(font_size, "px ; ").concat(fonts[font_family], " color: ").concat(color, "; top: ").concat(top_margin, "px; ").concat(extra, "\">").concat(text[_i], "</span>");
-  }
-
-  created_elem_string += "</div>";
-  /* the created_elem_string contains the details structure for the card with category cat and identity no. id , after that append this details to the required card*/
-
-  $("#".concat(cat, "-").concat(id)).append(created_elem_string);
-}; // Called in weddingcard.html
-
-/* This function will perform the resizing of all the elements if reqiured when in responsive mode */
-
-/* This function is used in body tag of home page with the event onresize */
-
-/* The elements that are going to be resized in reponsive mode through js should be added in this function */
-
-
-function changeProperties() {
-  /* resizing popup box on resizing the window */
-  // let elem = document.getElementById(`popup`);
-  // if (elem.style.visibility == "visible") {
-  // 	if (window.innerWidth > 900) elem.style.top = "50%";
-  // 	else elem.style.top = "60%";
-  // 	elem.style.transition = "top 0.7s ease";
-  // 	elem.style.visibility = "visible";
-  // }
-
-  /*Resizing the text on each card*/
-
-  /*royal cards*/
-  //getting the current width of the window;
-  var current_width = window.innerWidth;
-  var break_point; //as the reference card size is 300x450 and the original size is 1000x1500, thus each card must be multiplied by this ratio
-
-  var ratio = 450 / 1500; //getting the scaling factor of the royal slides according to current width of window
-
-  for (var i = 0; i < break_points["rc"].length; i++) {
-    if (current_width >= break_points["rc"][i]) {
-      break_point = break_points["rc"][i];
-      break;
-    }
-  } //as the slides are scaled from 300x450 to their required sizes(in media queries of css) we need to get the val of scaling factor * ratio
-
-
-  var val = ratio * scaling_factor["rc"][break_point]; //performing the scaling of the slides(details) :NOTE: The slides are scaled according to media queries in css , we just need to scale the details on each slide
-
-  for (var _id in royalCards) {
-    var elem = document.getElementById("rc-".concat(_id, "-details"));
-    elem.style.transform = "scale(".concat(val, ", ").concat(val, ")");
-  }
-  /*wedding cards */
-
-
-  for (var _i2 = 0; _i2 < break_points["wc"].length; _i2++) {
-    if (current_width >= break_points["wc"][_i2]) {
-      break_point = break_points["wc"][_i2];
-      break;
-    }
-  }
-
-  val = ratio * scaling_factor["wc"][break_point];
-
-  for (var _id2 in allWeddingCards) {
-    document.getElementById("wc-".concat(_id2, "-details")).style.transform = "scale(".concat(val, ", ").concat(val, ")");
-  }
-} // Called in weddingcard.html
-
-/* This function will update the bride groom name on each of the cards*/
-
-
-function updateBrideGroomName(brideName, groomName) {
-  var userSessionDataObject = getLocalStorage();
-  userSessionDataObject["brideFirstName"] = brideName;
-  userSessionDataObject["groomFirstName"] = groomName;
-  userSessionDataObject["NameChanged"] = true;
-  localStorage.setItem("userSessionData", JSON.stringify(userSessionDataObject)); //again getting the updated userSessionDataObject;
-
-  userSessionDataObject = getLocalStorage();
-  /* royal cards */
-  // script modified by aman !
-  // for (let key in userSessionDataObject["RCmainPageCards"]) {
-  // 	$(`#rc-${key}-details`).remove();
-  // 	addText(key, "rc");
-  // }
-  // script modified by aman !
-
-  for (var key in royalCards) {
-    $("#rc-".concat(key, "-details")).remove();
-    addText(key, "rc");
-  }
-  /* wedding cards */
-
-
-  for (var _key in userSessionDataObject["WCmainPageCardsDetails"]) {
-    $("#wc-".concat(_key, "-details")).remove();
-    addText(_key, "wc");
-  }
-} // Called in weddingcard.html
-
 /* This function will be called when user press done on bride groom name popup*/
 
 
@@ -354,10 +174,6 @@ function changeBrideGroomName() {
     $("#brideGroomName").css("z-index", "-1");
   }, 2000);
 }
-/****************************************************************************************************************************************************/
-///////////////////////////////////  SECTION 3 /////////////////////////////////////////
-// this is for PopupCard.html
-
 /*This function will be called when the user presses show royal cards or view all cards button on the home page and will store the subcategory(sectionCat) in userSessionData variable*/
 
 
@@ -590,8 +406,6 @@ function getdiscount(offer_price, mrp_price) {
 
 function loadWeddingCards() {
   // loading the structure
-  console.log(allWeddingCards);
-
   for (id in allWeddingCards) {
     // Script modified by aman !
     var offer_price = price["".concat(allWeddingCards[id]["category"], "Price")];
